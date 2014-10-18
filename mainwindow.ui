@@ -77,11 +77,11 @@
      <string notr="true"/>
     </property>
     <property name="title">
-     <string>设置</string>
+     <string>Settings</string>
     </property>
     <widget class="QMenu" name="menu">
      <property name="title">
-      <string>主题</string>
+      <string>Theme</string>
      </property>
      <addaction name="actionDefaultTheme"/>
      <addaction name="actionSystemTheme"/>
@@ -91,19 +91,19 @@
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
-     <string>帮助</string>
+     <string>Help</string>
     </property>
     <addaction name="actionAbout"/>
    </widget>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>文件</string>
+     <string>File</string>
     </property>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
-     <string>视图</string>
+     <string>View</string>
     </property>
     <addaction name="actionAlwaysOnTop"/>
    </widget>
@@ -114,10 +114,10 @@
   </widget>
   <action name="actionHotKey">
    <property name="text">
-    <string>设置热键...</string>
+    <string>HotKey...</string>
    </property>
    <property name="toolTip">
-    <string>设置热键</string>
+    <string>Set HotKey...</string>
    </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
@@ -133,15 +133,15 @@
   </action>
   <action name="actionShowWindow">
    <property name="text">
-    <string>显示主窗口</string>
+    <string>Show TyyAppManager</string>
    </property>
    <property name="toolTip">
-    <string>显示主窗口</string>
+    <string>Show TyyAppManager</string>
    </property>
   </action>
   <action name="actionAbout">
    <property name="text">
-    <string>关于</string>
+    <string>About</string>
    </property>
   </action>
   <action name="actionDefaultTheme">
@@ -152,7 +152,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>默认主题</string>
+    <string>Default Theme</string>
    </property>
   </action>
   <action name="actionSystemTheme">
@@ -160,7 +160,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>系统主题</string>
+    <string>System Theme</string>
    </property>
   </action>
   <action name="actionAlwaysOnTop">
@@ -171,37 +171,60 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>窗口置顶</string>
+    <string>Always On Top</string>
    </property>
   </action>
   <action name="actionActionBtnOpenDir">
    <property name="text">
-    <string>打开文件夹</string>
+    <string>Open Folder</string>
+   </property>
+   <property name="toolTip">
+    <string>Open Folder</string>
    </property>
   </action>
   <action name="actionQuit">
    <property name="text">
-    <string>退出</string>
+    <string>Exit</string>
    </property>
   </action>
   <action name="actionCopy">
    <property name="text">
-    <string>复制</string>
+    <string>Copy</string>
+   </property>
+   <property name="toolTip">
+    <string>Copy</string>
    </property>
   </action>
   <action name="actionPaste">
    <property name="text">
-    <string>粘贴</string>
+    <string>Paste</string>
+   </property>
+   <property name="toolTip">
+    <string>Paste</string>
    </property>
   </action>
   <action name="actionShear">
    <property name="text">
-    <string>剪切</string>
+    <string>Shear</string>
+   </property>
+   <property name="toolTip">
+    <string>Shear</string>
    </property>
   </action>
   <action name="actionDelete">
    <property name="text">
-    <string>删除</string>
+    <string>Delete</string>
+   </property>
+   <property name="toolTip">
+    <string>Delete</string>
+   </property>
+  </action>
+  <action name="actionEdit">
+   <property name="text">
+    <string>Edit</string>
+   </property>
+   <property name="toolTip">
+    <string>Edit</string>
    </property>
   </action>
  </widget>

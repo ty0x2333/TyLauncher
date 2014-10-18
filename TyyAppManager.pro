@@ -15,15 +15,18 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     appbutton.cpp \
-    aboutdialog.cpp
+    aboutdialog.cpp \
+    appbuttondialog.cpp
 
 HEADERS  += mainwindow.h \
     appbutton.h \
     aboutdialog.h \
-    StaticSetting.h
+    StaticSetting.h \
+    appbuttondialog.h
 
 FORMS    += mainwindow.ui \
-    aboutdialog.ui
+    aboutdialog.ui \
+    appbuttondialog.ui
 
 include(qxtglobalshortcut/qxtglobalshortcut.pri)
 
@@ -33,3 +36,5 @@ RESOURCES += \
 include(StaticSetting.h)
 RC_FILE += \
     TyyAppManager.rc
+
+TRANSLATIONS += TyyAppManager_zh_CN.ts

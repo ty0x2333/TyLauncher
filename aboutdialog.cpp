@@ -8,8 +8,8 @@ AboutDialog::AboutDialog(QWidget *parent) :
     ui->setupUi(this);
     //setWindowFlags(Qt::FramelessWindowHint);
     QString str = "";
-    str += "名称: " + qApp->applicationName() + "\n";
-    str += "版本: " + qApp->applicationVersion();
+    str += tr("Name: ") + qApp->applicationName() + "\n";
+    str += tr("Version: ") + qApp->applicationVersion();
     ui->textBrowser->setText(str);
 }
 

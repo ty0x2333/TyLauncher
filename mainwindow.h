@@ -52,6 +52,8 @@ private slots:
     void on_actionShear_triggered();
     // @brief 按钮右键菜单中的删除菜单项被点击
     void on_actionDelete_triggered();
+    // @brief 按钮右键菜单中的编辑菜单项被点击
+    void on_actionEdit_triggered();
     
 private:
     Ui::MainWindow *ui;

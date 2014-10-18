@@ -10,6 +10,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QTextCodec>
+#include "appbuttondialog.h"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -29,6 +30,8 @@ MainWindow::MainWindow(QWidget *parent) :
     
     _btnMenu = new QMenu();
     _btnMenu->addAction(ui->actionActionBtnOpenDir);
+    _btnMenu->addSeparator();
+    _btnMenu->addAction(ui->actionEdit);
     _btnMenu->addSeparator();
     _btnMenu->addAction(ui->actionCopy);
     _btnMenu->addAction(ui->actionPaste);
@@ -79,7 +82,7 @@ bool MainWindow::loadSaveFile(const QString fileName)
     if(parseErr.error != QJsonParseError::NoError)
     {
         QMessageBox errorBox(QMessageBox::Critical, 
-                               tr("存档读取失败"), 
+                               tr("File read failure!"), 
                                parseErr.errorString(), 
                                QMessageBox::Ok, 
                                this, Qt::WindowStaysOnTopHint);
@@ -165,8 +168,8 @@ void MainWindow::saveSettings()
     QFile file(SAVE_FILE);
     if(!file.open(QFile::WriteOnly))
     {
-        qDebug("无法保存文件 %s:\n %s.", SAVE_FILE, file.errorString());
-        throw(tr("无法保存文件 %1:\n %2.").arg(SAVE_FILE).arg(file.errorString()));
+        qDebug("Cannot save the file %s:\n %s.", SAVE_FILE, file.errorString());
+        throw(tr("Cannot save the file %1:\n %2.").arg(SAVE_FILE).arg(file.errorString()));
         return;
     }
     QTextStream txtOutput(&file);
@@ -255,6 +258,17 @@ void MainWindow::on_actionActionBtnOpenDir_triggered()
     _btnRightMenu->openFileDirectory();
     _btnRightMenu = nullptr;
 }
+// @brief 按钮右键菜单中的编辑菜单项被点击
+void MainWindow::on_actionEdit_triggered()
+{
+    if(_btnRightMenu == nullptr)
+        return;
+    _isCanHide = false;
+    AppButtonDialog *appBtnDialog = new AppButtonDialog(this, _btnRightMenu);
+    appBtnDialog->exec();
+    _btnRightMenu = nullptr;
+    _isCanHide = true;
+}
 // @brief 按钮右键菜单中的复制菜单项被点击
 void MainWindow::on_actionCopy_triggered()
 {
@@ -308,8 +322,8 @@ void MainWindow::pasteBtn(AppButton *btn)
     {
         _isCanHide = false;
         QMessageBox warningBox(QMessageBox::Warning, 
-                               "警告", 
-                               "该操作会覆盖该按钮的设置, 请确认.", 
+                               tr("Warning"), 
+                               tr("Replace the button?"), 
                                QMessageBox::Yes|QMessageBox::No, 
                                this, Qt::WindowStaysOnTopHint);
         if( warningBox.exec() == QMessageBox::Yes)
@@ -330,8 +344,8 @@ void MainWindow::deleteBtn(AppButton *btn)
     {
         _isCanHide = false;
         QMessageBox warningBox(QMessageBox::Warning, 
-                               "警告", 
-                               "确认删除该按钮的数据?", 
+                               tr("Warning"), 
+                               tr("Delete the button?"), 
                                QMessageBox::Yes|QMessageBox::No, 
                                this, Qt::WindowStaysOnTopHint);
         if( warningBox.exec() == QMessageBox::Yes)
@@ -372,81 +386,82 @@ bool MainWindow::eventFilter(QObject *watched, QEvent *event)
 }
 void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
 {
-    switch(keyEvent->key())
+    if(keyEvent->modifiers() == Qt::ControlModifier)// 判断是否按下了Ctrl(功能键)
     {
-    case Qt::Key_Escape:
-        hideWindow();
-        break;
-    case Qt::Key_C:
-        if(keyEvent->modifiers() == Qt::ControlModifier)
+        QList<AppButton *> appButtonList = ui->tabWidget->currentWidget()->findChildren<AppButton *>();
+        switch(keyEvent->key())
         {
-            QList<AppButton *> appButtonList = ui->tabWidget->currentWidget()->findChildren<AppButton *>();
-            for(AppButton* btn : appButtonList) // 遍历所有AppButton，寻找当前鼠标指向的按钮
-            {
-                if(btn->isBeMousePointing())
+        case Qt::Key_C:
+                for(AppButton* btn : appButtonList) // 遍历所有AppButton，寻找当前鼠标指向的按钮
                 {
-                    copyBtn(btn);
+                    if(btn->isBeMousePointing())
+                    {
+                        copyBtn(btn);
+                    }
                 }
-            }
+            break;
+        case Qt::Key_X:
+                for(AppButton* btn : appButtonList) // 遍历所有AppButton，寻找当前鼠标指向的按钮
+                {
+                    if(btn->isBeMousePointing())
+                    {
+                        shearBtn(btn);
+                    }
+                }
+            break;
+        case Qt::Key_V:
+                for(AppButton* btn : appButtonList) // 遍历所有AppButton
+                {
+                    if(btn->isBeMousePointing())// 找到被鼠标指向的AppButton
+                    {
+                        pasteBtn(btn);
+                    }
+                }
+            break;
+        default:
+            break;
         }
-        break;
-    case Qt::Key_X:
-        if(keyEvent->modifiers() == Qt::ControlModifier)
+    }
+    else
+    {
+        switch(keyEvent->key())
         {
-            QList<AppButton *> appButtonList = ui->tabWidget->currentWidget()->findChildren<AppButton *>();
-            for(AppButton* btn : appButtonList) // 遍历所有AppButton，寻找当前鼠标指向的按钮
-            {
-                if(btn->isBeMousePointing())
-                {
-                    shearBtn(btn);
-                }
-            }
-        }
-        break;
-    case Qt::Key_V:
-        if(keyEvent->modifiers() == Qt::ControlModifier)
+        case Qt::Key_Escape:
+            hideWindow();
+            break;
+        case Qt::Key_Delete:
         {
             QList<AppButton *> appButtonList = ui->tabWidget->currentWidget()->findChildren<AppButton *>();
             for(AppButton* btn : appButtonList) // 遍历所有AppButton
             {
                 if(btn->isBeMousePointing())// 找到被鼠标指向的AppButton
                 {
-                    pasteBtn(btn);
+                    deleteBtn(btn);
                 }
             }
         }
-        break;
-    case Qt::Key_Delete:
-    {
-        QList<AppButton *> appButtonList = ui->tabWidget->currentWidget()->findChildren<AppButton *>();
-        for(AppButton* btn : appButtonList) // 遍历所有AppButton
-        {
-            if(btn->isBeMousePointing())// 找到被鼠标指向的AppButton
+            break;
+        default:
+            QString keyStr = QKeySequence(keyEvent->key()).toString(QKeySequence::NativeText);
+            QList<AppButton *> appButtonList = ui->tabWidget->currentWidget()->findChildren<AppButton *>();
+            for(auto btn : appButtonList)
             {
-                deleteBtn(btn);
+                if(keyStr == btn->text())
+                {
+                    btn->click();
+                    return;
+                }
             }
-        }
-    }
-        break;
-    default:
-        QString keyStr = QKeySequence(keyEvent->key()).toString(QKeySequence::NativeText);
-        QList<AppButton *> appButtonList = ui->tabWidget->currentWidget()->findChildren<AppButton *>();
-        for(auto btn : appButtonList)
-        {
-            if(keyStr == btn->text())
+            QTabBar *tabBar = ui->tabWidget->tabBar();
+            for(int i = 0; i < tabBar->count(); ++i)
             {
-                btn->click();
-                return;
+                if(keyStr == tabBar->tabText(i))
+                {
+                    tabBar->setCurrentIndex(i);
+                }
             }
+            break;
         }
-        QTabBar *tabBar = ui->tabWidget->tabBar();
-        for(int i = 0; i < tabBar->count(); ++i)
-        {
-            if(keyStr == tabBar->tabText(i))
-            {
-                tabBar->setCurrentIndex(i);
-            }
-        }
-        break;
     }
 }
+

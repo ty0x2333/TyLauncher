@@ -43,6 +43,8 @@ AppButton::AppButton(const QString &text, const QString &fileName, QWidget *pare
     }
     file.close();
 }
+// @brief 初始化
+// 用于在构造函数中调用
 void AppButton::init()
 {
     setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
@@ -76,14 +78,6 @@ void AppButton::on_clicked()
         return;
     QDesktopServices::openUrl(QUrl::fromLocalFile(_fileName));
 }
-bool AppButton::eventFilter(QObject *, QEvent *event)
-{
-    if(event->type() == QEvent::Enter)
-        _isBeMousePointing = true;
-    else if(event->type() == QEvent::Leave)
-        _isBeMousePointing = false;
-    return false;
-}
 // @brief 拖拽文件进入
 void AppButton::dragEnterEvent(QDragEnterEvent *event)
 {
@@ -111,6 +105,7 @@ void AppButton::dropEvent(QDropEvent *event)
         _fileName = fileInfo.filePath();
     }
     _appName->setText(fileInfo.baseName());
+    qDebug("Icon Type : %s", iconProvider.type(QFileInfo(_fileName)).toUtf8().data());
     _appIcon->setPixmap(iconProvider.icon(QFileInfo(_fileName)).pixmap(QSize(48, 48)));
 }
 // @brief 从其它按钮中拷贝数据
@@ -133,8 +128,35 @@ void AppButton::clear()
 
 QString AppButton::getFileName(){return _fileName;}
 QString AppButton::getAppName(){return _appName->text();}
+const QPixmap* AppButton::getPixmap(){return _appIcon->pixmap();}
+// @brief 判断是否被鼠标所指向
+// @param[out] 是否被鼠标指向
 bool AppButton::isBeMousePointing(){return _isBeMousePointing;}
+// @brief 设置应用名称
+// @param[in] 名称
 void AppButton::setAppName(const QString &text){_appName->setText(text);}
+// @brief 设置应用路径
+// @param[in] 应用路径
+// @param[in] 是否更新图标
+void AppButton::setAppFileName(const QString &fileName, bool isUpdateIcon)
+{
+    _fileName = fileName;
+    if(isUpdateIcon)
+    {
+        QFileInfo fileInfo(_fileName);
+        QFileIconProvider iconProvider;
+        _appName->setText(fileInfo.baseName());
+        _appIcon->setPixmap(iconProvider.icon(fileInfo).pixmap(QSize(48, 48)));
+    }
+}
+bool AppButton::eventFilter(QObject *, QEvent *event)
+{
+    if(event->type() == QEvent::Enter)
+        _isBeMousePointing = true;
+    else if(event->type() == QEvent::Leave)
+        _isBeMousePointing = false;
+    return false;
+}
 AppButton::~AppButton()
 {
     delete _appName;
