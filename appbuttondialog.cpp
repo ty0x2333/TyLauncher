@@ -29,7 +29,7 @@ AppButtonDialog::~AppButtonDialog()
 
 void AppButtonDialog::on_pushButtonOk_clicked()
 {
-    if(_btn != nullptr)
+    if(_btn != nullptr && !(ui->lineEditName->text().isEmpty() && ui->lineEditTarget->text().isEmpty()))
     {
         _btn->setAppName(ui->lineEditName->text());
         _btn->setAppFileName(ui->lineEditTarget->text());
@@ -47,7 +47,8 @@ void AppButtonDialog::on_pushButtonFile_clicked()
         ui->lineEditTarget->setText(fileName);
         QFileInfo fileInfo(fileName);
         QFileIconProvider iconProvider;
-        ui->pushButtonIcon->setIcon(iconProvider.icon(fileInfo));
+        ui->pushButtonIcon->setIcon(iconProvider.icon(fileInfo));// 自动设置应用图标
+        ui->lineEditName->setText(fileInfo.baseName());// 自动设置应用名
     }
 }
 
@@ -62,7 +63,8 @@ void AppButtonDialog::on_pushButtonDir_clicked()
         ui->lineEditTarget->setText(fileDialog.selectedFiles()[0]);
         QFileInfo fileInfo(fileName);
         QFileIconProvider iconProvider;
-        ui->pushButtonIcon->setIcon(iconProvider.icon(fileInfo));
+        ui->pushButtonIcon->setIcon(iconProvider.icon(fileInfo));// 自动设置应用图标
+        ui->lineEditName->setText(fileInfo.baseName());// 自动设置应用名
     }
 }
 

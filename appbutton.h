@@ -4,12 +4,23 @@
 #include <QPushButton>
 #include <QDragEnterEvent>
 #include <QLabel>
+struct AppInfo
+{
+    QString name;
+    QString fileName;
+    AppInfo(const QString &val1, const QString &val2)
+    {
+        name = val1;
+        fileName = val2;
+    }
+};
+
 class AppButton : public QPushButton
 {
     Q_OBJECT
 public:
     explicit AppButton(const QString &text, QWidget *parent=0);
-    explicit AppButton(const QString &text, const QString &fileName, QWidget *parent=0);
+    explicit AppButton(const QString &text, const AppInfo &appInfo, QWidget *parent=0);
     QString getFileName();
     QString getAppName();
     // @brief 判断是否被鼠标所指向
@@ -30,6 +41,8 @@ public:
     void openFileDirectory();
     // @brief 获取图标
     const QPixmap* getPixmap();
+    // @brief 指示按钮是否为空
+    bool isEmpty();
     ~AppButton();
 signals:
     

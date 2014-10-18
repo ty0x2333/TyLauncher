@@ -106,12 +106,10 @@ bool MainWindow::loadSaveFile(const QString fileName)
                 if(!valObj.isObject())
                     return false;
                 QJsonObject obj = arr.at(c*3 + r).toObject();
+                AppInfo appInfo(obj[XML_KEY_APP_NAME].toString(), obj[XML_KEY_FILE_NAME].toString());
                 AppButton *btn = new AppButton(obj[XML_KEY_HOT_KEY].toString(), 
-                                               obj[XML_KEY_FILE_NAME].toString());
-                QString appName = obj[XML_KEY_APP_NAME].toString();
+                                               appInfo);
                 connect(btn, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(onBtnRightClicked(QPoint)));
-                if(!appName.isEmpty())
-                    btn->setAppName(appName);
                 layout->addWidget(btn, r, c);
             }
         }
@@ -302,23 +300,27 @@ void MainWindow::on_actionDelete_triggered()
     _btnRightMenu = nullptr;
 }
 // @brief 复制按钮
-void MainWindow::copyBtn(AppButton *btn)
+// @param[out] 是否操作成功
+bool MainWindow::copyBtn(AppButton *btn)
 {
+    if(btn->isEmpty())
+        return false;
     if(_btnShearPlate == nullptr)
         delete _btnShearPlate;
     _btnShearPlate = new AppButton("");
     _btnShearPlate->copyFrom(*btn);
+    return true;
 }
 // @brief 剪切按钮
 void MainWindow::shearBtn(AppButton *btn)
 {
-    copyBtn(btn);
-    btn->clear();
+    if(copyBtn(btn))
+        btn->clear();// 在复制成功的情况下清除按钮
 }
 // @brief 粘贴按钮
 void MainWindow::pasteBtn(AppButton *btn)
 {
-    if(!btn->getFileName().isEmpty())
+    if(!btn->isEmpty())
     {
         _isCanHide = false;
         QMessageBox warningBox(QMessageBox::Warning, 
@@ -340,7 +342,7 @@ void MainWindow::pasteBtn(AppButton *btn)
 // @brief 删除按钮
 void MainWindow::deleteBtn(AppButton *btn)
 {
-    if(!btn->getFileName().isEmpty())
+    if(!btn->isEmpty())
     {
         _isCanHide = false;
         QMessageBox warningBox(QMessageBox::Warning, 

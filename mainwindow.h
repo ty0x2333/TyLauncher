@@ -78,7 +78,8 @@ private:
     // 用来保存右键菜单的按钮地址
     AppButton *_btnRightMenu;
     // @brief 复制按钮
-    void copyBtn(AppButton *btn);
+    // @param[out] 是否操作成功
+    bool copyBtn(AppButton *btn);
     // @brief 剪切按钮
     void shearBtn(AppButton *btn);
     // @brief 粘贴按钮

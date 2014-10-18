@@ -62,12 +62,12 @@
         <translation>打开文件</translation>
     </message>
     <message>
-        <location filename="appbuttondialog.cpp" line="40"/>
+        <location filename="appbuttondialog.cpp" line="42"/>
         <source>Browse File</source>
         <translation>选择文件</translation>
     </message>
     <message>
-        <location filename="appbuttondialog.cpp" line="47"/>
+        <location filename="appbuttondialog.cpp" line="56"/>
         <source>Browse Folder</source>
         <translation>选择文件夹</translation>
     </message>

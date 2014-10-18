@@ -1,13 +1,13 @@
 #ifndef STATICSETTING_H
 #define STATICSETTING_H
 
-#define VER_FILEVERSION             0,1,1,0
-#define VER_FILEVERSION_STR         "0.1.1.0\0"
-#define VER_FILEVERSION_DISPLAY_STR "0.1.1.0"
+#define VER_FILEVERSION             0,1,1,3
+#define VER_FILEVERSION_STR         "0.1.1.3\0"
+#define VER_FILEVERSION_DISPLAY_STR "0.1.1.3"
 
-#define VER_PRODUCTVERSION          0,1,1,0
-#define VER_PRODUCTVERSION_STR      "0.1.1.0\0"
-#define VER_PRODUCTNAME_STR         "AppManager"
+#define VER_PRODUCTVERSION          0,1,1,3
+#define VER_PRODUCTVERSION_STR      "0.1.1.3\0"
+#define VER_PRODUCTNAME_STR         "TyyAppManager"
 
 #define VER_COMPANYNAME_STR         "Tyy"
 #define VER_FILEDESCRIPTION_STR     "文件快捷管理软件"

@@ -16,32 +16,25 @@ AppButton::AppButton(const QString &text, QWidget *parent) :
 {
     init();
 }
-AppButton::AppButton(const QString &text, const QString &fileName, QWidget *parent) :
+AppButton::AppButton(const QString &text, const AppInfo &appInfo, QWidget *parent) :
     QPushButton(text, parent),
     _isBeMousePointing(false),
+    _fileName(""),
     _appName(nullptr),
     _appIcon(nullptr)
 {
     init();
-    if(fileName.isEmpty())
-    {
-        _fileName = "";
+    _appName->setText(appInfo.name);// 设置文件名
+    _fileName = appInfo.fileName;// 设置文件路径
+    if(_fileName.isEmpty())
         return;
-    }
-    QFile file(fileName);
-    if(file.open(QFile::ReadOnly))
-    {
-        _fileName = fileName;
-        QFileInfo fileInfo(_fileName);
-        QFileIconProvider iconProvider;
-        _appName->setText(fileInfo.baseName());
+    // 自动设置图标
+    QFileInfo fileInfo(_fileName);
+    QFileIconProvider iconProvider;
+    if(fileInfo.exists())
         _appIcon->setPixmap(iconProvider.icon(fileInfo).pixmap(QSize(48, 48)));
-    }
     else
-    {
-        _fileName = "";
-    }
-    file.close();
+        _appIcon->setPixmap(iconProvider.icon(QFileIconProvider::File).pixmap(QSize(48, 48)));
 }
 // @brief 初始化
 // 用于在构造函数中调用
@@ -51,7 +44,6 @@ void AppButton::init()
     setAcceptDrops(true);// 允许拖拽
     _appIcon = new QLabel();
     _appIcon->setAlignment(Qt::AlignHCenter | Qt::AlignCenter);// 设置图标位置为正中
-    //_appIcon->setStyleSheet("border:2px solid #00F");
     _appName = new QLabel();
     _appName->setAlignment(Qt::AlignHCenter | Qt::AlignTop);// 设置文本位置为中上
     _appName->setWordWrap(true);// 允许自动换行
@@ -113,10 +105,9 @@ void AppButton::copyFrom(AppButton &btn)
 {
     _appName->setText( btn.getAppName());
     _fileName = btn.getFileName();
-    QFileInfo fileInfo(_fileName);
-    QFileIconProvider iconProvider;
-    _appName->setText(fileInfo.baseName());
-    _appIcon->setPixmap(iconProvider.icon(fileInfo).pixmap(QSize(48, 48)));
+    const QPixmap *pixmap = btn.getPixmap();
+    if(pixmap != nullptr)
+        _appIcon->setPixmap(*pixmap);
 }
 // @brief 清除按钮数据
 void AppButton::clear()
@@ -145,8 +136,10 @@ void AppButton::setAppFileName(const QString &fileName, bool isUpdateIcon)
     {
         QFileInfo fileInfo(_fileName);
         QFileIconProvider iconProvider;
-        _appName->setText(fileInfo.baseName());
-        _appIcon->setPixmap(iconProvider.icon(fileInfo).pixmap(QSize(48, 48)));
+        if(fileInfo.exists())
+            _appIcon->setPixmap(iconProvider.icon(fileInfo).pixmap(QSize(48, 48)));
+        else
+            _appIcon->setPixmap(iconProvider.icon(QFileIconProvider::File).pixmap(QSize(48, 48)));
     }
 }
 bool AppButton::eventFilter(QObject *, QEvent *event)
@@ -157,6 +150,12 @@ bool AppButton::eventFilter(QObject *, QEvent *event)
         _isBeMousePointing = false;
     return false;
 }
+// @brief 指示按钮是否为空
+bool AppButton::isEmpty()
+{
+    return _fileName.isEmpty() && !_appIcon->pixmap() && _appName->text().isEmpty();
+}
+
 AppButton::~AppButton()
 {
     delete _appName;
