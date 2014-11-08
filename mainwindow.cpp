@@ -11,13 +11,13 @@
 #include <QTextStream>
 #include <QTextCodec>
 #include "appbuttondialog.h"
+#include "dynamicdata.h"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     _aboutDialog(nullptr),
     _trayMenu(nullptr),
     _trayIcon(nullptr),
-    _btnShearPlate(nullptr),
     _isCanHide(true),
     _btnMenu(nullptr),
     _btnRightMenu(nullptr)
@@ -246,6 +246,13 @@ void MainWindow::on_actionHotKey_triggered()
 void MainWindow::onBtnRightClicked(QPoint)
 {
     _btnRightMenu = (AppButton*)sender();
+    bool isNotBtnEmpty = !_btnRightMenu->isEmpty();
+    bool isNotBtnShearPlateEmpty = !DynamicData::getInstance()->BtnShearPlateIsEmpty();
+    ui->actionActionBtnOpenDir->setEnabled(isNotBtnEmpty);// 打开文件夹
+    ui->actionDelete->setEnabled(isNotBtnEmpty);// 删除
+    ui->actionCopy->setEnabled(isNotBtnEmpty);// 复制
+    ui->actionShear->setEnabled(isNotBtnEmpty);// 剪切
+    ui->actionPaste->setEnabled(isNotBtnShearPlateEmpty);// 粘贴
     _btnMenu->exec(this->cursor().pos());
 }
 // @brief 按钮右键菜单中的打开文件夹
@@ -305,10 +312,7 @@ bool MainWindow::copyBtn(AppButton *btn)
 {
     if(btn->isEmpty())
         return false;
-    if(_btnShearPlate == nullptr)
-        delete _btnShearPlate;
-    _btnShearPlate = new AppButton("");
-    _btnShearPlate->copyFrom(*btn);
+    DynamicData::getInstance()->setBtnShearPlate(btn);
     return true;
 }
 // @brief 剪切按钮
@@ -320,6 +324,8 @@ void MainWindow::shearBtn(AppButton *btn)
 // @brief 粘贴按钮
 void MainWindow::pasteBtn(AppButton *btn)
 {
+    if(DynamicData::getInstance()->BtnShearPlateIsEmpty())
+        return;
     if(!btn->isEmpty())
     {
         _isCanHide = false;
@@ -330,13 +336,13 @@ void MainWindow::pasteBtn(AppButton *btn)
                                this, Qt::WindowStaysOnTopHint);
         if( warningBox.exec() == QMessageBox::Yes)
         {
-            btn->copyFrom(*_btnShearPlate);
+            btn->copyFrom(*DynamicData::getInstance()->getBtnShearPlate());
         }
         _isCanHide = true;
     }
     else
     {
-        btn->copyFrom(*_btnShearPlate);
+        btn->copyFrom(*DynamicData::getInstance()->getBtnShearPlate());
     }
 }
 // @brief 删除按钮

@@ -73,9 +73,6 @@ private:
     bool loadSaveFile(const QString fileName);
     // @brief 重置数据
     void reset();
-    // @brief 按钮剪切缓存
-    // 用来保存复制的按钮地址
-    AppButton *_btnShearPlate;
     // @brief 按钮右键菜单缓存
     // 用来保存右键菜单的按钮地址
     AppButton *_btnRightMenu;

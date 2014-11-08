@@ -18,7 +18,7 @@ QMenu {background: #40A46F;}
 QMenu::item {background: #40A46F;}
 QMenu::item:!enabled {background: #40A46F;}
 QMenu::item:selected {background: #40A46F;}
-QMenu::icon:checked {background: #3a9564;}
+/*QMenu::icon:checked {background: #3a9564;}*/
 QMenu::separator {color: #ffffff;}/*·Ö¸îÏß*/
 QMenu::indicator {background: #40A46F;}
 /*PushButton*/

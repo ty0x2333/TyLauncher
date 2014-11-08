@@ -16,13 +16,15 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     appbutton.cpp \
     aboutdialog.cpp \
-    appbuttondialog.cpp
+    appbuttondialog.cpp \
+    dynamicdata.cpp
 
 HEADERS  += mainwindow.h \
     appbutton.h \
     aboutdialog.h \
     StaticSetting.h \
-    appbuttondialog.h
+    appbuttondialog.h \
+    dynamicdata.h
 
 FORMS    += mainwindow.ui \
     aboutdialog.ui \
