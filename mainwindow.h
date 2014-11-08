@@ -54,6 +54,8 @@ private slots:
     void on_actionDelete_triggered();
     // @brief 按钮右键菜单中的编辑菜单项被点击
     void on_actionEdit_triggered();
+    // @brief "保存"菜单项响应
+    void on_actionSave_triggered();
     
 private:
     Ui::MainWindow *ui;

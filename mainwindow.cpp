@@ -467,3 +467,8 @@ void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
     }
 }
 
+// @brief "保存"菜单项响应
+void MainWindow::on_actionSave_triggered()
+{
+    saveSettings();
+}
