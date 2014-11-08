@@ -1,12 +1,12 @@
 #ifndef STATICSETTING_H
 #define STATICSETTING_H
 
-#define VER_FILEVERSION             0,1,1,5
-#define VER_FILEVERSION_STR         "0.1.1.5\0"
-#define VER_FILEVERSION_DISPLAY_STR "0.1.1.5"
+#define VER_FILEVERSION             0,1,1,6
+#define VER_FILEVERSION_STR         "0.1.1.6\0"
+#define VER_FILEVERSION_DISPLAY_STR "0.1.1.6"
 
-#define VER_PRODUCTVERSION          0,1,1,5
-#define VER_PRODUCTVERSION_STR      "0.1.1.5\0"
+#define VER_PRODUCTVERSION          0,1,1,6
+#define VER_PRODUCTVERSION_STR      "0.1.1.6\0"
 #define VER_PRODUCTNAME_STR         "TyyAppManager"
 
 #define VER_COMPANYNAME_STR         "Tyy"

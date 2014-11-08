@@ -19,7 +19,8 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     // @brief 保存设置
-    void saveSettings();
+    // @param[in] 文件路径
+    void saveSettings(const QString &fileName);
     // @brief 还原窗口
     virtual void restoreWindow();
     // @brief 隐藏窗口
@@ -56,6 +57,12 @@ private slots:
     void on_actionEdit_triggered();
     // @brief "保存"菜单项响应
     void on_actionSave_triggered();
+    // @brief "另保存"菜单项响应
+    void on_actionSave_As_triggered();
+    
+    void on_actionDefaultTheme_triggered();
+    
+    void on_actionSystemTheme_triggered();
     
 private:
     Ui::MainWindow *ui;
@@ -85,6 +92,8 @@ private:
     void pasteBtn(AppButton *btn);
     // @brief 删除按钮
     void deleteBtn(AppButton *btn);
+    // @brief 更新主题
+    void updateTheme();
 protected:
     virtual bool eventFilter(QObject *, QEvent *);
     virtual void keyPressEvent(QKeyEvent *);

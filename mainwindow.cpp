@@ -10,6 +10,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QTextCodec>
+#include <QFileDialog>
 #include "appbuttondialog.h"
 #include "dynamicdata.h"
 MainWindow::MainWindow(QWidget *parent) :
@@ -53,20 +54,7 @@ MainWindow::MainWindow(QWidget *parent) :
     if(!loadSaveFile(SAVE_FILE))
         reset();// 还原默认设置
     ui->tabWidget->setStyleSheet("QTabBar::tab { min-width:" + QString::number(this->width() / 10 - 3) + "px;min-height:50px;}text-align:left top;");
-    // 设置样式
-    QString qss;
-    //QFile qssFile("C:/css.qss");
-    QFile qssFile(":/css/res/css.qss");
-    qssFile.open(QFile::ReadOnly);
-    if(qssFile.isOpen())
-    {
-        qss = QLatin1String(qssFile.readAll());
-        qApp->setStyleSheet(qss);
-//        qDebug("-----------------Start----------------------");
-//        qDebug(qss.toUtf8().data());
-//        qDebug("------------------End-----------------------");
-        qssFile.close();
-    }
+
     activateWindow();
     QxtGlobalShortcut *sc = new QxtGlobalShortcut(QKeySequence("Ctrl+~"), this);
     connect(sc, SIGNAL(activated()),this, SLOT(on_hotKey_triggered()));
@@ -74,6 +62,7 @@ MainWindow::MainWindow(QWidget *parent) :
 // @brief 读取存档文件
 bool MainWindow::loadSaveFile(const QString fileName)
 {
+    ui->tabWidget->clear();// 清除所有tab
     QFile file(fileName);
     if(!file.open(QIODevice::ReadOnly|QIODevice::Text))
         return false;
@@ -141,9 +130,12 @@ void MainWindow::reset()
         tab->setLayout(layout);
         ui->tabWidget->addTab(tab, QString::number((i + 1)%10));
     }
+    // 重置存档位置
+    DynamicData::getInstance()->resetSaveFileName();
 }
 // @brief 保存设置
-void MainWindow::saveSettings()
+// @param[in] 文件路径
+void MainWindow::saveSettings(const QString &fileName)
 {
     // 存档 Json
     QJsonDocument doc;
@@ -163,17 +155,17 @@ void MainWindow::saveSettings()
         tabArr.append(arr);
     }
     doc.setArray(tabArr);
-    QFile file(SAVE_FILE);
+    QFile file(fileName);
     if(!file.open(QFile::WriteOnly))
     {
-        qDebug("Cannot save the file %s:\n %s.", SAVE_FILE, file.errorString());
-        throw(tr("Cannot save the file %1:\n %2.").arg(SAVE_FILE).arg(file.errorString()));
+        qDebug("Cannot save the file %s:\n %s.", fileName, file.errorString());
+        throw(tr("Cannot save the file %1:\n %2.").arg(fileName).arg(file.errorString()));
         return;
     }
     QTextStream txtOutput(&file);
     txtOutput.setCodec("UTF-8");
     txtOutput << doc.toJson();
-    qDebug("save file, fileName : %s.", SAVE_FILE);
+    qDebug("save file, fileName : %s.", fileName);
     file.close();
 }
 
@@ -205,7 +197,8 @@ void MainWindow::onSystemTrayIconClicked(QSystemTrayIcon::ActivationReason reaso
 // @brief 托盘菜单的退出按钮响应
 void MainWindow::on_Quit_triggered()
 {
-    saveSettings();
+    saveSettings(DynamicData::getInstance()->getSaveFileName());
+    DynamicData::getInstance()->saveSettings();
     qApp->exit();
 }
 void MainWindow::setisCanHide(bool val){_isCanHide = val;}
@@ -476,5 +469,56 @@ void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
 // @brief "保存"菜单项响应
 void MainWindow::on_actionSave_triggered()
 {
-    saveSettings();
+    saveSettings(DynamicData::getInstance()->getSaveFileName());
+    DynamicData::getInstance()->saveSettings();
+}
+// @brief "另保存"菜单项响应
+void MainWindow::on_actionSave_As_triggered()
+{
+    QFileDialog *fileDialog = new QFileDialog(this, tr("Save As"), 
+                                              ".", 
+                                              "TyyAppManager File(*.tam);;All File(*.*)");
+    fileDialog->setAcceptMode(QFileDialog::AcceptSave);
+    fileDialog->setModal(true);
+    _isCanHide = false;
+    if(fileDialog->exec() == QDialog::Accepted)
+    {
+        QString fileName = fileDialog->selectedFiles()[0];
+        DynamicData::getInstance()->setSaveFileName(fileName);
+        saveSettings(fileName);
+        DynamicData::getInstance()->saveSettings();
+    }
+    _isCanHide = true;
+    delete fileDialog;
+}
+// @brief 更新主题
+void MainWindow::updateTheme()
+{
+    // 设置样式
+    QString qss;
+    QFile qssFile(DynamicData::getInstance()->getTheme());
+    qssFile.open(QFile::ReadOnly);
+    if(qssFile.isOpen())
+    {
+        qss = QLatin1String(qssFile.readAll());
+        qApp->setStyleSheet(qss);
+        qssFile.close();
+    }
+    else
+    {
+        qApp->setStyleSheet("");
+    }
+    
+}
+
+void MainWindow::on_actionDefaultTheme_triggered()
+{
+    DynamicData::getInstance()->setTheme(":/css/res/default.qss");
+    updateTheme();
+}
+
+void MainWindow::on_actionSystemTheme_triggered()
+{
+    DynamicData::getInstance()->setTheme("");
+    updateTheme();
 }

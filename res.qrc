@@ -3,6 +3,6 @@
         <file>res/logo.ico</file>
     </qresource>
     <qresource prefix="/css">
-        <file>res/css.qss</file>
+        <file>res/default.qss</file>
     </qresource>
 </RCC>

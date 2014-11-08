@@ -5,6 +5,7 @@
 
 #ifdef Q_OS_WIN32   //for win  
 #include <windows.h>
+#include "dynamicdata.h"
 bool checkOnly()  
 {  
     //  创建互斥量  
@@ -57,6 +58,18 @@ int main(int argc, char *argv[])
     
     a.setApplicationName(VER_PRODUCTNAME_STR);
     a.setApplicationVersion(VER_FILEVERSION_DISPLAY_STR);
+    
+    // 设置样式
+    QString qss;
+    QFile qssFile(DynamicData::getInstance()->getTheme());
+    qssFile.open(QFile::ReadOnly);
+    if(qssFile.isOpen())
+    {
+        qss = QLatin1String(qssFile.readAll());
+        qApp->setStyleSheet(qss);
+        qssFile.close();
+    }
+    
     MainWindow w;
     w.show();
     return a.exec();

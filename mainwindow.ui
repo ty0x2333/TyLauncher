@@ -100,6 +100,7 @@
      <string>File</string>
     </property>
     <addaction name="actionSave"/>
+    <addaction name="actionSave_As"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -148,10 +149,10 @@
   </action>
   <action name="actionDefaultTheme">
    <property name="checkable">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="checked">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="text">
     <string>Default Theme</string>
@@ -159,7 +160,7 @@
   </action>
   <action name="actionSystemTheme">
    <property name="checkable">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="text">
     <string>System Theme</string>
@@ -231,10 +232,18 @@
   </action>
   <action name="actionSave">
    <property name="text">
-    <string>Save(&amp;S)</string>
+    <string>Save</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionSave_As">
+   <property name="text">
+    <string>Save As...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
    </property>
   </action>
  </widget>
