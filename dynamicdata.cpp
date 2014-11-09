@@ -1,6 +1,10 @@
 #include "dynamicdata.h"
 #include <QSettings>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QJsonDocument>
 #include "StaticSetting.h"
+#include <QString>
 static DynamicData *s_shareDynamicData = nullptr;
 DynamicData::DynamicData():
     _btnShearPlate(nullptr),
@@ -36,7 +40,7 @@ void DynamicData::saveSettings()
     QSettings *configIniWrite = new QSettings(CONFIG_FILE, QSettings::IniFormat);
     configIniWrite->setValue("theme", _theme);
     configIniWrite->setValue("filename/save", _saveFileName);
-    qDebug(configIniWrite->fileName().toUtf8());
+    //qDebug(configIniWrite->fileName().toUtf8());
     delete configIniWrite;// 使用完后销毁
 }
 // @brief 读取设置
@@ -45,7 +49,7 @@ void DynamicData::loadSettings()
     QSettings *configIniRead = new QSettings(CONFIG_FILE, QSettings::IniFormat);
     _theme = configIniRead->value("theme", ":/css/res/default.qss").toString();
     _saveFileName = configIniRead->value("filename/save", SAVE_FILE).toString();
-    qDebug(_theme.toUtf8());// 输出读取的内容
+    //qDebug(_theme.toUtf8());// 输出读取的内容
     delete configIniRead;;// 使用完后销毁
 }
 // @brief 获取主题
@@ -75,3 +79,43 @@ void DynamicData::setTheme(const QString &theme)
 }
 
 bool DynamicData::BtnShearPlateIsEmpty(){    return _btnShearPlate == nullptr;}
+
+// @brief 读取存档文件
+QVector<QVector<AppInfo>> DynamicData::loadSaveFile(const QString fileName)
+{
+    QVector<QVector<AppInfo>> tabVector;
+    QFile file(fileName);
+    if(!file.exists())// 当存档文件不存在时,丢出异常,重新建立存档
+        throw QString("");
+    if(!file.open(QIODevice::ReadOnly|QIODevice::Text))
+        throw QString("Open Save File Failure");
+        
+    QJsonParseError parseErr;
+    QJsonDocument doc = QJsonDocument::fromJson(file.readAll(),&parseErr);
+    if(parseErr.error != QJsonParseError::NoError)
+         throw QString("Save File failure!");
+    if(!doc.isArray())
+        throw QString("Save File Failure!");
+    QJsonArray tabArr = doc.array();
+    for(int i = 0; i < 10; ++i)// 每一个Tab
+    {
+        QVector<AppInfo> btnVector;
+        QJsonValue val = tabArr.at(i);
+        if(!val.isArray())
+            throw QString("Save File Failure!");
+        QJsonArray arr = val.toArray();
+        for(int i = 0; i < arr.count(); ++i)
+        {
+            QJsonValue valObj = arr.at(i);
+            if(!valObj.isObject())
+                throw QString("Save File Failure!");
+            QJsonObject obj = valObj.toObject();
+            AppInfo appInfo(obj[XML_KEY_APP_NAME].toString(), obj[XML_KEY_FILE_NAME].toString());
+            appInfo.hotKey = obj[XML_KEY_HOT_KEY].toString();
+            btnVector.append(appInfo);
+        }
+        tabVector.append(btnVector);
+    }
+    
+    return tabVector;
+}

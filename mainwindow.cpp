@@ -63,47 +63,45 @@ MainWindow::MainWindow(QWidget *parent) :
 bool MainWindow::loadSaveFile(const QString fileName)
 {
     ui->tabWidget->clear();// 清除所有tab
-    QFile file(fileName);
-    if(!file.open(QIODevice::ReadOnly|QIODevice::Text))
-        return false;
-    QJsonParseError parseErr;
-    QJsonDocument doc = QJsonDocument::fromJson(file.readAll(),&parseErr);
-    if(parseErr.error != QJsonParseError::NoError)
+    QVector<QVector<AppInfo>> dataVector;
+    try
     {
-        QMessageBox errorBox(QMessageBox::Critical, 
-                               tr("File read failure!"), 
-                               parseErr.errorString(), 
-                               QMessageBox::Ok, 
-                               this, Qt::WindowStaysOnTopHint);
-        errorBox.exec();
-        return false;
-    }
-    QJsonArray tabArr = doc.array();
-    for(int i = 0; i < 10; ++i)// 每一个Tab
-    {
-        QWidget *tab = new QWidget();
-        QGridLayout *layout = new QGridLayout();
-        QJsonValue val = tabArr.at(i);
-        if(!val.isArray())
-            return false;
-        QJsonArray arr = val.toArray();
-        for(int c = 0; c < 10; ++c)// 每一列
+        dataVector = DynamicData::getInstance()->loadSaveFile(fileName);
+        for(int i = 0; i < 10; ++i)// 每一个Tab
         {
-            for(int r = 0; r < 3; ++r)// 每一行
+            QWidget *tab = new QWidget();
+            QGridLayout *layout = new QGridLayout();
+            QVector<AppInfo> arr = dataVector[i];
+            for(int c = 0; c < 10; ++c)// 每一列
             {
-                QJsonValue valObj = arr.at(i);
-                if(!valObj.isObject())
-                    return false;
-                QJsonObject obj = arr.at(c*3 + r).toObject();
-                AppInfo appInfo(obj[XML_KEY_APP_NAME].toString(), obj[XML_KEY_FILE_NAME].toString());
-                AppButton *btn = new AppButton(obj[XML_KEY_HOT_KEY].toString(), 
-                                               appInfo);
-                connect(btn, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(onBtnRightClicked(QPoint)));
-                layout->addWidget(btn, r, c);
+                for(int r = 0; r < 3; ++r)// 每一行
+                {
+                    AppInfo appInfo = arr[c*3 + r];
+                    AppButton *btn = new AppButton(appInfo);
+                    connect(btn, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(onBtnRightClicked(QPoint)));
+                    layout->addWidget(btn, r, c);
+                }
             }
+            tab->setLayout(layout);
+            ui->tabWidget->addTab(tab, QString::number((i + 1) % 10));
         }
-        tab->setLayout(layout);
-        ui->tabWidget->addTab(tab, QString::number((i + 1) % 10));
+    }
+    catch(QString e)
+    {
+        if(!e.isEmpty())
+        {
+            _isCanHide = false;
+            QMessageBox criticalBox(QMessageBox::Critical, 
+                                   tr("Error"), 
+                                   e, 
+                                   QMessageBox::Yes, 
+                                   this, Qt::WindowStaysOnTopHint);
+            if( criticalBox.exec() == QMessageBox::Yes)
+            {
+            }
+            _isCanHide = true;
+        }
+        return false;
     }
     return true;
 }
@@ -158,14 +156,14 @@ void MainWindow::saveSettings(const QString &fileName)
     QFile file(fileName);
     if(!file.open(QFile::WriteOnly))
     {
-        qDebug("Cannot save the file %s:\n %s.", fileName, file.errorString());
+        //qDebug("Cannot save the file %s:\n %s.", fileName, file.errorString());
         throw(tr("Cannot save the file %1:\n %2.").arg(fileName).arg(file.errorString()));
         return;
     }
     QTextStream txtOutput(&file);
     txtOutput.setCodec("UTF-8");
     txtOutput << doc.toJson();
-    qDebug("save file, fileName : %s.", fileName);
+    //qDebug("save file, fileName : %s.", fileName);
     file.close();
 }
 

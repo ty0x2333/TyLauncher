@@ -26,6 +26,8 @@ public:
     void resetSaveFileName();
     // @brief 设置主题
     void setTheme(const QString &theme);
+    // @brief 读取存档文件
+    QVector<QVector<AppInfo>> loadSaveFile(const QString fileName);
 private:
     DynamicData();
     // @brief 主题

@@ -16,14 +16,15 @@ AppButton::AppButton(const QString &text, QWidget *parent) :
 {
     init();
 }
-AppButton::AppButton(const QString &text, const AppInfo &appInfo, QWidget *parent) :
-    QPushButton(text, parent),
+AppButton::AppButton(const AppInfo &appInfo, QWidget *parent) :
+    QPushButton(parent),
     _isBeMousePointing(false),
     _fileName(""),
     _appName(nullptr),
     _appIcon(nullptr)
 {
     init();
+    this->setText(appInfo.hotKey);
     _appName->setText(appInfo.name);// 设置文件名
     _fileName = appInfo.fileName;// 设置文件路径
     if(_fileName.isEmpty())
@@ -97,7 +98,7 @@ void AppButton::dropEvent(QDropEvent *event)
         _fileName = fileInfo.filePath();
     }
     _appName->setText(fileInfo.baseName());
-    qDebug("Icon Type : %s", iconProvider.type(QFileInfo(_fileName)).toUtf8().data());
+    //qDebug("Icon Type : %s", iconProvider.type(QFileInfo(_fileName)).toUtf8().data());
     _appIcon->setPixmap(iconProvider.icon(QFileInfo(_fileName)).pixmap(QSize(48, 48)));
 }
 // @brief 从其它按钮中拷贝数据
