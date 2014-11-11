@@ -5,4 +5,7 @@
     <qresource prefix="/css">
         <file>res/default.qss</file>
     </qresource>
+    <qresource prefix="/language">
+        <file>TyyAppManager_zh_CN.qm</file>
+    </qresource>
 </RCC>

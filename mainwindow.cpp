@@ -21,14 +21,14 @@ MainWindow::MainWindow(QWidget *parent) :
     _trayIcon(nullptr),
     _isCanHide(true),
     _btnMenu(nullptr),
-    _btnRightMenu(nullptr)
+    _btnRightMenu(nullptr),
+    _translator(nullptr)
 {
     ui->setupUi(this);
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("GB2312"));
     QWidget::installEventFilter(this);// 为这个窗口安装过滤器
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
     connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(on_Quit_triggered()));// 关联退出动作
-    
     _btnMenu = new QMenu();
     _btnMenu->addAction(ui->actionActionBtnOpenDir);
     _btnMenu->addSeparator();
@@ -49,6 +49,8 @@ MainWindow::MainWindow(QWidget *parent) :
     _trayIcon->setContextMenu(_trayMenu);// 设置托盘菜单
     _trayIcon->setIcon(QIcon(":/img/res/logo.ico")); // 设置托盘图标
     _trayIcon->show();// 显示托盘
+    // 更新语言
+    updateLanguage();
     
     // 尝试读取存档
     if(!loadSaveFile(SAVE_FILE))
@@ -203,9 +205,18 @@ void MainWindow::setisCanHide(bool val){_isCanHide = val;}
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete _trayIcon;
-    delete _trayMenu;
-    delete _aboutDialog;
+    if(_trayIcon!=nullptr)
+        delete _trayIcon;
+    if(_trayMenu!=nullptr)
+        delete _trayMenu;
+    if(_aboutDialog!=nullptr)
+        delete _aboutDialog;
+    if(_translator!=nullptr)
+        delete _translator;
+    if(_btnMenu!=nullptr)
+        delete _btnMenu;
+    if(_aboutDialog!=nullptr)
+        delete _aboutDialog;
 }
 
 void MainWindow::on_actionShowWindow_triggered()
@@ -519,4 +530,25 @@ void MainWindow::on_actionSystemTheme_triggered()
 {
     DynamicData::getInstance()->setTheme("");
     updateTheme();
+}
+
+void MainWindow::on_actionEnglish_triggered()
+{
+    DynamicData::getInstance()->setLanguage("en");
+    updateLanguage();
+}
+
+void MainWindow::on_actionChinese_triggered()
+{
+    DynamicData::getInstance()->setLanguage("zh_CN");
+    updateLanguage();
+}
+// @brief 更新语言
+void MainWindow::updateLanguage()
+{
+    if(_translator == nullptr)
+        _translator = new QTranslator();
+    _translator->load(":/language/TyyAppManager_" + DynamicData::getInstance()->getLanguage());
+    qApp->installTranslator(_translator);
+    ui->retranslateUi(this);
 }

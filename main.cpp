@@ -52,10 +52,6 @@ int main(int argc, char *argv[])
     if(checkOnly() == false)  
         return 0;
     
-    QTranslator translator;
-    translator.load("TyyAppManager_zh_CN");
-    a.installTranslator(&translator);
-    
     a.setApplicationName(VER_PRODUCTNAME_STR);
     a.setApplicationVersion(VER_FILEVERSION_DISPLAY_STR);
     

@@ -28,10 +28,16 @@ public:
     void setTheme(const QString &theme);
     // @brief 读取存档文件
     QVector<QVector<AppInfo>> loadSaveFile(const QString fileName);
+    // @brief 获取语言
+    QString getLanguage();
+    // @brief 设置语言
+    void setLanguage(const QString &language);
 private:
     DynamicData();
     // @brief 主题
     QString _theme;
+    // @brief 语言
+    QString _language;
     // @brief 存档路径
     QString _saveFileName;
     // @brief 按钮剪切缓存

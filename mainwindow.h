@@ -8,6 +8,7 @@
 #include "aboutdialog.h"
 #include "appbutton.h"
 #include "StaticSetting.h"
+#include <QTranslator>
 namespace Ui {
 class MainWindow;
 }
@@ -64,10 +65,12 @@ private slots:
     
     void on_actionSystemTheme_triggered();
     
+    void on_actionEnglish_triggered();
+    
+    void on_actionChinese_triggered();
+    
 private:
     Ui::MainWindow *ui;
-    // @brief 是否可以隐藏
-    bool _isCanHide;
     // @brief 托盘图标
     QSystemTrayIcon *_trayIcon;
     // @brief 托盘菜单
@@ -76,6 +79,11 @@ private:
     QMenu *_btnMenu;
     // @brief 关于对话框
     AboutDialog *_aboutDialog;
+    // @brief 翻译
+    QTranslator* _translator;
+    
+    // @brief 是否可以隐藏
+    bool _isCanHide;
     // @brief 读取存档文件
     bool loadSaveFile(const QString fileName);
     // @brief 重置数据
@@ -94,6 +102,8 @@ private:
     void deleteBtn(AppButton *btn);
     // @brief 更新主题
     void updateTheme();
+    // @brief 更新语言
+    void updateLanguage();
 protected:
     virtual bool eventFilter(QObject *, QEvent *);
     virtual void keyPressEvent(QKeyEvent *);

@@ -6,7 +6,7 @@
 灰色:
 #aaaaaa
 */
-QMainWindow,QDialog{background: #526874; color: #ffffff}/*主窗口*/
+QMainWindow,QDialog{background: #526874; color: #ffffff;}/*主窗口*/
 /*MenuBar*/
 QMenuBar{background: #526874}
 QMenuBar::item {background: #40A46F; color: #aaaaaa}

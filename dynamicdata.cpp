@@ -5,10 +5,12 @@
 #include <QJsonDocument>
 #include "StaticSetting.h"
 #include <QString>
+#include <QLocale>
 static DynamicData *s_shareDynamicData = nullptr;
 DynamicData::DynamicData():
     _btnShearPlate(nullptr),
     _theme(""),
+    _language(""),
     _saveFileName(SAVE_FILE)
 {
 }
@@ -21,6 +23,7 @@ DynamicData* DynamicData::getInstance()
     }
     return s_shareDynamicData;
 }
+
 // @brief 获取按钮剪切缓存
 AppButton* DynamicData::getBtnShearPlate(){    return _btnShearPlate;}
 // @brief 设置按钮剪切缓存
@@ -40,6 +43,7 @@ void DynamicData::saveSettings()
     QSettings *configIniWrite = new QSettings(CONFIG_FILE, QSettings::IniFormat);
     configIniWrite->setValue("theme", _theme);
     configIniWrite->setValue("filename/save", _saveFileName);
+    configIniWrite->setValue("language", _language);
     //qDebug(configIniWrite->fileName().toUtf8());
     delete configIniWrite;// 使用完后销毁
 }
@@ -49,7 +53,9 @@ void DynamicData::loadSettings()
     QSettings *configIniRead = new QSettings(CONFIG_FILE, QSettings::IniFormat);
     _theme = configIniRead->value("theme", ":/css/res/default.qss").toString();
     _saveFileName = configIniRead->value("filename/save", SAVE_FILE).toString();
-    //qDebug(_theme.toUtf8());// 输出读取的内容
+    _language = configIniRead->value("language", "").toString();
+    if(_language.isEmpty())// 当取不到语言设置时,使用系统当前语言
+        _language = QLocale::system().name();
     delete configIniRead;;// 使用完后销毁
 }
 // @brief 获取主题
@@ -119,3 +125,6 @@ QVector<QVector<AppInfo>> DynamicData::loadSaveFile(const QString fileName)
     
     return tabVector;
 }
+QString DynamicData::getLanguage(){    return _language;}
+// @brief 设置语言
+void DynamicData::setLanguage(const QString &language){ _language = language;}
