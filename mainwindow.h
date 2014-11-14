@@ -9,6 +9,8 @@
 #include "appbutton.h"
 #include "StaticSetting.h"
 #include <QTranslator>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
 namespace Ui {
 class MainWindow;
 }
@@ -69,6 +71,10 @@ private slots:
     
     void on_actionChinese_triggered();
     
+    void replyFinished(QNetworkReply *reply);
+    // @brief "检查更新"菜单项响应
+    void on_actionCheck_Update_triggered();
+    
 private:
     Ui::MainWindow *ui;
     // @brief 托盘图标
@@ -81,6 +87,8 @@ private:
     AboutDialog *_aboutDialog;
     // @brief 翻译
     QTranslator* _translator;
+    
+    QNetworkAccessManager* _netManager;
     
     // @brief 是否可以隐藏
     bool _isCanHide;
@@ -105,6 +113,10 @@ private:
     // @brief 更新语言
     void updateLanguage();
 protected:
+    // @brief 是否需要显示更新对话框
+    bool _needShowUpdateDialog;
+    // @brief 检查更新
+    void checkUpdate();
     virtual bool eventFilter(QObject *, QEvent *);
     virtual void keyPressEvent(QKeyEvent *);
 };

@@ -13,6 +13,7 @@
 #include <QFileDialog>
 #include "appbuttondialog.h"
 #include "dynamicdata.h"
+#include <QDesktopServices>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -22,7 +23,9 @@ MainWindow::MainWindow(QWidget *parent) :
     _isCanHide(true),
     _btnMenu(nullptr),
     _btnRightMenu(nullptr),
-    _translator(nullptr)
+    _translator(nullptr),
+    _netManager(nullptr),
+    _needShowUpdateDialog(false)
 {
     ui->setupUi(this);
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("GB2312"));
@@ -59,6 +62,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
     activateWindow();
     QxtGlobalShortcut *sc = new QxtGlobalShortcut(QKeySequence("Ctrl+~"), this);
+    
+    _netManager = new QNetworkAccessManager(this);
+    
+    connect(_netManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply*)));
+    
+    // 检查更新
+    checkUpdate();
+    
     connect(sc, SIGNAL(activated()),this, SLOT(on_hotKey_triggered()));
 }
 // @brief 读取存档文件
@@ -215,8 +226,6 @@ MainWindow::~MainWindow()
         delete _translator;
     if(_btnMenu!=nullptr)
         delete _btnMenu;
-    if(_aboutDialog!=nullptr)
-        delete _aboutDialog;
 }
 
 void MainWindow::on_actionShowWindow_triggered()
@@ -551,4 +560,93 @@ void MainWindow::updateLanguage()
     _translator->load(":/language/TyyAppManager_" + DynamicData::getInstance()->getLanguage());
     qApp->installTranslator(_translator);
     ui->retranslateUi(this);
+}
+// @brief 检查更新
+void MainWindow::checkUpdate()
+{
+    QUrl url("http://tyyappmanager.sinaapp.com/update.php");
+    QByteArray param;
+    param.append("version=");
+    param.append(VER_FILEVERSION_DISPLAY_STR);
+    param.append("&system=");
+    param.append(APPLICATION_BIT);
+    _netManager->post(QNetworkRequest(url), param); 
+}
+
+void MainWindow::replyFinished(QNetworkReply *reply)
+{
+     if (reply->error() == QNetworkReply::NoError) 
+     { 
+        QByteArray bytes = reply->readAll();
+        try
+        {
+            QJsonParseError parseErr;
+            QJsonDocument doc = QJsonDocument::fromJson(bytes,&parseErr);
+            if(parseErr.error != QJsonParseError::NoError || !doc.isObject())
+                 throw QString("Server Error!");
+            QJsonObject jsonObj = doc.object();
+            if( jsonObj["state"] == -1 )
+                throw QString("Server Error!");
+            if( jsonObj["need"] == false )
+            {
+                if(_needShowUpdateDialog)
+                {
+                    _isCanHide = false;
+                    QMessageBox criticalBox(QMessageBox::Information, 
+                                           tr("Information"), 
+                                           tr("TyyAppManager is up tp date!"), 
+                                           QMessageBox::Yes, 
+                                           this, Qt::WindowStaysOnTopHint);
+                    criticalBox.exec();
+                    _isCanHide = true;
+                }
+            }
+            else
+            {
+                _isCanHide = false;
+                QString infoStr = tr("There is a new version!");
+                infoStr += "\n" + jsonObj["name"].toString() + "\n" + tr("Whether to download?");
+                QMessageBox criticalBox(QMessageBox::Information, 
+                                       tr("Information"), 
+                                       infoStr, 
+                                       QMessageBox::Yes|QMessageBox::No, 
+                                       this, Qt::WindowStaysOnTopHint);
+                if(criticalBox.exec() == QMessageBox::Yes)
+                    QDesktopServices::openUrl(QUrl::fromLocalFile(APP_URL));
+                _isCanHide = true;
+            }
+        }
+        catch(QString& errStr)
+        {
+            _isCanHide = false;
+            QMessageBox criticalBox(QMessageBox::Critical, 
+                                   tr("Error"), 
+                                   errStr, 
+                                   QMessageBox::Yes, 
+                                   this, Qt::WindowStaysOnTopHint);
+            criticalBox.exec();
+            _isCanHide = true;
+        }
+     } 
+     else 
+     {
+         if(_needShowUpdateDialog)
+         {
+             _isCanHide = false;
+             QMessageBox criticalBox(QMessageBox::Critical, 
+                                    tr("Error"), 
+                                    tr("Please check your network connection."), 
+                                    QMessageBox::Yes, 
+                                    this, Qt::WindowStaysOnTopHint);
+             criticalBox.exec();
+             _isCanHide = true;
+         }
+     }
+     reply->deleteLater(); 
+}
+
+void MainWindow::on_actionCheck_Update_triggered()
+{
+    _needShowUpdateDialog = true;
+    checkUpdate();
 }

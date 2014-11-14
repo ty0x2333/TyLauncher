@@ -101,6 +101,7 @@
     <property name="title">
      <string>Help</string>
     </property>
+    <addaction name="actionCheck_Update"/>
     <addaction name="actionAbout"/>
    </widget>
    <widget class="QMenu" name="menuFile">
@@ -262,6 +263,11 @@
   <action name="actionChinese">
    <property name="text">
     <string>中文</string>
+   </property>
+  </action>
+  <action name="actionCheck_Update">
+   <property name="text">
+    <string>Check for updates</string>
    </property>
   </action>
  </widget>
