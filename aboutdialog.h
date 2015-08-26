@@ -17,9 +17,9 @@ public:
     
 private slots:
     void on_AboutDialog_finished(int result);
-    
-    void on_pushButton_clicked();
-    
+
+    void on_buttonBox_accepted();
+
 private:
     Ui::AboutDialog *ui;
 };

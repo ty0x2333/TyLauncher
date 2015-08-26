@@ -7,10 +7,9 @@ AboutDialog::AboutDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     //setWindowFlags(Qt::FramelessWindowHint);
-    QString str = "";
-    str += tr("Name: ") + qApp->applicationName() + "\n";
-    str += tr("Version: ") + qApp->applicationVersion();
-    ui->textBrowser->setText(str);
+    this->setWindowTitle(tr("About ") + qApp->applicationName());
+    ui->appNameLbl->setText(qApp->applicationName());
+    ui->versionLbl->setText(qApp->applicationVersion());
 }
 
 AboutDialog::~AboutDialog()
@@ -24,7 +23,7 @@ void AboutDialog::on_AboutDialog_finished(int)
     this->close();
 }
 
-void AboutDialog::on_pushButton_clicked()
+void AboutDialog::on_buttonBox_accepted()
 {
     ((MainWindow*)this->parent())->setisCanHide(true);
     this->close();
