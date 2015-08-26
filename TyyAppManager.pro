@@ -11,6 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets network
 TARGET = TyyAppManager
 TEMPLATE = app
 
+CONFIG += c++11
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -36,7 +37,17 @@ RESOURCES += \
     res.qrc
 
 include(StaticSetting.h)
-RC_FILE += \
+win32:RC_FILE += \
     TyyAppManager.rc
 
 TRANSLATIONS += TyyAppManager_zh_CN.ts
+
+macx {
+    QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.9
+    QMAKE_MAC_SDK = macosx # work around QTBUG-41238
+
+    # Only Intel binaries are accepted so force this
+    CONFIG += x86
+    LIBS += -framework Carbon -framework Cocoa
+    QT += macextras
+}

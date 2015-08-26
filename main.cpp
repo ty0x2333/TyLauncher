@@ -2,10 +2,10 @@
 #include <QApplication>
 #include "StaticSetting.h"
 #include <QTranslator>
-
+#include "dynamicdata.h"
 #ifdef Q_OS_WIN32   //for win  
 #include <windows.h>
-#include "dynamicdata.h"
+
 bool checkOnly()  
 {  
     //  创建互斥量  
@@ -49,8 +49,8 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     //检查程序是否 已经启动过  
-    if(checkOnly() == false)  
-        return 0;
+//    if(checkOnly() == false)
+//        return 0;
     
     a.setApplicationName(VER_PRODUCTNAME_STR);
     a.setApplicationVersion(VER_FILEVERSION_DISPLAY_STR);
