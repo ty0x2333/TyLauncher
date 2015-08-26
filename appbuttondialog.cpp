@@ -27,16 +27,6 @@ AppButtonDialog::~AppButtonDialog()
     delete ui;
 }
 
-void AppButtonDialog::on_pushButtonOk_clicked()
-{
-    if(_btn != nullptr && !(ui->lineEditName->text().isEmpty() && ui->lineEditTarget->text().isEmpty()))
-    {
-        _btn->setAppName(ui->lineEditName->text());
-        _btn->setAppFileName(ui->lineEditTarget->text());
-    }
-    this->close();
-}
-
 void AppButtonDialog::on_pushButtonFile_clicked()
 {
     QFileDialog fileDialog(this, tr("Browse File"), ".");
@@ -68,7 +58,17 @@ void AppButtonDialog::on_pushButtonDir_clicked()
     }
 }
 
-void AppButtonDialog::on_pushButtonCancel_clicked()
+void AppButtonDialog::on_buttonBox_accepted()
+{
+    if(_btn != nullptr && !(ui->lineEditName->text().isEmpty() && ui->lineEditTarget->text().isEmpty()))
+    {
+        _btn->setAppName(ui->lineEditName->text());
+        _btn->setAppFileName(ui->lineEditTarget->text());
+    }
+    this->close();
+}
+
+void AppButtonDialog::on_buttonBox_rejected()
 {
     this->close();
 }

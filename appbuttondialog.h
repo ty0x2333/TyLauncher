@@ -16,14 +16,14 @@ public:
     ~AppButtonDialog();
     
 private slots:
-    void on_pushButtonOk_clicked();
-    
     void on_pushButtonFile_clicked();
     
     void on_pushButtonDir_clicked();
-    
-    void on_pushButtonCancel_clicked();
-    
+        
+    void on_buttonBox_accepted();
+
+    void on_buttonBox_rejected();
+
 private:
     Ui::AppButtonDialog *ui;
     AppButton *_btn;
