@@ -26,16 +26,6 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="Line" name="line">
-      <property name="frameShadow">
-       <enum>QFrame::Plain</enum>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
-    <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -60,7 +50,7 @@
      <x>0</x>
      <y>0</y>
      <width>1061</width>
-     <height>23</height>
+     <height>22</height>
     </rect>
    </property>
    <property name="styleSheet">
