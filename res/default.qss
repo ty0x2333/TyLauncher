@@ -1,12 +1,12 @@
 /*
-Ç³ÂÌ:
+æµ…ç»¿:
 #40A46F
-ÉîÂÌ:
+æ·±ç»¿:
 #3a9564
-»ÒÉ«:
+ç°è‰²:
 #aaaaaa
 */
-QMainWindow,QDialog{background: #526874; color: #ffffff;}/*Ö÷´°¿Ú*/
+QMainWindow,QDialog{background: #526874; color: #ffffff;}/*ä¸»çª—å£*/
 /*MenuBar*/
 QMenuBar{background: #526874}
 QMenuBar::item {background: #40A46F; color: #aaaaaa}
@@ -19,17 +19,17 @@ QMenu::item {background: #40A46F;}
 QMenu::item:!enabled {background: #40A46F;}
 QMenu::item:selected {background: #40A46F;}
 /*QMenu::icon:checked {background: #3a9564;}*/
-QMenu::separator {color: #ffffff;}/*·Ö¸îÏß*/
+QMenu::separator {color: #ffffff;}/*åˆ†å‰²çº¿*/
 QMenu::indicator {background: #40A46F;}
 /*PushButton*/
 QPushButton{background: #40A46F; color:#ffffff}
 QPushButton:hover{background: #3a9564;}
 /*AppButton*/
-AppButton{text-align:left top; background: #F5F5F5; border:1px solid #DDD; color:#7e7e7e}
+AppButton{background: #F5F5F5; border:1px solid #DDD; color:#7e7e7e}
 AppButton:hover{border:1px solid #53adf1; color:#ffffff}
 AppButton:pressed{border:1px solid #3e82b5;}
 /*TabWidget*/
 QTabWidget{background: #ffffff}
 QTabBar::tab{text-align:left top; background: #40A46F; color: #aaaaaa}
-QTabBar::tab:hover{background: #3a9564; color: #ffffff}/*Êó±êÍ£Áô*/
+QTabBar::tab:hover{background: #3a9564; color: #ffffff}/*é¼ æ ‡åœç•™*/
 QTabBar::tab:selected{background: #ffffff; color: #000000}

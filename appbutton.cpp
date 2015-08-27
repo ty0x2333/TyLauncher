@@ -41,6 +41,7 @@ AppButton::AppButton(const AppInfo &appInfo, QWidget *parent) :
 // 用于在构造函数中调用
 void AppButton::init()
 {
+    setStyleSheet("text-align:left top;");
     setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
     setAcceptDrops(true);// 允许拖拽
     _appIcon = new QLabel();
