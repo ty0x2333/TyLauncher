@@ -50,4 +50,7 @@ macx {
     CONFIG += x86
     LIBS += -framework Carbon -framework Cocoa
     QT += macextras
+
+    # Icon is mandatory for submission
+    ICON = res/icon.icns
 }
