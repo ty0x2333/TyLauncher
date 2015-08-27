@@ -123,6 +123,12 @@ private:
 protected:
     /// @brief 是否需要显示更新对话框
     bool _needShowUpdateDialog;
+
+    /// @brief 初始化按钮右键菜单
+    void initBtnRightMenu();
+    /// @brief 初始化托盘
+    void initTray();
+
     /// @brief 检查更新
     void checkUpdate();
     virtual bool eventFilter(QObject *, QEvent *);

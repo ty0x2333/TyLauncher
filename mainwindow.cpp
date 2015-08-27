@@ -30,28 +30,16 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("GB2312"));
     QWidget::installEventFilter(this);// 为这个窗口安装过滤器
+#if defined(Q_OS_OSX)
+    setWindowFlags(Qt::WindowStaysOnTopHint);
+#elif defined(Q_OS_WIN32)
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
+#endif
     connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(on_Quit_triggered()));// 关联退出动作
-    _btnMenu = new QMenu();
-    _btnMenu->addAction(ui->actionActionBtnOpenDir);
-    _btnMenu->addSeparator();
-    _btnMenu->addAction(ui->actionEdit);
-    _btnMenu->addSeparator();
-    _btnMenu->addAction(ui->actionCopy);
-    _btnMenu->addAction(ui->actionPaste);
-    _btnMenu->addAction(ui->actionShear);
-    _btnMenu->addAction(ui->actionDelete);
+
+    initBtnRightMenu();
     
-    _trayIcon = new QSystemTrayIcon(this);
-    _trayMenu = new QMenu();
-    connect(_trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), 
-            this, SLOT(onSystemTrayIconClicked(QSystemTrayIcon::ActivationReason)));
-    _trayMenu->addAction(ui->actionShowWindow);// 添加显示主窗口菜单项
-    _trayMenu->addSeparator();// 分割线
-    _trayMenu->addAction(ui->actionQuit);// 添加退出菜单项
-    _trayIcon->setContextMenu(_trayMenu);// 设置托盘菜单
-    _trayIcon->setIcon(QIcon(":/img/res/logo.ico")); // 设置托盘图标
-    _trayIcon->show();// 显示托盘
+    initTray();
     // 更新语言
     updateLanguage();
     
@@ -560,6 +548,33 @@ void MainWindow::updateLanguage()
     _translator->load(":/language/TyyAppManager_" + DynamicData::getInstance()->getLanguage());
     qApp->installTranslator(_translator);
     ui->retranslateUi(this);
+}
+
+void MainWindow::initBtnRightMenu()
+{
+    _btnMenu = new QMenu();
+    _btnMenu->addAction(ui->actionActionBtnOpenDir);
+    _btnMenu->addSeparator();
+    _btnMenu->addAction(ui->actionEdit);
+    _btnMenu->addSeparator();
+    _btnMenu->addAction(ui->actionCopy);
+    _btnMenu->addAction(ui->actionPaste);
+    _btnMenu->addAction(ui->actionShear);
+    _btnMenu->addAction(ui->actionDelete);
+}
+
+void MainWindow::initTray()
+{
+    _trayIcon = new QSystemTrayIcon(this);
+    _trayMenu = new QMenu();
+    connect(_trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+            this, SLOT(onSystemTrayIconClicked(QSystemTrayIcon::ActivationReason)));
+    _trayMenu->addAction(ui->actionShowWindow);// 添加显示主窗口菜单项
+    _trayMenu->addSeparator();// 分割线
+    _trayMenu->addAction(ui->actionQuit);// 添加退出菜单项
+    _trayIcon->setContextMenu(_trayMenu);// 设置托盘菜单
+    _trayIcon->setIcon(QIcon(":/img/res/logo.ico")); // 设置托盘图标
+    _trayIcon->show();// 显示托盘
 }
 // @brief 检查更新
 void MainWindow::checkUpdate()
