@@ -2,6 +2,7 @@
 #include <QApplication>
 #include "StaticSetting.h"
 #include <QTranslator>
+#include <QFile>
 #include "dynamicdata.h"
 #ifdef Q_OS_WIN32   //for win  
 #include <windows.h>

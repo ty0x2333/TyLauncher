@@ -1,7 +1,10 @@
 #ifndef DYNAMICDATA_H
 #define DYNAMICDATA_H
-#include "appbutton.h"
+#include <QtGlobal>
 #include <QString>
+class AppButton;
+struct AppInfo;
+
 class DynamicData
 {
 public:

@@ -7,6 +7,8 @@
 #include <QVBoxLayout>
 #include <QDesktopServices>
 #include <QDir>
+#include <QDragEnterEvent>
+#include <QLabel>
 AppButton::AppButton(const QString &text, QWidget *parent) :
     QPushButton(text, parent),
     _isBeMousePointing(false),

@@ -2,15 +2,17 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QMenu>
 #include <QSystemTrayIcon>
-#include <QCloseEvent>
-#include "aboutdialog.h"
-#include "appbutton.h"
-#include "StaticSetting.h"
-#include <QTranslator>
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkReply>
+QT_BEGIN_NAMESPACE
+class QNetworkReply;
+class QNetworkAccessManager;
+class QTranslator;
+class QCloseEvent;
+class QMenu;
+class AppButton;
+class AboutDialog;
+QT_END_NAMESPACE
+
 namespace Ui {
 class MainWindow;
 }

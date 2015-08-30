@@ -2,8 +2,12 @@
 #define APPBUTTON_H
 
 #include <QPushButton>
-#include <QDragEnterEvent>
-#include <QLabel>
+
+QT_BEGIN_NAMESPACE
+class QDragEnterEvent;
+class QLabel;
+QT_END_NAMESPACE
+
 struct AppInfo
 {
     QString hotKey;

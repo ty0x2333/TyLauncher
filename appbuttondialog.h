@@ -2,7 +2,9 @@
 #define APPBUTTONDIALOG_H
 
 #include <QDialog>
-#include "appbutton.h"
+
+class AppButton;
+
 namespace Ui {
 class AppButtonDialog;
 }

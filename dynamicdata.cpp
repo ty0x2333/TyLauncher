@@ -1,11 +1,13 @@
 #include "dynamicdata.h"
+#include "StaticSetting.h"
+#include "appbutton.h"
 #include <QSettings>
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QJsonDocument>
-#include "StaticSetting.h"
 #include <QString>
 #include <QLocale>
+#include <QFile>
 static DynamicData *s_shareDynamicData = nullptr;
 DynamicData::DynamicData():
     _btnShearPlate(nullptr),

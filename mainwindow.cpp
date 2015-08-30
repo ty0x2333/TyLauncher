@@ -1,6 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "qxtglobalshortcut.h"
+#include "appbuttondialog.h"
+#include "dynamicdata.h"
+#include "aboutdialog.h"
+#include "appbutton.h"
+#include "StaticSetting.h"
 #include <QMessageBox>
 #include <QGridLayout>
 #include <QPushButton>
@@ -11,9 +16,12 @@
 #include <QTextStream>
 #include <QTextCodec>
 #include <QFileDialog>
-#include "appbuttondialog.h"
-#include "dynamicdata.h"
 #include <QDesktopServices>
+#include <QTranslator>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
+#include <QMenu>
+#include <QCloseEvent>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -225,9 +233,7 @@ void MainWindow::on_actionAbout_triggered()
 {
     _isCanHide = false;
     if(_aboutDialog == nullptr)
-    {
         _aboutDialog = new AboutDialog(this);
-    }
     _aboutDialog->setModal(true);
     _aboutDialog->show();
 }
@@ -239,7 +245,6 @@ void MainWindow::hideWindow()
 
 void MainWindow::on_actionHotKey_triggered()
 {
-    
 }
 // @brief 按钮右键菜单
 void MainWindow::onBtnRightClicked(QPoint)
