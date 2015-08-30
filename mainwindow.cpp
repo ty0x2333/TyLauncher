@@ -25,14 +25,14 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    _aboutDialog(nullptr),
-    _trayMenu(nullptr),
     _trayIcon(nullptr),
-    _isCanHide(true),
+    _trayMenu(nullptr),
     _btnMenu(nullptr),
-    _btnRightMenu(nullptr),
+    _aboutDialog(nullptr),
     _translator(nullptr),
     _netManager(nullptr),
+    _isCanHide(true),
+    _btnRightMenu(nullptr),
     _needShowUpdateDialog(false)
 {
     ui->setupUi(this);
