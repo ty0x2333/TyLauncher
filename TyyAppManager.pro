@@ -45,6 +45,8 @@ TRANSLATIONS += TyyAppManager_zh_CN.ts
 macx {
     QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.9
     QMAKE_MAC_SDK = macosx # work around QTBUG-41238
+    # Copy the custom Info.plist to the app bundle
+    QMAKE_INFO_PLIST = ./shared/Info.plist
 
     # Only Intel binaries are accepted so force this
     CONFIG += x86
