@@ -1,10 +1,14 @@
-#ifndef APPUTILS_H
-#define APPUTILS_H
+#ifndef __APP_UTILS_H__
+#define __APP_UTILS_H__
 
 class AppUtils
 {
 public:
-    static bool checkRunTimeOnly();
+    /**
+     * @brief Check whether the application is running
+     * @return Whether already exists
+     */
+    static bool isRunTimeOnly();
 };
 
-#endif // APPUTILS_H
+#endif // __APP_UTILS_H__

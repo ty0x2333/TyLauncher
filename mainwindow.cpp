@@ -7,7 +7,7 @@
 #include "appbutton.h"
 #include "StaticSetting.h"
 #include "TyLog_Qt.h"
-#include "uiutils.h"
+#include "utils/uiutils.h"
 #include <QMessageBox>
 #include <QGridLayout>
 #include <QPushButton>

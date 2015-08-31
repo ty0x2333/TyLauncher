@@ -4,13 +4,13 @@
 #include <QTranslator>
 #include <QFile>
 #include "dynamicdata.h"
-#include "apputils.h"
+#include "utils/apputils.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     // 检查程序是否 已经启动 
-    if(AppUtils::checkRunTimeOnly() == false)
+    if(AppUtils::isRunTimeOnly() == false)
         return 0;
     
     a.setApplicationName(VER_PRODUCTNAME_STR);
