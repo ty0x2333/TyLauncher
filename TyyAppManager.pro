@@ -25,7 +25,8 @@ HEADERS  += mainwindow.h \
     aboutdialog.h \
     StaticSetting.h \
     appbuttondialog.h \
-    dynamicdata.h
+    dynamicdata.h \
+    TyLog_Qt.h
 
 FORMS    += mainwindow.ui \
     aboutdialog.ui \

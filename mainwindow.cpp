@@ -6,6 +6,7 @@
 #include "aboutdialog.h"
 #include "appbutton.h"
 #include "StaticSetting.h"
+#include "TyLog_Qt.h"
 #include <QMessageBox>
 #include <QGridLayout>
 #include <QPushButton>
@@ -165,14 +166,12 @@ void MainWindow::saveSettings(const QString &fileName)
     QFile file(fileName);
     if(!file.open(QFile::WriteOnly))
     {
-        //qDebug("Cannot save the file %s:\n %s.", fileName, file.errorString());
         throw(tr("Cannot save the file %1:\n %2.").arg(fileName).arg(file.errorString()));
         return;
     }
     QTextStream txtOutput(&file);
     txtOutput.setCodec("UTF-8");
     txtOutput << doc.toJson();
-    //qDebug("save file, fileName : %s.", fileName);
     file.close();
 }
 
@@ -375,9 +374,11 @@ bool MainWindow::eventFilter(QObject *watched, QEvent *event)
         switch (event->type())
         {
         case QEvent::WindowDeactivate:
+            TyLogDebug("QEvent::WindowDeactivate");
             hideWindow();
             break;
         case QEvent::WindowStateChange:
+            TyLogDebug("QEvent::WindowStateChange");
             if(this->isMinimized())
             {
                 event->ignore();// 截断事件
@@ -385,11 +386,13 @@ bool MainWindow::eventFilter(QObject *watched, QEvent *event)
             }
             break;
         case QEvent::Close:
+            TyLogDebug("QEvent::Close");
             event->ignore();// 截断事件
             hideWindow();
             return true;
             break;
         case QEvent::Resize:
+            TyLogDebug("QEvent::Resize");
             ui->tabWidget->setStyleSheet("QTabBar::tab {min-width:" + QString::number(this->width() / 10 - 3) + "px;min-height:50px;}");
             break;
         }

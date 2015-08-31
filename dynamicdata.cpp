@@ -46,7 +46,6 @@ void DynamicData::saveSettings()
     configIniWrite->setValue("theme", _theme);
     configIniWrite->setValue("filename/save", _saveFileName);
     configIniWrite->setValue("language", _language);
-    //qDebug(configIniWrite->fileName().toUtf8());
     delete configIniWrite;// 使用完后销毁
 }
 // @brief 读取设置

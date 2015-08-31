@@ -101,7 +101,6 @@ void AppButton::dropEvent(QDropEvent *event)
         _fileName = fileInfo.filePath();
     }
     _appName->setText(fileInfo.baseName());
-    //qDebug("Icon Type : %s", iconProvider.type(QFileInfo(_fileName)).toUtf8().data());
     _appIcon->setPixmap(iconProvider.icon(QFileInfo(_fileName)).pixmap(QSize(48, 48)));
 }
 // @brief 从其它按钮中拷贝数据
