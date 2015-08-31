@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     aboutdialog.cpp \
     appbuttondialog.cpp \
     dynamicdata.cpp \
-    uiutils.cpp
+    uiutils.cpp \
+    apputils.cpp
 
 HEADERS  += mainwindow.h \
     appbutton.h \
@@ -28,7 +29,8 @@ HEADERS  += mainwindow.h \
     appbuttondialog.h \
     dynamicdata.h \
     TyLog_Qt.h \
-    uiutils.h
+    uiutils.h \
+    apputils.h
 
 FORMS    += mainwindow.ui \
     aboutdialog.ui \
