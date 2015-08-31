@@ -7,6 +7,7 @@
 #include "appbutton.h"
 #include "StaticSetting.h"
 #include "TyLog_Qt.h"
+#include "uiutils.h"
 #include <QMessageBox>
 #include <QGridLayout>
 #include <QPushButton>
@@ -101,14 +102,7 @@ bool MainWindow::loadSaveFile(const QString fileName)
         if(!e.isEmpty())
         {
             _isCanHide = false;
-            QMessageBox criticalBox(QMessageBox::Critical, 
-                                   tr("Error"), 
-                                   e, 
-                                   QMessageBox::Yes, 
-                                   this, Qt::WindowStaysOnTopHint);
-            if( criticalBox.exec() == QMessageBox::Yes)
-            {
-            }
+            UIUtils::showCriticalMsgBox(e, this);
             _isCanHide = true;
         }
         return false;
@@ -332,15 +326,8 @@ void MainWindow::pasteBtn(AppButton *btn)
     if(!btn->isEmpty())
     {
         _isCanHide = false;
-        QMessageBox warningBox(QMessageBox::Warning, 
-                               tr("Warning"), 
-                               tr("Replace the button?"), 
-                               QMessageBox::Yes|QMessageBox::No, 
-                               this, Qt::WindowStaysOnTopHint);
-        if( warningBox.exec() == QMessageBox::Yes)
-        {
+        if( UIUtils::showWarnMsgBox(tr("Replace the button?"), this) == QMessageBox::Yes)
             btn->copyFrom(*DynamicData::getInstance()->getBtnShearPlate());
-        }
         _isCanHide = true;
     }
     else
@@ -354,12 +341,7 @@ void MainWindow::deleteBtn(AppButton *btn)
     if(!btn->isEmpty())
     {
         _isCanHide = false;
-        QMessageBox warningBox(QMessageBox::Warning, 
-                               tr("Warning"), 
-                               tr("Delete the button?"), 
-                               QMessageBox::Yes|QMessageBox::No, 
-                               this, Qt::WindowStaysOnTopHint);
-        if( warningBox.exec() == QMessageBox::Yes)
+        if( UIUtils::showWarnMsgBox(tr("Delete the button?"), this) == QMessageBox::Yes)
         {
             btn->clear();
         }
@@ -615,12 +597,7 @@ void MainWindow::replyFinished(QNetworkReply *reply)
                 if(_needShowUpdateDialog)
                 {
                     _isCanHide = false;
-                    QMessageBox criticalBox(QMessageBox::Information, 
-                                           tr("Information"), 
-                                           tr("TyyAppManager is up tp date!"), 
-                                           QMessageBox::Yes, 
-                                           this, Qt::WindowStaysOnTopHint);
-                    criticalBox.exec();
+                    UIUtils::showInfoMsgBox(tr("TyyAppManager is up tp date!"), this);
                     _isCanHide = true;
                 }
             }
@@ -629,12 +606,7 @@ void MainWindow::replyFinished(QNetworkReply *reply)
                 _isCanHide = false;
                 QString infoStr = tr("There is a new version!");
                 infoStr += "\n" + jsonObj["name"].toString() + "\n" + tr("Whether to download?");
-                QMessageBox criticalBox(QMessageBox::Information, 
-                                       tr("Information"), 
-                                       infoStr, 
-                                       QMessageBox::Yes|QMessageBox::No, 
-                                       this, Qt::WindowStaysOnTopHint);
-                if(criticalBox.exec() == QMessageBox::Yes)
+                if(UIUtils::showInfoMsgBox(infoStr, this) == QMessageBox::Yes)
                     QDesktopServices::openUrl(QUrl::fromLocalFile(APP_URL));
                 _isCanHide = true;
             }
@@ -642,12 +614,7 @@ void MainWindow::replyFinished(QNetworkReply *reply)
         catch(QString& errStr)
         {
             _isCanHide = false;
-            QMessageBox criticalBox(QMessageBox::Critical, 
-                                   tr("Error"), 
-                                   errStr, 
-                                   QMessageBox::Yes, 
-                                   this, Qt::WindowStaysOnTopHint);
-            criticalBox.exec();
+            UIUtils::showCriticalMsgBox(errStr, this);
             _isCanHide = true;
         }
      } 
@@ -656,12 +623,7 @@ void MainWindow::replyFinished(QNetworkReply *reply)
          if(_needShowUpdateDialog)
          {
              _isCanHide = false;
-             QMessageBox criticalBox(QMessageBox::Critical, 
-                                    tr("Error"), 
-                                    tr("Please check your network connection."), 
-                                    QMessageBox::Yes, 
-                                    this, Qt::WindowStaysOnTopHint);
-             criticalBox.exec();
+             UIUtils::showCriticalMsgBox(tr("Please check your network connection."), this);
              _isCanHide = true;
          }
      }
