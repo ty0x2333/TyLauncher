@@ -1,5 +1,7 @@
 INCLUDEPATH += $$PWD  
 DEPENDPATH += $$PWD  
+
+DEFINES += BUILD_QXT_GUI
  
 HEADERS += $$PWD/qxtglobal.h \  
            $$PWD/qxtglobalshortcut.h \  
@@ -7,7 +9,7 @@ HEADERS += $$PWD/qxtglobal.h \
 SOURCES += $$PWD/qxtglobalshortcut.cpp  
 win32{  
     SOURCES += $$PWD/qxtglobalshortcut_win.cpp  
-    LIBS += -luser32  
+    LIBS    += -luser32
 }
 unix:!macx:SOURCES += $$PWD/qxtglobalshortcut_x11.cpp
 macx {
