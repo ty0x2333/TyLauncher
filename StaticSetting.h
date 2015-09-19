@@ -19,10 +19,4 @@
 
 #define VER_ORIGINALFILENAME_STR    "TyyAppManager"
 
-#define CONFIG_FILE "config.ini"
-#define SAVE_FILE "default.json"
-#define XML_KEY_APP_NAME "name"
-#define XML_KEY_FILE_NAME "filename"
-#define XML_KEY_HOT_KEY "hotkey"
-
 #endif // STATICSETTING_H

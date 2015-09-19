@@ -1,4 +1,4 @@
-#ifndef DYNAMICDATA_H
+﻿#ifndef DYNAMICDATA_H
 #define DYNAMICDATA_H
 #include <QtGlobal>
 #include <QString>
@@ -34,6 +34,9 @@ public:
 
     /// @brief 读取存档文件
     QVector< QVector<AppInfo> > loadSaveFile(const QString fileName);
+    
+    /// @brief 保存存档文件
+    void saveUserSaveFile(const QString& content);
 
     void setLanguage(const QString &language);
     QString getLanguage();
@@ -50,6 +53,8 @@ private:
      * 用来保存复制的按钮地址
      */
     AppButton *_btnShearPlate;
+    
+    QString defaultSaveFileName();
 };
 
 #endif // DYNAMICDATA_H

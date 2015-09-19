@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "qxtglobalshortcut.h"
 #include "appbuttondialog.h"
@@ -139,34 +139,7 @@ void MainWindow::reset()
 // @param[in] 文件路径
 void MainWindow::saveSettings(const QString &fileName)
 {
-    // 存档 Json
-    QJsonDocument doc;
-    QJsonArray tabArr;
-    for(int i = 0; i < ui->tabWidget->count(); ++i)// 遍历所有tab
-    {
-        QJsonArray arr;
-        QList<AppButton *> appButtonList = ui->tabWidget->widget(i)->findChildren<AppButton *>();
-        for(AppButton* btn : appButtonList) // 遍历所有AppButton
-        {
-            QJsonObject obj;
-            obj.insert(XML_KEY_HOT_KEY, btn->text());// 按钮的快捷键
-            obj.insert(XML_KEY_APP_NAME, btn->getAppName());// 按钮的应用名
-            obj.insert(XML_KEY_FILE_NAME, btn->getFileName());// 按钮的应用文件路径
-            arr.append(obj);
-        }
-        tabArr.append(arr);
-    }
-    doc.setArray(tabArr);
-    QFile file(fileName);
-    if(!file.open(QFile::WriteOnly))
-    {
-        throw(tr("Cannot save the file %1:\n %2.").arg(fileName).arg(file.errorString()));
-        return;
-    }
-    QTextStream txtOutput(&file);
-    txtOutput.setCodec("UTF-8");
-    txtOutput << doc.toJson();
-    file.close();
+    DynamicData::getInstance()->saveUserSaveFile(ui->tabWidget->jsonString());
 }
 
 void MainWindow::on_hotKey_triggered()
