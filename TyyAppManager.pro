@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     dynamicdata.cpp \
     utils/uiutils.cpp \
     utils/apputils.cpp \
-    tabwidget.cpp
+    tabwidget.cpp \
+    model/appinfo.cpp
 
 HEADERS  += mainwindow.h \
     appbutton.h \
@@ -33,7 +34,8 @@ HEADERS  += mainwindow.h \
     utils/uiutils.h \
     utils/apputils.h \
     tabwidget.h \
-    datasettings.h
+    datasettings.h \
+    model/appinfo.h
 
 FORMS    += mainwindow.ui \
     aboutdialog.ui \

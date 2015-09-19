@@ -54,7 +54,7 @@ MainWindow::MainWindow(QWidget *parent) :
     updateLanguage();
     
     // 尝试读取存档
-    if(!loadSaveFile(SAVE_FILE))
+    if(!loadSaveFile(DynamicData::getInstance()->getSaveFileName()))
         reset();// 还原默认设置
     ui->tabWidget->setStyleSheet("QTabBar::tab { min-width:" + QString::number(this->width() / 10 - 3) + "px;min-height:50px;}text-align:left top;");
 
@@ -73,38 +73,10 @@ MainWindow::MainWindow(QWidget *parent) :
 // @brief 读取存档文件
 bool MainWindow::loadSaveFile(const QString fileName)
 {
-    ui->tabWidget->clear();// 清除所有tab
-    QVector<QVector<AppInfo>> dataVector;
-    try
-    {
-        dataVector = DynamicData::getInstance()->loadSaveFile(fileName);
-        for(int i = 0; i < 10; ++i)// 每一个Tab
-        {
-            QWidget *tab = new QWidget();
-            QGridLayout *layout = new QGridLayout();
-            QVector<AppInfo> arr = dataVector[i];
-            for(int c = 0; c < 10; ++c)// 每一列
-            {
-                for(int r = 0; r < 3; ++r)// 每一行
-                {
-                    AppInfo appInfo = arr[c*3 + r];
-                    AppButton *btn = new AppButton(appInfo);
-                    connect(btn, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(onBtnRightClicked(QPoint)));
-                    layout->addWidget(btn, r, c);
-                }
-            }
-            tab->setLayout(layout);
-            ui->tabWidget->addTab(tab, QString::number((i + 1) % 10));
-        }
-    }
-    catch(QString e)
-    {
-        if(!e.isEmpty())
-        {
-            _isCanHide = false;
-            UIUtils::showCriticalMsgBox(e, this);
-            _isCanHide = true;
-        }
+    if (!ui->tabWidget->configFromVector(DynamicData::getInstance()->loadSaveFile(fileName))){
+        _isCanHide = false;
+        UIUtils::showCriticalMsgBox(tr("Load Save Failure!"), this);
+        _isCanHide = true;
         return false;
     }
     return true;
@@ -137,7 +109,7 @@ void MainWindow::reset()
 }
 // @brief 保存设置
 // @param[in] 文件路径
-void MainWindow::saveSettings(const QString &fileName)
+void MainWindow::saveUserSettings()
 {
     DynamicData::getInstance()->saveUserSaveFile(ui->tabWidget->jsonString());
 }
@@ -170,8 +142,8 @@ void MainWindow::onSystemTrayIconClicked(QSystemTrayIcon::ActivationReason reaso
 // @brief 托盘菜单的退出按钮响应
 void MainWindow::on_Quit_triggered()
 {
-    saveSettings(DynamicData::getInstance()->getSaveFileName());
-    DynamicData::getInstance()->saveSettings();
+    saveUserSettings();
+    DynamicData::getInstance()->saveAppConfig();
     qApp->exit();
 }
 void MainWindow::setisCanHide(bool val){_isCanHide = val;}
@@ -438,8 +410,8 @@ void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
 // @brief "保存"菜单项响应
 void MainWindow::on_actionSave_triggered()
 {
-    saveSettings(DynamicData::getInstance()->getSaveFileName());
-    DynamicData::getInstance()->saveSettings();
+    saveUserSettings();
+    DynamicData::getInstance()->saveAppConfig();
 }
 // @brief "另保存"菜单项响应
 void MainWindow::on_actionSave_As_triggered()
@@ -450,12 +422,11 @@ void MainWindow::on_actionSave_As_triggered()
     fileDialog->setAcceptMode(QFileDialog::AcceptSave);
     fileDialog->setModal(true);
     _isCanHide = false;
-    if(fileDialog->exec() == QDialog::Accepted)
-    {
+    if(fileDialog->exec() == QDialog::Accepted){
         QString fileName = fileDialog->selectedFiles()[0];
         DynamicData::getInstance()->setSaveFileName(fileName);
-        saveSettings(fileName);
-        DynamicData::getInstance()->saveSettings();
+        saveUserSettings();
+        DynamicData::getInstance()->saveAppConfig();
     }
     _isCanHide = true;
     delete fileDialog;

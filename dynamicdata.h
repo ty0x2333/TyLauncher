@@ -3,7 +3,7 @@
 #include <QtGlobal>
 #include <QString>
 class AppButton;
-struct AppInfo;
+class AppInfo;
 
 class DynamicData
 {
@@ -18,8 +18,8 @@ public:
     bool BtnShearPlateIsEmpty();
 
     /// @brief 保存设置
-    void saveSettings();
-    void loadSettings();
+    void saveAppConfig();
+    void loadAppConfig();
 
     /// @brief 设置存档路径
     void setSaveFileName(const QString &fileName);

@@ -1,31 +1,12 @@
-#ifndef APPBUTTON_H
+﻿#ifndef APPBUTTON_H
 #define APPBUTTON_H
 
 #include <QPushButton>
-
+#include "model/appinfo.h"
 QT_BEGIN_NAMESPACE
 class QDragEnterEvent;
 class QLabel;
 QT_END_NAMESPACE
-
-struct AppInfo
-{
-    QString hotKey;
-    QString name;
-    QString fileName;
-    AppInfo(const QString &val1, const QString &val2)
-    {
-        name = val1;
-        fileName = val2;
-        hotKey = "";
-    }
-    AppInfo()
-    {
-        name = "";
-        fileName = "";
-        hotKey = "";
-    }
-};
 
 class AppButton : public QPushButton
 {

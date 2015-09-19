@@ -1,5 +1,6 @@
 ﻿#include "dynamicdata.h"
 #include "StaticSetting.h"
+#include "model/appinfo.h"
 #include "appbutton.h"
 #include <QSettings>
 #include <QJsonObject>
@@ -24,13 +25,13 @@ DynamicData::DynamicData():
 
 QString DynamicData::defaultSaveFileName()
 {
-    return QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/" + SAVE_FILE;
+    return QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/" + SAVE_FILE;
 }
 DynamicData* DynamicData::getInstance()
 {
     if(s_shareDynamicData == nullptr){
         s_shareDynamicData = new DynamicData();
-        s_shareDynamicData->loadSettings();// 读取设置
+        s_shareDynamicData->loadAppConfig();// 读取应用配置
     }
     return s_shareDynamicData;
 }
@@ -48,7 +49,7 @@ void DynamicData::setBtnShearPlate(AppButton *btn)
     _btnShearPlate->copyFrom(*btn);
 }
 // @brief 保存设置
-void DynamicData::saveSettings()
+void DynamicData::saveAppConfig()
 {
     QSettings *configIniWrite = new QSettings(CONFIG_FILE, QSettings::IniFormat);
     configIniWrite->setValue("theme", _theme);
@@ -57,7 +58,7 @@ void DynamicData::saveSettings()
     delete configIniWrite;// 使用完后销毁
 }
 // @brief 读取设置
-void DynamicData::loadSettings()
+void DynamicData::loadAppConfig()
 {
     QSettings *configIniRead = new QSettings(CONFIG_FILE, QSettings::IniFormat);
     _theme = configIniRead->value("theme", ":/css/res/default.qss").toString();
@@ -127,8 +128,7 @@ QVector<QVector<AppInfo>> DynamicData::loadSaveFile(const QString fileName)
             if(!valObj.isObject())
                 throw QString("Save File Failure!");
             QJsonObject obj = valObj.toObject();
-            AppInfo appInfo(obj[KEY_APP_NAME].toString(), obj[KEY_FILE_NAME].toString());
-            appInfo.hotKey = obj[KEY_HOT_KEY].toString();
+            AppInfo appInfo(obj[KEY_APP_NAME].toString(), obj[KEY_FILE_NAME].toString(), obj[KEY_HOT_KEY].toString());
             btnVector.append(appInfo);
         }
         tabVector.append(btnVector);
@@ -140,6 +140,9 @@ QVector<QVector<AppInfo>> DynamicData::loadSaveFile(const QString fileName)
 void DynamicData::saveUserSaveFile(const QString &content)
 {
     QString fileName = defaultSaveFileName();
+    if (QFile::exists(fileName)){
+        TyLogWarning("%s is not exists!");
+    }
     QFile file(fileName);
     if(!file.open(QFile::WriteOnly)){
         throw(QObject::tr("Can not save the file %1:\n %2.").arg(fileName).arg(file.errorString()));

@@ -1,4 +1,4 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QMainWindow>
@@ -24,10 +24,9 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     /**
-     * @brief 保存设置
-     * @param fileName 文件路径
+     * @brief 保存用户存档
      */
-    void saveSettings(const QString &fileName);
+    void saveUserSettings();
     /// @brief 还原窗口
     virtual void restoreWindow();
     /// @brief 隐藏窗口

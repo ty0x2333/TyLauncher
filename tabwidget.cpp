@@ -2,6 +2,7 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QJsonObject>
+#include <QGridLayout>
 #include "AppButton.h"
 #include "datasettings.h"
 TabWidget::TabWidget(QWidget *parent)
@@ -29,4 +30,33 @@ QString TabWidget::jsonString()
     }
     doc.setArray(tabArr);
     return doc.toJson();
+}
+
+bool TabWidget::configFromVector(QVector<QVector<AppInfo> > dataVector)
+{
+    this->clear();// 清除所有tab
+    try
+    {
+        for(int i = 0; i < 10; ++i)// 每一个Tab
+        {
+            QWidget *tab = new QWidget();
+            QGridLayout *layout = new QGridLayout();
+            QVector<AppInfo> arr = dataVector[i];
+            // 每一列
+            for(int c = 0; c < 10; ++c){
+                // 每一行
+                for(int r = 0; r < 3; ++r){
+                    AppInfo appInfo = arr[c*3 + r];
+                    AppButton *btn = new AppButton(appInfo);
+                    connect(btn, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(onBtnRightClicked(QPoint)));
+                    layout->addWidget(btn, r, c);
+                }
+            }
+            tab->setLayout(layout);
+            this->addTab(tab, QString::number((i + 1) % 10));
+        }
+    }catch(QString e){
+        return false;
+    }
+    return true;
 }

@@ -1,4 +1,4 @@
-#include "appbutton.h"
+﻿#include "appbutton.h"
 #include <QMimeData>
 #include <QUrl>
 #include <QList>
@@ -26,9 +26,9 @@ AppButton::AppButton(const AppInfo &appInfo, QWidget *parent) :
     _appIcon(nullptr)
 {
     init();
-    this->setText(appInfo.hotKey);
-    _appName->setText(appInfo.name);// 设置文件名
-    _fileName = appInfo.fileName;// 设置文件路径
+    this->setText(appInfo.hotKey());
+    _appName->setText(appInfo.name());// 设置文件名
+    _fileName = appInfo.fileName();// 设置文件路径
     if(_fileName.isEmpty())
         return;
     // 自动设置图标
