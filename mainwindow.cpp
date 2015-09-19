@@ -54,7 +54,7 @@ MainWindow::MainWindow(QWidget *parent) :
     updateLanguage();
     
     // 尝试读取存档
-    if(!loadSaveFile(DynamicData::getInstance()->getSaveFileName()))
+    if(!loadSaveFile(DynamicData::getInstance()->getUserSettingsFileNames()))
         reset();// 还原默认设置
     ui->tabWidget->setStyleSheet("QTabBar::tab { min-width:" + QString::number(this->width() / 10 - 3) + "px;min-height:50px;}text-align:left top;");
 
@@ -73,7 +73,7 @@ MainWindow::MainWindow(QWidget *parent) :
 // @brief 读取存档文件
 bool MainWindow::loadSaveFile(const QString fileName)
 {
-    if (!ui->tabWidget->configFromVector(DynamicData::getInstance()->loadSaveFile(fileName))){
+    if (!ui->tabWidget->configFromVector(DynamicData::getInstance()->loadUserSaveFile(fileName))){
         _isCanHide = false;
         UIUtils::showCriticalMsgBox(tr("Load Save Failure!"), this);
         _isCanHide = true;
@@ -424,7 +424,7 @@ void MainWindow::on_actionSave_As_triggered()
     _isCanHide = false;
     if(fileDialog->exec() == QDialog::Accepted){
         QString fileName = fileDialog->selectedFiles()[0];
-        DynamicData::getInstance()->setSaveFileName(fileName);
+        DynamicData::getInstance()->setUserSettingsFileNames(fileName);
         saveUserSettings();
         DynamicData::getInstance()->saveAppConfig();
     }

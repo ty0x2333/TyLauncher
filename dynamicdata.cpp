@@ -15,11 +15,11 @@
 #include "datasettings.h"
 #include <QObject>
 static DynamicData *s_shareDynamicData = nullptr;
-DynamicData::DynamicData():
-    _btnShearPlate(nullptr),
-    _theme(QString()),
-    _language(QString()),
-    _saveFileName(QString())
+DynamicData::DynamicData()
+    : _btnShearPlate(nullptr)
+    , _theme(QString())
+    , _language(QString())
+    , _userSettingsFileNames(QString())
 {
 }
 
@@ -53,7 +53,7 @@ void DynamicData::saveAppConfig()
 {
     QSettings *configIniWrite = new QSettings(CONFIG_FILE, QSettings::IniFormat);
     configIniWrite->setValue("theme", _theme);
-    configIniWrite->setValue("filename/save", _saveFileName);
+    configIniWrite->setValue("filename/save", _userSettingsFileNames);
     configIniWrite->setValue("language", _language);
     delete configIniWrite;// 使用完后销毁
 }
@@ -62,50 +62,31 @@ void DynamicData::loadAppConfig()
 {
     QSettings *configIniRead = new QSettings(CONFIG_FILE, QSettings::IniFormat);
     _theme = configIniRead->value("theme", ":/css/res/default.qss").toString();
-    _saveFileName = configIniRead->value("filename/save", defaultSaveFileName()).toString();
+    _userSettingsFileNames = configIniRead->value("filename/save", defaultSaveFileName()).toString();
     _language = configIniRead->value("language", "").toString();
     if(_language.isEmpty())// 当取不到语言设置时,使用系统当前语言
         _language = QLocale::system().name();
     delete configIniRead;;// 使用完后销毁
     TyLogDebug("Load Settins:{Theme: %s\n\tSaveFileName: %s\n\tLanguage: %s\n}", 
                _theme.toUtf8().data(), 
-               _saveFileName.toUtf8().data(), 
+               _userSettingsFileNames.toUtf8().data(), 
                _language.toUtf8().data());
-}
-// @brief 获取主题
-QString DynamicData::getTheme()
-{
-    return _theme;
-}
-// @brief 设置存档路径
-void DynamicData::setSaveFileName(const QString &fileName)
-{
-    _saveFileName = fileName;
-}
-// @brief 获取存档路径
-QString DynamicData::getSaveFileName()
-{
-    return _saveFileName;
 }
 // @brief 重置存档路径
 void DynamicData::resetSaveFileName()
 {
-    _saveFileName = defaultSaveFileName();
-}
-// @brief 设置主题
-void DynamicData::setTheme(const QString &theme)
-{
-    _theme = theme;
+    _userSettingsFileNames = defaultSaveFileName();
 }
 
 bool DynamicData::BtnShearPlateIsEmpty(){    return _btnShearPlate == nullptr;}
 
 // @brief 读取存档文件
-QVector<QVector<AppInfo>> DynamicData::loadSaveFile(const QString fileName)
+QVector<QVector<AppInfo>> DynamicData::loadUserSaveFile(const QString fileName)
 {
     QVector<QVector<AppInfo>> tabVector;
     QFile file(fileName);
-    if(!file.exists())// 当存档文件不存在时,丢出异常,重新建立存档
+    // 当存档文件不存在时,丢出异常,重新建立存档
+    if(!file.exists())
         throw QString("");
     if(!file.open(QIODevice::ReadOnly|QIODevice::Text))
         throw QString("Open Save File Failure");
@@ -153,6 +134,12 @@ void DynamicData::saveUserSaveFile(const QString &content)
     txtOutput << content;
     file.close();
 }
+
+QString DynamicData::getTheme() const{return _theme;}
+void DynamicData::setTheme(const QString &theme){_theme = theme;}
+
+QString DynamicData::getUserSettingsFileNames() const{return _userSettingsFileNames;}
+void DynamicData::setUserSettingsFileNames(const QString &userSettingsFileNames){_userSettingsFileNames = userSettingsFileNames;}
+
 QString DynamicData::getLanguage(){    return _language;}
-// @brief 设置语言
 void DynamicData::setLanguage(const QString &language){ _language = language;}

@@ -10,10 +10,6 @@ class DynamicData
 public:
     static DynamicData* getInstance();
 
-    /// @brief 设置按钮剪切缓存
-    void setBtnShearPlate(AppButton *btn);
-    AppButton* getBtnShearPlate();
-
     /// @brief 获取按钮剪切缓存是否为空
     bool BtnShearPlateIsEmpty();
 
@@ -21,33 +17,35 @@ public:
     void saveAppConfig();
     void loadAppConfig();
 
-    /// @brief 设置存档路径
-    void setSaveFileName(const QString &fileName);
-    QString getSaveFileName();
-
     /// @brief 重置存档路径
     void resetSaveFileName();
 
-    /// @brief 设置主题
-    void setTheme(const QString &theme);
-    QString getTheme();
-
     /// @brief 读取存档文件
-    QVector< QVector<AppInfo> > loadSaveFile(const QString fileName);
+    QVector< QVector<AppInfo> > loadUserSaveFile(const QString fileName);
     
     /// @brief 保存存档文件
     void saveUserSaveFile(const QString& content);
-
-    void setLanguage(const QString &language);
+    
+    AppButton* getBtnShearPlate();
+    void setBtnShearPlate(AppButton *btn);
+    
     QString getLanguage();
+    void setLanguage(const QString &language);
+    
+    QString getUserSettingsFileNames() const;
+    void setUserSettingsFileNames(const QString &userSettingsFileNames);
+    
+    QString getTheme() const;
+    void setTheme(const QString &theme);
+    
 private:
     DynamicData();
-
+    
     QString _theme;
-
+    
     QString _language;
     /// @brief 存档路径
-    QString _saveFileName;
+    QString _userSettingsFileNames;
     /**
      * @brief 按钮剪切缓存
      * 用来保存复制的按钮地址
