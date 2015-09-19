@@ -12,10 +12,14 @@ class AppButton : public QPushButton
 {
     Q_OBJECT
 public:
+    explicit AppButton(QWidget *parent=0);
     explicit AppButton(const QString &text, QWidget *parent=0);
     explicit AppButton(const AppInfo &appInfo, QWidget *parent=0);
+    
+    void setDataFromAppInfo(const AppInfo &appInfo);
+    
     QString getFileName();
-    QString getAppName();
+    
     /// @brief 是否被鼠标所指向
     bool isBeMousePointing();
     /// @brief 从其它按钮中拷贝数据
@@ -27,12 +31,14 @@ public:
      * @param text 名称
      */
     void setAppName(const QString &text);
+    QString getAppName();
+    
     /**
      * @brief 设置应用路径
      * @param fileName 应用路径
-     * @param isUpdateIcon 是否更新图标
      */
-    void setAppFileName(const QString &fileName, bool isUpdateIcon = true);
+    void setAppFileName(const QString &fileName);
+    
     /// @brief 打开所在文件夹
     void openFileDirectory();
     /// @brief 获取图标

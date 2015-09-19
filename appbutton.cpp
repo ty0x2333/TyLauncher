@@ -9,10 +9,20 @@
 #include <QDir>
 #include <QDragEnterEvent>
 #include <QLabel>
+AppButton::AppButton(QWidget *parent)
+    :QPushButton(parent)
+    , _isBeMousePointing(false)
+    , _fileName(QString())
+    , _appName(nullptr)
+    , _appIcon(nullptr)
+{
+    
+}
+
 AppButton::AppButton(const QString &text, QWidget *parent) :
     QPushButton(text, parent),
     _isBeMousePointing(false),
-    _fileName(""),
+    _fileName(QString()),
     _appName(nullptr),
     _appIcon(nullptr)
 {
@@ -26,21 +36,17 @@ AppButton::AppButton(const AppInfo &appInfo, QWidget *parent) :
     _appIcon(nullptr)
 {
     init();
+    setDataFromAppInfo(appInfo);
+}
+
+void AppButton::setDataFromAppInfo(const AppInfo &appInfo)
+{
     this->setText(appInfo.hotKey());
     _appName->setText(appInfo.name());// 设置文件名
-    _fileName = appInfo.fileName();// 设置文件路径
-    if(_fileName.isEmpty())
-        return;
-    // 自动设置图标
-    QFileInfo fileInfo(_fileName);
-    QFileIconProvider iconProvider;
-    if(fileInfo.exists())
-        _appIcon->setPixmap(iconProvider.icon(fileInfo).pixmap(QSize(48, 48)));
-    else
-        _appIcon->setPixmap(iconProvider.icon(QFileIconProvider::File).pixmap(QSize(48, 48)));
+    // 设置文件路径
+    setAppFileName(appInfo.fileName());
 }
-// @brief 初始化
-// 用于在构造函数中调用
+
 void AppButton::init()
 {
     setStyleSheet("text-align:left top;");
@@ -92,12 +98,9 @@ void AppButton::dropEvent(QDropEvent *event)
     QFileInfo fileInfo(_fileName);
     QFileIconProvider iconProvider;
     
-    if(fileInfo.isSymLink())
-    {
+    if(fileInfo.isSymLink()){
         _fileName = fileInfo.symLinkTarget();
-    }
-    else
-    {
+    }else{
         _fileName = fileInfo.filePath();
     }
     _appName->setText(fileInfo.baseName());
@@ -121,29 +124,22 @@ void AppButton::clear()
 }
 
 QString AppButton::getFileName(){return _fileName;}
-QString AppButton::getAppName(){return _appName->text();}
 const QPixmap* AppButton::getPixmap(){return _appIcon->pixmap();}
 // @brief 判断是否被鼠标所指向
 // @param[out] 是否被鼠标指向
 bool AppButton::isBeMousePointing(){return _isBeMousePointing;}
-// @brief 设置应用名称
-// @param[in] 名称
-void AppButton::setAppName(const QString &text){_appName->setText(text);}
-// @brief 设置应用路径
-// @param[in] 应用路径
-// @param[in] 是否更新图标
-void AppButton::setAppFileName(const QString &fileName, bool isUpdateIcon)
+
+void AppButton::setAppFileName(const QString &fileName)
 {
+    if (_fileName == fileName)
+        return;
     _fileName = fileName;
-    if(isUpdateIcon)
-    {
-        QFileInfo fileInfo(_fileName);
-        QFileIconProvider iconProvider;
-        if(fileInfo.exists())
-            _appIcon->setPixmap(iconProvider.icon(fileInfo).pixmap(QSize(48, 48)));
-        else
-            _appIcon->setPixmap(iconProvider.icon(QFileIconProvider::File).pixmap(QSize(48, 48)));
-    }
+    QFileInfo fileInfo(_fileName);
+    QFileIconProvider iconProvider;
+    if(fileInfo.exists())
+        _appIcon->setPixmap(iconProvider.icon(fileInfo).pixmap(QSize(48, 48)));
+    else
+        _appIcon->setPixmap(iconProvider.icon(QFileIconProvider::File).pixmap(QSize(48, 48)));
 }
 bool AppButton::eventFilter(QObject *, QEvent *event)
 {
@@ -164,3 +160,6 @@ AppButton::~AppButton()
     delete _appName;
     delete _appIcon;
 }
+
+void AppButton::setAppName(const QString &text){_appName->setText(text);}
+QString AppButton::getAppName(){return _appName->text();}

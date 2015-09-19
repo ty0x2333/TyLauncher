@@ -84,26 +84,11 @@ bool MainWindow::loadSaveFile(const QString fileName)
 // @brief 重置数据
 void MainWindow::reset()
 {
-    QString btnStr[3][10] = {{"Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"}
-                             ,{"A", "S", "D", "F", "G", "H", "J", "K", "L", ";"}
-                             ,{"Z", "X", "C", "V", "B", "N", "M", ",", ".", "/"}
-                            };
-    for(int i = 0; i < 10; ++i)
-    {
-        QWidget *tab = new QWidget();
-        QGridLayout *layout = new QGridLayout();
-        for(int c = 0; c < 10; ++c)
-        {
-            for(int r = 0; r < 3; ++r)
-            {
-                AppButton *btn = new AppButton(btnStr[r][c]);
-                connect(btn, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(onBtnRightClicked(QPoint)));
-                layout->addWidget(btn, r, c);
-            }
-        }
-        tab->setLayout(layout);
-        ui->tabWidget->addTab(tab, QString::number((i + 1)%10));
-    }
+//    QString btnStr[3][10] = {{"Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"}
+//                             ,{"A", "S", "D", "F", "G", "H", "J", "K", "L", ";"}
+//                             ,{"Z", "X", "C", "V", "B", "N", "M", ",", ".", "/"}
+//                            };
+    ui->tabWidget->clearAllAppBtnData();
     // 重置存档位置
     DynamicData::getInstance()->resetSaveFileName();
 }

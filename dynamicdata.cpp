@@ -133,6 +133,7 @@ void DynamicData::saveUserSaveFile(const QString &content)
     txtOutput.setCodec("UTF-8");
     txtOutput << content;
     file.close();
+    TyLogInfo("success save UserSaveFile to %s.");
 }
 
 QString DynamicData::getTheme() const{return _theme;}
