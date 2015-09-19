@@ -1,17 +1,21 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include <QApplication>
 #include "StaticSetting.h"
 #include <QTranslator>
 #include <QFile>
 #include "dynamicdata.h"
 #include "utils/apputils.h"
+#include "utils/uiutils.h"
+#include <QObject>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     // 检查程序是否 已经启动 
-    if(AppUtils::isRunTimeOnly() == false)
+    if(!AppUtils::isRunTimeOnly()){
+        UIUtils::showInfoMsgBox(QObject::tr("TyyAppManager is runnig."));
         return 0;
+    }
     
     a.setApplicationName(VER_PRODUCTNAME_STR);
     a.setApplicationVersion(VER_FILEVERSION_DISPLAY_STR);
