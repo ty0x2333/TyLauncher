@@ -2,6 +2,8 @@
 #define DYNAMICDATA_H
 #include <QtGlobal>
 #include <QString>
+#include <QVector>
+
 class AppButton;
 class AppInfo;
 
@@ -21,10 +23,12 @@ public:
     void resetSaveFileName();
 
     /// @brief 读取存档文件
-    QVector< QVector<AppInfo> > loadUserSaveFile(const QString fileName);
+    void loadUserSaveFile(const QString fileName);
     
     /// @brief 保存存档文件
     void saveUserSaveFile(const QString& content);
+    
+    void resetUserSaveFile();
     
     AppButton* getBtnShearPlate();
     void setBtnShearPlate(AppButton *btn);
@@ -38,8 +42,12 @@ public:
     QString getTheme() const;
     void setTheme(const QString &theme);
     
+    QVector<QVector<AppInfo> > getUserSaveData() const;
+    
 private:
     DynamicData();
+    
+    QVector<QVector<AppInfo>> _userSaveData;
     
     QString _theme;
     

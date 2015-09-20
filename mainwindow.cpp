@@ -59,7 +59,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tabWidget->setStyleSheet("QTabBar::tab { min-width:" + QString::number(this->width() / 10 - 3) + "px;min-height:50px;}text-align:left top;");
 
     activateWindow();
-    QxtGlobalShortcut *sc = new QxtGlobalShortcut(QKeySequence("Ctrl+~"), this);
+    QxtGlobalShortcut *sc = new QxtGlobalShortcut(this);
+    
+    if (!sc->setShortcut(QKeySequence("Ctrl+Tab"))){
+        UIUtils::showCriticalMsgBox(tr("failed to register: \"Ctrl+Tab\""));
+    }
     
     _netManager = new QNetworkAccessManager(this);
     
@@ -73,7 +77,7 @@ MainWindow::MainWindow(QWidget *parent) :
 // @brief 读取存档文件
 bool MainWindow::loadSaveFile(const QString fileName)
 {
-    if (!ui->tabWidget->configFromVector(DynamicData::getInstance()->loadUserSaveFile(fileName))){
+    if (!ui->tabWidget->configFromVector(DynamicData::getInstance()->getUserSaveData())){
         _isCanHide = false;
         UIUtils::showCriticalMsgBox(tr("Load Save Failure!"), this);
         _isCanHide = true;
@@ -84,10 +88,6 @@ bool MainWindow::loadSaveFile(const QString fileName)
 // @brief 重置数据
 void MainWindow::reset()
 {
-//    QString btnStr[3][10] = {{"Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"}
-//                             ,{"A", "S", "D", "F", "G", "H", "J", "K", "L", ";"}
-//                             ,{"Z", "X", "C", "V", "B", "N", "M", ",", ".", "/"}
-//                            };
     ui->tabWidget->clearAllAppBtnData();
     // 重置存档位置
     DynamicData::getInstance()->resetSaveFileName();

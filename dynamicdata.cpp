@@ -9,11 +9,13 @@
 #include <QString>
 #include <QLocale>
 #include <QFile>
+#include <QDir>
 #include <QStandardPaths>
 #include <QTextStream>
 #include "TyLog_Qt.h"
 #include "datasettings.h"
 #include <QObject>
+#include <QApplication>
 static DynamicData *s_shareDynamicData = nullptr;
 DynamicData::DynamicData()
     : _btnShearPlate(nullptr)
@@ -25,7 +27,7 @@ DynamicData::DynamicData()
 
 QString DynamicData::defaultSaveFileName()
 {
-    return QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/" + SAVE_FILE;
+    return QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/" + qApp->applicationName() + "/" + SAVE_FILE;
 }
 DynamicData* DynamicData::getInstance()
 {
@@ -63,11 +65,12 @@ void DynamicData::loadAppConfig()
     QSettings *configIniRead = new QSettings(CONFIG_FILE, QSettings::IniFormat);
     _theme = configIniRead->value("theme", ":/css/res/default.qss").toString();
     _userSettingsFileNames = configIniRead->value("filename/save", defaultSaveFileName()).toString();
+    this->loadUserSaveFile(_userSettingsFileNames);
     _language = configIniRead->value("language", "").toString();
     if(_language.isEmpty())// 当取不到语言设置时,使用系统当前语言
         _language = QLocale::system().name();
     delete configIniRead;;// 使用完后销毁
-    TyLogDebug("Load Settins:{Theme: %s\n\tSaveFileName: %s\n\tLanguage: %s\n}", 
+    TyLogInfo("Load Settins:{Theme: %s\n\tSaveFileName: %s\n\tLanguage: %s\n}", 
                _theme.toUtf8().data(), 
                _userSettingsFileNames.toUtf8().data(), 
                _language.toUtf8().data());
@@ -81,16 +84,23 @@ void DynamicData::resetSaveFileName()
 bool DynamicData::BtnShearPlateIsEmpty(){    return _btnShearPlate == nullptr;}
 
 // @brief 读取存档文件
-QVector<QVector<AppInfo>> DynamicData::loadUserSaveFile(const QString fileName)
+void DynamicData::loadUserSaveFile(const QString fileName)
 {
-    QVector<QVector<AppInfo>> tabVector;
     QFile file(fileName);
     // 当存档文件不存在时,丢出异常,重新建立存档
-    if(!file.exists())
-        throw QString("");
-    if(!file.open(QIODevice::ReadOnly|QIODevice::Text))
-        throw QString("Open Save File Failure");
-        
+    if(!file.exists()){
+        TyLogWarning("UserSaveFile is not exists.fileName: %s", fileName.toUtf8().data());
+        resetUserSaveFile();
+        return;
+    }
+    if(!file.open(QIODevice::ReadOnly|QIODevice::Text)){
+        TyLogFatal("Open Save File Failure");
+        resetUserSaveFile();
+        return;
+    }
+    
+    _userSaveData.clear();
+    
     QJsonParseError parseErr;
     QJsonDocument doc = QJsonDocument::fromJson(file.readAll(),&parseErr);
     if(parseErr.error != QJsonParseError::NoError)
@@ -98,7 +108,7 @@ QVector<QVector<AppInfo>> DynamicData::loadUserSaveFile(const QString fileName)
     if(!doc.isArray())
         throw QString("Save File Failure!");
     QJsonArray tabArr = doc.array();
-    for(int i = 0; i < 10; ++i){// 每一个Tab
+    for(int i = 0; i < DEFAULT_TAB_COUNT; ++i){// 每一个Tab
         QVector<AppInfo> btnVector;
         QJsonValue val = tabArr.at(i);
         if(!val.isArray())
@@ -112,28 +122,50 @@ QVector<QVector<AppInfo>> DynamicData::loadUserSaveFile(const QString fileName)
             AppInfo appInfo(obj[KEY_APP_NAME].toString(), obj[KEY_FILE_NAME].toString(), obj[KEY_HOT_KEY].toString());
             btnVector.append(appInfo);
         }
-        tabVector.append(btnVector);
+        _userSaveData.append(btnVector);
     }
-    
-    return tabVector;
 }
 
 void DynamicData::saveUserSaveFile(const QString &content)
 {
-    QString fileName = defaultSaveFileName();
-    if (QFile::exists(fileName)){
-        TyLogWarning("%s is not exists!");
+    QFile file(_userSettingsFileNames);
+    if (!QFile::exists(_userSettingsFileNames)){
+        TyLogWarning("%s is not exists!", _userSettingsFileNames.toUtf8().data());
+        QFileInfo fileInfo(file);
+        QDir dir;
+        if (!dir.exists(fileInfo.path())){
+            dir.mkpath(fileInfo.path());
+            TyLogWarning("make path: \"%s\".", fileInfo.path().toUtf8().data());
+        }
     }
-    QFile file(fileName);
     if(!file.open(QFile::WriteOnly)){
-        throw(QObject::tr("Can not save the file %1:\n %2.").arg(fileName).arg(file.errorString()));
+        TyLogFatal("%s", QObject::tr("Can not save the file %1:\n %2.").arg(_userSettingsFileNames).arg(file.errorString()).toUtf8().data());
         return;
     }
     QTextStream txtOutput(&file);
     txtOutput.setCodec("UTF-8");
     txtOutput << content;
     file.close();
-    TyLogInfo("success save UserSaveFile to %s.");
+    TyLogInfo("success save UserSaveFile to %s.", _userSettingsFileNames);
+}
+
+void DynamicData::resetUserSaveFile()
+{
+    QString btnStr[3][10] = {{"Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"}
+                             ,{"A", "S", "D", "F", "G", "H", "J", "K", "L", ";"}
+                             ,{"Z", "X", "C", "V", "B", "N", "M", ",", ".", "/"}
+                            };
+    _userSaveData.clear();
+    for(int i = 0; i < DEFAULT_TAB_COUNT; ++i){// 每一个Tab
+        QVector<AppInfo> btnVector;
+        // 每一列
+        for(int i = 0; i < DEFAULT_TAB_COLUMN_COUNT * DEFAULT_TAB_ROW_COUNT; ++i){
+            AppInfo appInfo;
+            appInfo.setHotKey(btnStr[i / DEFAULT_TAB_COLUMN_COUNT][i % DEFAULT_TAB_COLUMN_COUNT]);
+            btnVector.append(appInfo);
+        }
+        _userSaveData.append(btnVector);
+    }
 }
 
 QString DynamicData::getTheme() const{return _theme;}
@@ -144,3 +176,5 @@ void DynamicData::setUserSettingsFileNames(const QString &userSettingsFileNames)
 
 QString DynamicData::getLanguage(){    return _language;}
 void DynamicData::setLanguage(const QString &language){ _language = language;}
+
+QVector<QVector<AppInfo> > DynamicData::getUserSaveData() const{return _userSaveData;}

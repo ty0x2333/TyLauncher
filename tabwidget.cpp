@@ -3,8 +3,10 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QGridLayout>
+#include <QTabBar>
 #include "AppButton.h"
 #include "datasettings.h"
+#include "TyLog_Qt.h"
 TabWidget::TabWidget(QWidget *parent)
     : QTabWidget(parent)
     , _rowCount(DEFAULT_TAB_ROW_COUNT)
@@ -36,7 +38,6 @@ QString TabWidget::jsonString()
 
 bool TabWidget::configFromVector(QVector<QVector<AppInfo> > dataVector)
 {
-    this->clear();// 清除所有tab
     Q_ASSERT(dataVector.size() == DEFAULT_TAB_COUNT); 
     try
     {
@@ -46,7 +47,7 @@ bool TabWidget::configFromVector(QVector<QVector<AppInfo> > dataVector)
             QGridLayout *layout = dynamic_cast<QGridLayout *>(tab->layout());
             Q_ASSERT_X(layout != nullptr, "configFromVector", "tab->layout() is not QGridLayout class!"); 
             QVector<AppInfo> arr = dataVector[i];
-            Q_ASSERT(arr.size() == _rowCount * _columnCount); 
+            Q_ASSERT(arr.size() == _rowCount * _columnCount * DEFAULT_TAB_COUNT); 
             // 每一列
             for(int c = 0; c < _columnCount; ++c){
                 // 每一行
@@ -55,7 +56,7 @@ bool TabWidget::configFromVector(QVector<QVector<AppInfo> > dataVector)
                     QWidget *widget = item->widget();
                     AppButton *btn = dynamic_cast<AppButton*>(widget);
                     Q_ASSERT_X(btn != nullptr, "configFromVector", "item->widget() is not AppButton class!"); 
-                    btn->setDataFromAppInfo(arr[c*_rowCount + r]);
+                    btn->setDataFromAppInfo(arr[i * _rowCount * _columnCount + c*_rowCount + r]);
                 }
             }
         }
