@@ -34,4 +34,4 @@ AppButton:pressed{border:1px solid #3e82b5;}
 QTabWidget{background: #ffffff}
 QTabBar::tab{text-align:left top; background: #40A46F; color: #aaaaaa}
 QTabBar::tab:hover{background: #3a9564; color: #ffffff}/*鼠标停留*/
-/*QTabBar::tab:selected{background: #ffffff; color: #000000}*/
+QTabBar::tab:selected{background: #ffffff; color: #000000}

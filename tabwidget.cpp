@@ -19,8 +19,8 @@ QString TabWidget::jsonString()
 {
     QJsonDocument doc;
     QJsonArray tabArr;
-    for(int i = 0; i < this->count(); ++i)// 遍历所有tab
-    {
+    // 遍历所有tab
+    for(int i = 0; i < this->count(); ++i){
         QJsonArray arr;
         QList<AppButton *> appButtonList = this->findChildren<AppButton *>();
         for(AppButton* btn : appButtonList){ // 遍历所有AppButton
@@ -39,10 +39,9 @@ QString TabWidget::jsonString()
 bool TabWidget::configFromVector(QVector<QVector<AppInfo> > dataVector)
 {
     Q_ASSERT(dataVector.size() == DEFAULT_TAB_COUNT); 
-    try
-    {
-        for(int i = 0; i < DEFAULT_TAB_COUNT; ++i)// 每一个Tab
-        {
+    try{
+        // 每一个Tab
+        for(int i = 0; i < DEFAULT_TAB_COUNT; ++i){
             QWidget *tab = this->widget(i);
             QGridLayout *layout = dynamic_cast<QGridLayout *>(tab->layout());
             Q_ASSERT_X(layout != nullptr, "configFromVector", "tab->layout() is not QGridLayout class!"); 
@@ -68,8 +67,7 @@ bool TabWidget::configFromVector(QVector<QVector<AppInfo> > dataVector)
 
 void TabWidget::clearAllAppBtnData()
 {
-    for(int i = 0; i < DEFAULT_TAB_COUNT; ++i)// 每一个Tab
-    {
+    for(int i = 0; i < DEFAULT_TAB_COUNT; ++i){
         QWidget *tab = this->widget(i);
         QGridLayout *layout = dynamic_cast<QGridLayout *>(tab->layout());
         Q_ASSERT_X(layout != nullptr, "configFromVector", "tab->layout() is not QGridLayout class!"); 

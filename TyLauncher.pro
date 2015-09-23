@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets network
 
-TARGET = TyyAppManager
+TARGET = TyLauncher
 TEMPLATE = app
 
 CONFIG += c++11
@@ -48,9 +48,9 @@ RESOURCES += \
 
 include(StaticSetting.h)
 win32:RC_FILE += \
-    TyyAppManager.rc
+    TyLauncher.rc
 
-TRANSLATIONS += TyyAppManager_zh_CN.ts
+TRANSLATIONS += TyLauncher_zh_CN.ts
 
 macx {
     QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.9

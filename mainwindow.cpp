@@ -403,7 +403,7 @@ void MainWindow::on_actionSave_As_triggered()
 {
     QFileDialog *fileDialog = new QFileDialog(this, tr("Save As"), 
                                               ".", 
-                                              "TyyAppManager File(*.tam);;All File(*.*)");
+                                              "User Settins File(*.tam);;All File(*.*)");
     fileDialog->setAcceptMode(QFileDialog::AcceptSave);
     fileDialog->setModal(true);
     _isCanHide = false;
@@ -464,7 +464,7 @@ void MainWindow::updateLanguage()
 {
     if(_translator == nullptr)
         _translator = new QTranslator();
-    _translator->load(":/language/TyyAppManager_" + DynamicData::getInstance()->getLanguage());
+    _translator->load(QString(":/language/%1_").arg(qAppName()) + DynamicData::getInstance()->getLanguage());
     qApp->installTranslator(_translator);
     ui->retranslateUi(this);
 }
@@ -526,7 +526,7 @@ void MainWindow::replyFinished(QNetworkReply *reply)
                 if(_needShowUpdateDialog)
                 {
                     _isCanHide = false;
-                    UIUtils::showInfoMsgBox(tr("TyyAppManager is up tp date!"), this);
+                    UIUtils::showInfoMsgBox(tr("%1 is up tp date!").arg(qAppName()), this);
                     _isCanHide = true;
                 }
             }

@@ -11,21 +11,20 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    // 检查程序是否 已经启动 
-    if(!AppUtils::isRunTimeOnly()){
-        UIUtils::showInfoMsgBox(QObject::tr("TyyAppManager is runnig."));
-        return 0;
-    }
-    
     a.setApplicationName(VER_PRODUCTNAME_STR);
     a.setApplicationVersion(VER_FILEVERSION_DISPLAY_STR);
-    
+//#ifndef QT_DEBUG
+    // 检查程序是否 已经启动
+    if(!AppUtils::isRunTimeOnly()){
+        UIUtils::showInfoMsgBox(QObject::tr("%1 is runnig.").arg(a.applicationName()));
+        return 0;
+    }
+//#endif
     // 设置样式
     QString qss;
     QFile qssFile(DynamicData::getInstance()->getTheme());
     qssFile.open(QFile::ReadOnly);
-    if(qssFile.isOpen())
-    {
+    if(qssFile.isOpen()){
         qss = QLatin1String(qssFile.readAll());
         qApp->setStyleSheet(qss);
         qssFile.close();
