@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file TyLog_Qt.h
  * @brief TyLog For Qt
  *     You can get more help through the following way:
@@ -22,6 +22,11 @@
  */
 #ifndef LOG_LEVEL
     #define LOG_LEVEL LOG_LEVEL_DEBUG
+#endif
+
+#ifndef QT_DEBUG
+    #undef LOG_LEVEL
+    #define LOG_LEVEL LOG_LEVEL_NO
 #endif
 
 /**

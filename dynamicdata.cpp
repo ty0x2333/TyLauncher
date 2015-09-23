@@ -57,6 +57,10 @@ void DynamicData::saveAppConfig()
     configIniWrite->setValue("theme", _theme);
     configIniWrite->setValue("filename/save", _userSettingsFileNames);
     configIniWrite->setValue("language", _language);
+    TyLogInfo("success save ConfigFile: {\n\ttheme: %s\n\tfilename: %s\n\tlanguage: %s\n}", 
+               _theme.toUtf8().data(), 
+               _userSettingsFileNames.toUtf8().data(),
+               _language.toUtf8().data());
     delete configIniWrite;// 使用完后销毁
 }
 // @brief 读取设置

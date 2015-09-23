@@ -58,7 +58,6 @@ void AppButton::init()
     _appName->setAlignment(Qt::AlignHCenter | Qt::AlignTop);// 设置文本位置为中上
     _appName->setWordWrap(true);// 允许自动换行
     _appName->adjustSize();
-    _appName->setStyleSheet("background: red;");
     QVBoxLayout *layout = new QVBoxLayout();
     layout->addWidget(this->_appIcon);
     layout->addWidget(this->_appName);
