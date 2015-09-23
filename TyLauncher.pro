@@ -50,7 +50,7 @@ include(StaticSetting.h)
 win32:RC_FILE += \
     TyLauncher.rc
 
-TRANSLATIONS += TyLauncher_zh_CN.ts
+TRANSLATIONS += language/zh_CN.ts
 
 macx {
     QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.9
@@ -66,3 +66,6 @@ macx {
     # Icon is mandatory for submission
     ICON = res/icon.icns
 }
+
+DISTFILES += \
+    language/zh_CN.qm

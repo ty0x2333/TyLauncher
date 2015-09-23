@@ -464,7 +464,7 @@ void MainWindow::updateLanguage()
 {
     if(_translator == nullptr)
         _translator = new QTranslator();
-    _translator->load(QString(":/language/%1_").arg(qAppName()) + DynamicData::getInstance()->getLanguage());
+    _translator->load(QString("language/") + DynamicData::getInstance()->getLanguage());
     qApp->installTranslator(_translator);
     ui->retranslateUi(this);
 }

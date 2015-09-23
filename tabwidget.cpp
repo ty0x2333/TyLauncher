@@ -46,7 +46,9 @@ bool TabWidget::configFromVector(QVector<QVector<AppInfo> > dataVector)
             QGridLayout *layout = dynamic_cast<QGridLayout *>(tab->layout());
             Q_ASSERT_X(layout != nullptr, "configFromVector", "tab->layout() is not QGridLayout class!"); 
             QVector<AppInfo> arr = dataVector[i];
-            Q_ASSERT(arr.size() == _rowCount * _columnCount * DEFAULT_TAB_COUNT); 
+            Q_ASSERT_X(arr.size() == _rowCount * _columnCount, 
+                       "configFromVector", 
+                       QString("arr.size() == _rowCount * _columnCount, %1 != %2").arg(QString::number(arr.size())).arg(QString::number(_rowCount * _columnCount)).toUtf8().data());
             // 每一列
             for(int c = 0; c < _columnCount; ++c){
                 // 每一行
@@ -55,7 +57,7 @@ bool TabWidget::configFromVector(QVector<QVector<AppInfo> > dataVector)
                     QWidget *widget = item->widget();
                     AppButton *btn = dynamic_cast<AppButton*>(widget);
                     Q_ASSERT_X(btn != nullptr, "configFromVector", "item->widget() is not AppButton class!"); 
-                    btn->setDataFromAppInfo(arr[i * _rowCount * _columnCount + c*_rowCount + r]);
+                    btn->setDataFromAppInfo(arr[c*_rowCount + r]);
                 }
             }
         }

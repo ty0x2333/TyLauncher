@@ -146,7 +146,7 @@ void DynamicData::saveUserSaveFile(const QString &content)
     txtOutput.setCodec("UTF-8");
     txtOutput << content;
     file.close();
-    TyLogInfo("success save UserSaveFile to %s.", _userSettingsFileNames);
+    TyLogInfo("success save UserSaveFile to %s.", _userSettingsFileNames.toUtf8().data());
 }
 
 void DynamicData::resetUserSaveFile()
