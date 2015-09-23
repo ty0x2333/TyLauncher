@@ -22,7 +22,7 @@ QString TabWidget::jsonString()
     // 遍历所有tab
     for(int i = 0; i < this->count(); ++i){
         QJsonArray arr;
-        QList<AppButton *> appButtonList = this->findChildren<AppButton *>();
+        QList<AppButton *> appButtonList = this->widget(i)->findChildren<AppButton *>();
         for(AppButton* btn : appButtonList){ // 遍历所有AppButton
             QJsonObject obj;
             obj.insert(KEY_HOT_KEY, btn->text());// 按钮的快捷键
