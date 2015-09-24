@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     utils/uiutils.cpp \
     utils/apputils.cpp \
     tabwidget.cpp \
-    model/appinfo.cpp
+    model/appinfo.cpp \
+    utils/shearplateutils.cpp
 
 HEADERS  += mainwindow.h \
     appbutton.h \
@@ -35,11 +36,13 @@ HEADERS  += mainwindow.h \
     utils/apputils.h \
     tabwidget.h \
     datasettings.h \
-    model/appinfo.h
+    model/appinfo.h \
+    utils/shearplateutils.h
 
 FORMS    += mainwindow.ui \
     aboutdialog.ui \
-    appbuttondialog.ui
+    appbuttondialog.ui \
+    tabwidget.ui
 
 include(qxtglobalshortcut/qxtglobalshortcut.pri)
 

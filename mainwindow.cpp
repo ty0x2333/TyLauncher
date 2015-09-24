@@ -1,7 +1,6 @@
 ﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "qxtglobalshortcut.h"
-#include "appbuttondialog.h"
 #include "dynamicdata.h"
 #include "aboutdialog.h"
 #include "appbutton.h"
@@ -24,17 +23,16 @@
 #include <QtNetwork/QNetworkReply>
 #include <QMenu>
 #include <QCloseEvent>
+#include "utils/shearplateutils.h"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     _trayIcon(nullptr),
     _trayMenu(nullptr),
-    _btnMenu(nullptr),
     _aboutDialog(nullptr),
     _translator(nullptr),
     _netManager(nullptr),
     _isCanHide(true),
-    _btnRightMenu(nullptr),
     _needShowUpdateDialog(false)
 {
     ui->setupUi(this);
@@ -46,8 +44,6 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
 #endif
     connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(on_Quit_triggered()));// 关联退出动作
-
-    initBtnRightMenu();
     
     initTray();
     // 更新语言
@@ -143,8 +139,6 @@ MainWindow::~MainWindow()
         delete _aboutDialog;
     if(_translator!=nullptr)
         delete _translator;
-    if(_btnMenu!=nullptr)
-        delete _btnMenu;
 }
 
 void MainWindow::on_actionShowWindow_triggered()
@@ -168,115 +162,6 @@ void MainWindow::hideWindow()
 
 void MainWindow::on_actionHotKey_triggered()
 {
-}
-// @brief 按钮右键菜单
-void MainWindow::onBtnRightClicked(QPoint)
-{
-    _btnRightMenu = (AppButton*)sender();
-    bool isNotBtnEmpty = !_btnRightMenu->isEmpty();
-    bool isNotBtnShearPlateEmpty = !DynamicData::getInstance()->BtnShearPlateIsEmpty();
-    ui->actionActionBtnOpenDir->setEnabled(isNotBtnEmpty);// 打开文件夹
-    ui->actionDelete->setEnabled(isNotBtnEmpty);// 删除
-    ui->actionCopy->setEnabled(isNotBtnEmpty);// 复制
-    ui->actionShear->setEnabled(isNotBtnEmpty);// 剪切
-    ui->actionPaste->setEnabled(isNotBtnShearPlateEmpty);// 粘贴
-    _btnMenu->exec(this->cursor().pos());
-}
-// @brief 按钮右键菜单中的打开文件夹
-void MainWindow::on_actionActionBtnOpenDir_triggered()
-{
-    if(_btnRightMenu == nullptr)
-        return;
-    _btnRightMenu->openFileDirectory();
-    _btnRightMenu = nullptr;
-}
-// @brief 按钮右键菜单中的编辑菜单项被点击
-void MainWindow::on_actionEdit_triggered()
-{
-    if(_btnRightMenu == nullptr)
-        return;
-    _isCanHide = false;
-    AppButtonDialog *appBtnDialog = new AppButtonDialog(this, _btnRightMenu);
-    appBtnDialog->exec();
-    _btnRightMenu = nullptr;
-    _isCanHide = true;
-}
-// @brief 按钮右键菜单中的复制菜单项被点击
-void MainWindow::on_actionCopy_triggered()
-{
-    if(_btnRightMenu == nullptr)
-        return;
-    copyBtn(_btnRightMenu);
-    _btnRightMenu = nullptr;
-}
-// @brief 按钮右键菜单中的粘贴菜单项被点击
-void MainWindow::on_actionPaste_triggered()
-{
-    if(_btnRightMenu == nullptr)
-        return;
-    pasteBtn(_btnRightMenu);
-    _btnRightMenu = nullptr;
-}
-// @brief 按钮右键菜单中的剪切菜单项被点击
-void MainWindow::on_actionShear_triggered()
-{
-    if(_btnRightMenu == nullptr)
-        return;
-    shearBtn(_btnRightMenu);
-    _btnRightMenu = nullptr;
-}
-// @brief 按钮右键菜单中的删除菜单项被点击
-void MainWindow::on_actionDelete_triggered()
-{
-    if(_btnRightMenu == nullptr)
-        return;
-    deleteBtn(_btnRightMenu);
-    _btnRightMenu = nullptr;
-}
-// @brief 复制按钮
-// @param[out] 是否操作成功
-bool MainWindow::copyBtn(AppButton *btn)
-{
-    if(btn->isEmpty())
-        return false;
-    DynamicData::getInstance()->setBtnShearPlate(btn);
-    return true;
-}
-// @brief 剪切按钮
-void MainWindow::shearBtn(AppButton *btn)
-{
-    if(copyBtn(btn))
-        btn->clear();// 在复制成功的情况下清除按钮
-}
-// @brief 粘贴按钮
-void MainWindow::pasteBtn(AppButton *btn)
-{
-    if(DynamicData::getInstance()->BtnShearPlateIsEmpty())
-        return;
-    if(!btn->isEmpty())
-    {
-        _isCanHide = false;
-        if( UIUtils::showWarnMsgBox(tr("Replace the button?"), this) == QMessageBox::Yes)
-            btn->copyFrom(*DynamicData::getInstance()->getBtnShearPlate());
-        _isCanHide = true;
-    }
-    else
-    {
-        btn->copyFrom(*DynamicData::getInstance()->getBtnShearPlate());
-    }
-}
-// @brief 删除按钮
-void MainWindow::deleteBtn(AppButton *btn)
-{
-    if(!btn->isEmpty())
-    {
-        _isCanHide = false;
-        if( UIUtils::showWarnMsgBox(tr("Delete the button?"), this) == QMessageBox::Yes)
-        {
-            btn->clear();
-        }
-        _isCanHide = true;
-    }
 }
 
 bool MainWindow::eventFilter(QObject *watched, QEvent *event)
@@ -319,29 +204,23 @@ void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
         switch(keyEvent->key())
         {
         case Qt::Key_C:
-                for(AppButton* btn : appButtonList) // 遍历所有AppButton，寻找当前鼠标指向的按钮
-                {
-                    if(btn->isBeMousePointing())
-                    {
-                        copyBtn(btn);
+                for(AppButton* btn : appButtonList){ // 遍历所有AppButton，寻找当前鼠标指向的按钮
+                    if(btn->isBeMousePointing()){
+                        ShearPlateUtils::copy(btn);
                     }
                 }
             break;
         case Qt::Key_X:
-                for(AppButton* btn : appButtonList) // 遍历所有AppButton，寻找当前鼠标指向的按钮
-                {
-                    if(btn->isBeMousePointing())
-                    {
-                        shearBtn(btn);
+                for(AppButton* btn : appButtonList){ // 遍历所有AppButton，寻找当前鼠标指向的按钮
+                    if(btn->isBeMousePointing()){
+                        ShearPlateUtils::shear(btn);
                     }
                 }
             break;
         case Qt::Key_V:
-                for(AppButton* btn : appButtonList) // 遍历所有AppButton
-                {
-                    if(btn->isBeMousePointing())// 找到被鼠标指向的AppButton
-                    {
-                        pasteBtn(btn);
+                for(AppButton* btn : appButtonList){ // 遍历所有AppButton
+                    if(btn->isBeMousePointing()){// 找到被鼠标指向的AppButton
+                        ShearPlateUtils::paste(btn);
                     }
                 }
             break;
@@ -359,11 +238,9 @@ void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
         case Qt::Key_Delete:
         {
             QList<AppButton *> appButtonList = ui->tabWidget->currentWidget()->findChildren<AppButton *>();
-            for(AppButton* btn : appButtonList) // 遍历所有AppButton
-            {
-                if(btn->isBeMousePointing())// 找到被鼠标指向的AppButton
-                {
-                    deleteBtn(btn);
+            for(AppButton* btn : appButtonList){ // 遍历所有AppButton
+                if(btn->isBeMousePointing()){// 找到被鼠标指向的AppButton
+                    ShearPlateUtils::remove(btn);
                 }
             }
         }
@@ -371,19 +248,15 @@ void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
         default:
             QString keyStr = QKeySequence(keyEvent->key()).toString(QKeySequence::NativeText);
             QList<AppButton *> appButtonList = ui->tabWidget->currentWidget()->findChildren<AppButton *>();
-            for(auto btn : appButtonList)
-            {
-                if(keyStr == btn->text())
-                {
+            for(auto btn : appButtonList){
+                if(keyStr == btn->text()){
                     btn->click();
                     return;
                 }
             }
             QTabBar *tabBar = ui->tabWidget->tabBar();
-            for(int i = 0; i < tabBar->count(); ++i)
-            {
-                if(keyStr == tabBar->tabText(i))
-                {
+            for(int i = 0; i < tabBar->count(); ++i){
+                if(keyStr == tabBar->tabText(i)){
                     tabBar->setCurrentIndex(i);
                 }
             }
@@ -467,19 +340,6 @@ void MainWindow::updateLanguage()
     _translator->load(QString("language/") + DynamicData::getInstance()->getLanguage());
     qApp->installTranslator(_translator);
     ui->retranslateUi(this);
-}
-
-void MainWindow::initBtnRightMenu()
-{
-    _btnMenu = new QMenu();
-    _btnMenu->addAction(ui->actionActionBtnOpenDir);
-    _btnMenu->addSeparator();
-    _btnMenu->addAction(ui->actionEdit);
-    _btnMenu->addSeparator();
-    _btnMenu->addAction(ui->actionCopy);
-    _btnMenu->addAction(ui->actionPaste);
-    _btnMenu->addAction(ui->actionShear);
-    _btnMenu->addAction(ui->actionDelete);
 }
 
 void MainWindow::initTray()

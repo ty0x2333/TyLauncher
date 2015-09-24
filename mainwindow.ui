@@ -176,57 +176,9 @@
     <string>Always On Top</string>
    </property>
   </action>
-  <action name="actionActionBtnOpenDir">
-   <property name="text">
-    <string>Open Folder</string>
-   </property>
-   <property name="toolTip">
-    <string>Open Folder</string>
-   </property>
-  </action>
   <action name="actionQuit">
    <property name="text">
     <string>Exit</string>
-   </property>
-  </action>
-  <action name="actionCopy">
-   <property name="text">
-    <string>Copy</string>
-   </property>
-   <property name="toolTip">
-    <string>Copy</string>
-   </property>
-  </action>
-  <action name="actionPaste">
-   <property name="text">
-    <string>Paste</string>
-   </property>
-   <property name="toolTip">
-    <string>Paste</string>
-   </property>
-  </action>
-  <action name="actionShear">
-   <property name="text">
-    <string>Shear</string>
-   </property>
-   <property name="toolTip">
-    <string>Shear</string>
-   </property>
-  </action>
-  <action name="actionDelete">
-   <property name="text">
-    <string>Delete</string>
-   </property>
-   <property name="toolTip">
-    <string>Delete</string>
-   </property>
-  </action>
-  <action name="actionEdit">
-   <property name="text">
-    <string>Edit</string>
-   </property>
-   <property name="toolTip">
-    <string>Edit</string>
    </property>
   </action>
   <action name="actionSave">

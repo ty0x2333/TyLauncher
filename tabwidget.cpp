@@ -1,18 +1,34 @@
 ﻿#include "tabwidget.h"
+#include "ui_tabwidget.h"
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QGridLayout>
 #include <QTabBar>
+#include <QMenu>
 #include "AppButton.h"
 #include "datasettings.h"
 #include "TyLog_Qt.h"
+#include "appbuttondialog.h"
+#include "dynamicdata.h"
+#include "utils/shearplateutils.h"
 TabWidget::TabWidget(QWidget *parent)
     : QTabWidget(parent)
+    , ui(new Ui::TabWidget)
     , _rowCount(DEFAULT_TAB_ROW_COUNT)
     , _columnCount(DEFAULT_TAB_COLUMN_COUNT)
+    , _btnMenu(nullptr)
+    , _btnCurMenu(nullptr)
 {
+    ui->setupUi(this);
+    initBtnRightMenu();
     initTabs();
+}
+
+TabWidget::~TabWidget()
+{
+    if(_btnMenu!=nullptr)
+        delete _btnMenu;
 }
 
 QString TabWidget::jsonString()
@@ -58,6 +74,7 @@ bool TabWidget::configFromVector(QVector<QVector<AppInfo> > dataVector)
                     AppButton *btn = dynamic_cast<AppButton*>(widget);
                     Q_ASSERT_X(btn != nullptr, "configFromVector", "item->widget() is not AppButton class!"); 
                     btn->setDataFromAppInfo(arr[c*_rowCount + r]);
+                    connect(btn, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(onAppButtonRightClicked(QPoint)));
                 }
             }
         }
@@ -100,4 +117,81 @@ void TabWidget::initTabs()
         tab->setLayout(layout);
         this->addTab(tab, QString::number((i + 1)%10));
     }
+}
+
+void TabWidget::initBtnRightMenu()
+{
+    _btnMenu = new QMenu();
+    _btnMenu->addAction(ui->actionOpenFolder);
+    _btnMenu->addSeparator();
+    _btnMenu->addAction(ui->actionEdit);
+    _btnMenu->addSeparator();
+    _btnMenu->addAction(ui->actionCopy);
+    _btnMenu->addAction(ui->actionPaste);
+    _btnMenu->addAction(ui->actionShear);
+    _btnMenu->addAction(ui->actionDelete);
+}
+
+void TabWidget::onAppButtonRightClicked(QPoint)
+{
+    _btnCurMenu = (AppButton*)sender();
+    bool isNotBtnEmpty = !_btnCurMenu->isEmpty();
+    bool isNotBtnShearPlateEmpty = !DynamicData::getInstance()->BtnShearPlateIsEmpty();
+    ui->actionOpenFolder->setEnabled(isNotBtnEmpty);// 打开文件夹
+    ui->actionDelete->setEnabled(isNotBtnEmpty);// 删除
+    ui->actionCopy->setEnabled(isNotBtnEmpty);// 复制
+    ui->actionShear->setEnabled(isNotBtnEmpty);// 剪切
+    ui->actionPaste->setEnabled(isNotBtnShearPlateEmpty);// 粘贴
+    _btnMenu->exec(this->cursor().pos());
+}
+
+void TabWidget::on_actionOpenFolder_triggered()
+{
+    if(_btnCurMenu == nullptr)
+        return;
+    _btnCurMenu->openFileDirectory();
+    _btnCurMenu = nullptr;
+}
+
+void TabWidget::on_actionDelete_triggered()
+{
+    if(_btnCurMenu == nullptr)
+        return;
+    ShearPlateUtils::remove(_btnCurMenu);
+    _btnCurMenu = nullptr;
+}
+
+void TabWidget::on_actionCopy_triggered()
+{
+    if(_btnCurMenu == nullptr)
+        return;
+    ShearPlateUtils::copy(_btnCurMenu);
+    _btnCurMenu = nullptr;
+}
+
+void TabWidget::on_actionShear_triggered()
+{
+    if(_btnCurMenu == nullptr)
+        return;
+    ShearPlateUtils::shear(_btnCurMenu);
+    _btnCurMenu = nullptr;
+}
+
+void TabWidget::on_actionPaste_triggered()
+{
+    if(_btnCurMenu == nullptr)
+        return;
+    ShearPlateUtils::paste(_btnCurMenu);
+    _btnCurMenu = nullptr;
+}
+
+void TabWidget::on_actionEdit_triggered()
+{
+    if(_btnCurMenu == nullptr)
+        return;
+//    _isCanHide = false;
+    AppButtonDialog *appBtnDialog = new AppButtonDialog(this, _btnCurMenu);
+    appBtnDialog->exec();
+    _btnCurMenu = nullptr;
+//    _isCanHide = true;
 }

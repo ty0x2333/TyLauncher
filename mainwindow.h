@@ -49,20 +49,6 @@ private slots:
     void on_actionAbout_triggered();
     /// @brief "设置热键"菜单项被点击
     void on_actionHotKey_triggered();
-    /// @brief 按钮右键点击响应
-    void onBtnRightClicked(QPoint);
-    /// @brief 按钮右键菜单中的打开文件夹菜单项被点击
-    void on_actionActionBtnOpenDir_triggered();
-    /// @brief 按钮右键菜单中的复制菜单项被点击
-    void on_actionCopy_triggered();
-    /// @brief 按钮右键菜单中的粘贴菜单项被点击
-    void on_actionPaste_triggered();
-    /// @brief 按钮右键菜单中的剪切菜单项被点击
-    void on_actionShear_triggered();
-    /// @brief 按钮右键菜单中的删除菜单项被点击
-    void on_actionDelete_triggered();
-    /// @brief 按钮右键菜单中的编辑菜单项被点击
-    void on_actionEdit_triggered();
     /// @brief "保存"菜单项响应
     void on_actionSave_triggered();
     /// @brief "另保存"菜单项响应
@@ -86,8 +72,6 @@ private:
     QSystemTrayIcon *_trayIcon;
     /// @brief 托盘菜单
     QMenu *_trayMenu;
-    /// @brief 按钮右键菜单
-    QMenu *_btnMenu;
     /// @brief 关于对话框
     AboutDialog *_aboutDialog;
     /// @brief 翻译
@@ -101,22 +85,7 @@ private:
     bool loadSaveFile(const QString fileName);
     /// @brief 重置数据
     void reset();
-    /**
-     * @brief 按钮右键菜单缓存
-     * 用来保存右键菜单的按钮地址
-     */
-    AppButton *_btnRightMenu;
-    /**
-     * @brief 复制按钮
-     * @return 是否操作成功
-     */
-    bool copyBtn(AppButton *btn);
-    /// @brief 剪切按钮
-    void shearBtn(AppButton *btn);
-    /// @brief 粘贴按钮
-    void pasteBtn(AppButton *btn);
-    /// @brief 删除按钮
-    void deleteBtn(AppButton *btn);
+
     /// @brief 更新主题
     void updateTheme();
     /// @brief 更新语言
@@ -125,8 +94,6 @@ protected:
     /// @brief 是否需要显示更新对话框
     bool _needShowUpdateDialog;
 
-    /// @brief 初始化按钮右键菜单
-    void initBtnRightMenu();
     /// @brief 初始化托盘
     void initTray();
 
