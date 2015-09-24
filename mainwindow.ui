@@ -80,8 +80,6 @@
      <property name="title">
       <string>Language</string>
      </property>
-     <addaction name="actionEnglish"/>
-     <addaction name="actionChinese"/>
     </widget>
     <addaction name="actionHotKey"/>
     <addaction name="menu"/>
@@ -195,16 +193,6 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+S</string>
-   </property>
-  </action>
-  <action name="actionEnglish">
-   <property name="text">
-    <string>English</string>
-   </property>
-  </action>
-  <action name="actionChinese">
-   <property name="text">
-    <string>中文</string>
    </property>
   </action>
   <action name="actionCheck_Update">

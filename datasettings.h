@@ -8,6 +8,9 @@
 #define KEY_FILE_NAME "filename"
 #define KEY_HOT_KEY "hotkey"
 
+#define FILE_NAME_LANGUAGE "language"
+#define DEFAULT_LANGUAGE "en"
+
 #define DEFAULT_TAB_COUNT 10
 #define DEFAULT_TAB_ROW_COUNT 3
 #define DEFAULT_TAB_COLUMN_COUNT 10

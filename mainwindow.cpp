@@ -45,6 +45,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(on_Quit_triggered()));// 关联退出动作
     
     initTray();
+    
+    initMenu();
     // 更新语言
     updateLanguage();
     
@@ -312,17 +314,15 @@ void MainWindow::on_actionSystemTheme_triggered()
     updateTheme();
 }
 
-void MainWindow::on_actionEnglish_triggered()
+void MainWindow::onLanguageMenuClicked()
 {
-    DynamicData::getInstance()->setLanguage("en");
+    QAction *action = dynamic_cast<QAction *>(QObject::sender());
+    if (action == nullptr)
+        return;
+    DynamicData::getInstance()->setLanguage(action->text());
     updateLanguage();
 }
 
-void MainWindow::on_actionChinese_triggered()
-{
-    DynamicData::getInstance()->setLanguage("zh_CN");
-    updateLanguage();
-}
 // @brief 更新语言
 void MainWindow::updateLanguage()
 {
@@ -345,6 +345,16 @@ void MainWindow::initTray()
     _trayIcon->setContextMenu(_trayMenu);// 设置托盘菜单
     _trayIcon->setIcon(QIcon(":/img/res/logo.ico")); // 设置托盘图标
     _trayIcon->show();// 显示托盘
+}
+
+void MainWindow::initMenu()
+{
+    QStringList list = DynamicData::getInstance()->getLanguageList();
+    for (QString languageName : list){
+        QAction *action = new QAction(languageName, this);
+        connect(action, SIGNAL(triggered()), this, SLOT(onLanguageMenuClicked()));
+        ui->menuLanguage->addAction(action);
+    }
 }
 // @brief 检查更新
 void MainWindow::checkUpdate()

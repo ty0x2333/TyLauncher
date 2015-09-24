@@ -6,6 +6,7 @@
 
 class AppButton;
 class AppInfo;
+class QStringList;
 
 class DynamicData
 {
@@ -35,6 +36,8 @@ public:
     
     QString getLanguage();
     void setLanguage(const QString &language);
+    
+    QStringList getLanguageList();
     
     QString getUserSettingsFileNames() const;
     void setUserSettingsFileNames(const QString &userSettingsFileNames);

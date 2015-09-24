@@ -16,6 +16,7 @@
 #include "datasettings.h"
 #include <QObject>
 #include <QApplication>
+#include <QStringList>
 static DynamicData *s_shareDynamicData = nullptr;
 DynamicData::DynamicData()
     : _btnShearPlate(nullptr)
@@ -180,5 +181,17 @@ void DynamicData::setUserSettingsFileNames(const QString &userSettingsFileNames)
 
 QString DynamicData::getLanguage(){    return _language;}
 void DynamicData::setLanguage(const QString &language){ _language = language;}
+
+QStringList DynamicData::getLanguageList()
+{
+    QStringList strList;
+    strList.append(DEFAULT_LANGUAGE);
+    QDir dir(FILE_NAME_LANGUAGE);
+    QFileInfoList fileInfoList = dir.entryInfoList(QStringList("*.qm"));
+    for (QFileInfo info : fileInfoList){
+        strList.append(info.baseName());
+    }
+    return strList;
+}
 
 QVector<QVector<AppInfo> > DynamicData::getUserSaveData() const{return _userSaveData;}

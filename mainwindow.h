@@ -54,13 +54,11 @@ private slots:
     
     void on_actionSystemTheme_triggered();
     
-    void on_actionEnglish_triggered();
-    
-    void on_actionChinese_triggered();
-    
     void replyFinished(QNetworkReply *reply);
     /// @brief "检查更新"菜单项响应
     void on_actionCheck_Update_triggered();
+    
+    void onLanguageMenuClicked();
     
 private:
     Ui::MainWindow *ui;
@@ -90,6 +88,8 @@ protected:
 
     /// @brief 初始化托盘
     void initTray();
+    
+    void initMenu();
 
     /// @brief 检查更新
     void checkUpdate();
