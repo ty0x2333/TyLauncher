@@ -1,4 +1,4 @@
-#ifndef APPCONFIGDIALOG_H
+﻿#ifndef APPCONFIGDIALOG_H
 #define APPCONFIGDIALOG_H
 
 #include <QDialog>
@@ -17,6 +17,8 @@ public:
     
 private:
     Ui::AppConfigDialog *ui;
+    
+    void initLanguages();
 };
 
 #endif // APPCONFIGDIALOG_H
