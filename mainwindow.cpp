@@ -24,12 +24,12 @@
 #include <QMenu>
 #include <QCloseEvent>
 #include "utils/shearplateutils.h"
+#include "appconfigdialog.h"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     _trayIcon(nullptr),
     _trayMenu(nullptr),
-    _aboutDialog(nullptr),
     _translator(nullptr),
     _netManager(nullptr),
     _needShowUpdateDialog(false)
@@ -135,8 +135,6 @@ MainWindow::~MainWindow()
         delete _trayIcon;
     if(_trayMenu!=nullptr)
         delete _trayMenu;
-    if(_aboutDialog!=nullptr)
-        delete _aboutDialog;
     if(_translator!=nullptr)
         delete _translator;
 }
@@ -148,10 +146,8 @@ void MainWindow::on_actionShowWindow_triggered()
 // @brief "关于"菜单项被点击
 void MainWindow::on_actionAbout_triggered()
 {
-    if(_aboutDialog == nullptr)
-        _aboutDialog = new AboutDialog(this);
-    _aboutDialog->setModal(true);
-    _aboutDialog->show();
+    AboutDialog *aboutDialog = new AboutDialog(this);
+    aboutDialog->exec();
 }
 
 void MainWindow::on_actionHotKey_triggered()
@@ -407,4 +403,10 @@ void MainWindow::on_actionCheck_Update_triggered()
 {
     _needShowUpdateDialog = true;
     checkUpdate();
+}
+
+void MainWindow::on_actionSettings_triggered()
+{
+    AppConfigDialog *configDialog = new AppConfigDialog(this);
+    configDialog->exec();
 }

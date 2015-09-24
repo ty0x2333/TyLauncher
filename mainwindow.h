@@ -11,6 +11,7 @@ class QCloseEvent;
 class QMenu;
 class AppButton;
 class AboutDialog;
+class AppConfigDialog;
 QT_END_NAMESPACE
 
 namespace Ui {
@@ -60,14 +61,14 @@ private slots:
     
     void onLanguageMenuClicked();
     
+    void on_actionSettings_triggered();
+    
 private:
     Ui::MainWindow *ui;
     /// @brief 托盘图标
     QSystemTrayIcon *_trayIcon;
     /// @brief 托盘菜单
     QMenu *_trayMenu;
-    /// @brief 关于对话框
-    AboutDialog *_aboutDialog;
     /// @brief 翻译
     QTranslator* _translator;
     
