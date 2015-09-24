@@ -55,30 +55,36 @@ void DynamicData::setBtnShearPlate(AppButton *btn)
 void DynamicData::saveAppConfig()
 {
     QSettings *configIniWrite = new QSettings(CONFIG_FILE, QSettings::IniFormat);
-    configIniWrite->setValue("theme", _theme);
-    configIniWrite->setValue("filename/save", _userSettingsFileNames);
-    configIniWrite->setValue("language", _language);
-    TyLogInfo("success save ConfigFile: {\n\ttheme: %s\n\tfilename: %s\n\tlanguage: %s\n}", 
-               _theme.toUtf8().data(), 
+    configIniWrite->setValue(KEY_THEME, _theme);
+//    configIniWrite->setValue("filename/save", _userSettingsFileNames);
+    configIniWrite->setValue(KEY_LANGUAGE, _language);
+    configIniWrite->setValue(KEY_ALWAYS_ON_TOP, _alwaysOnTop);
+    TyLogInfo("success save ConfigFile: {\n\t%s: %s\n\tfilename: %s\n\t%s: %s\n\t%s: %s\n}", 
+               KEY_THEME, _theme.toUtf8().data(), 
                _userSettingsFileNames.toUtf8().data(),
-               _language.toUtf8().data());
+               KEY_LANGUAGE, _language.toUtf8().data(),
+               KEY_ALWAYS_ON_TOP, _alwaysOnTop ? "true" : "false"
+              );
     delete configIniWrite;// 使用完后销毁
 }
 // @brief 读取设置
 void DynamicData::loadAppConfig()
 {
     QSettings *configIniRead = new QSettings(CONFIG_FILE, QSettings::IniFormat);
-    _theme = configIniRead->value("theme", ":/css/res/default.qss").toString();
+    _theme = configIniRead->value(KEY_THEME, ":/css/res/default.qss").toString();
+    _alwaysOnTop = configIniRead->value(KEY_ALWAYS_ON_TOP, DEFAULT_ALWAYS_ON_TOP).toBool();
     _userSettingsFileNames = configIniRead->value("filename/save", defaultSaveFileName()).toString();
     this->loadUserSaveFile(_userSettingsFileNames);
-    _language = configIniRead->value("language", "").toString();
+    _language = configIniRead->value(KEY_LANGUAGE, "").toString();
     if(_language.isEmpty())// 当取不到语言设置时,使用系统当前语言
         _language = QLocale::system().name();
     delete configIniRead;;// 使用完后销毁
-    TyLogInfo("Load Settins:{Theme: %s\n\tSaveFileName: %s\n\tLanguage: %s\n}", 
-               _theme.toUtf8().data(), 
+    TyLogInfo("Load Settings:{%s: %s\n\tSaveFileName: %s\n\t%s: %s\n\t%s: %s\n}", 
+               KEY_THEME, _theme.toUtf8().data(), 
                _userSettingsFileNames.toUtf8().data(), 
-               _language.toUtf8().data());
+               KEY_LANGUAGE, _language.toUtf8().data(),
+               KEY_ALWAYS_ON_TOP, _alwaysOnTop ? "true" : "false"
+              );
 }
 // @brief 重置存档路径
 void DynamicData::resetSaveFileName()
@@ -179,8 +185,11 @@ void DynamicData::setTheme(const QString &theme){_theme = theme;}
 QString DynamicData::getUserSettingsFileNames() const{return _userSettingsFileNames;}
 void DynamicData::setUserSettingsFileNames(const QString &userSettingsFileNames){_userSettingsFileNames = userSettingsFileNames;}
 
-QString DynamicData::getLanguage(){    return _language;}
+QString DynamicData::getLanguage() const{    return _language;}
 void DynamicData::setLanguage(const QString &language){ _language = language;}
+
+bool DynamicData::getAlwaysOnTop() const{return _alwaysOnTop;}
+void DynamicData::setAlwaysOnTop(bool alwaysOnTop){_alwaysOnTop = alwaysOnTop;}
 
 QStringList DynamicData::getLanguageList()
 {

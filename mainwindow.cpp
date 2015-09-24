@@ -37,10 +37,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("GB2312"));
     QWidget::installEventFilter(this);// 为这个窗口安装过滤器
+    
+    Qt::WindowFlags flags = windowFlags();
+    if (DynamicData::getInstance()->getAlwaysOnTop())
+        flags |= Qt::WindowStaysOnTopHint;
 #if defined(Q_OS_OSX)
-    setWindowFlags(Qt::WindowStaysOnTopHint);
+    setWindowFlags(flags);
 #elif defined(Q_OS_WIN32)
-    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
+    flags |= Qt::FramelessWindowHint;
+    setWindowFlags(flags);
 #endif
     connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(on_Quit_triggered()));// 关联退出动作
     

@@ -9,7 +9,23 @@
 #define KEY_HOT_KEY "hotkey"
 
 #define FILE_NAME_LANGUAGE "language"
+
+/**
+  * @brief Config File Keys
+  * @{
+  */
+#define KEY_LANGUAGE "language"
+#define KEY_THEME "theme"
+#define KEY_ALWAYS_ON_TOP "alwaysOnTop"
+/** @} */
+
+/**
+  * @brief Config File Defaults
+  * @{
+  */
 #define DEFAULT_LANGUAGE "en"
+#define DEFAULT_ALWAYS_ON_TOP true
+/** @} */
 
 #define DEFAULT_TAB_COUNT 10
 #define DEFAULT_TAB_ROW_COUNT 3

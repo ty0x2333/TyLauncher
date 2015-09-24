@@ -34,7 +34,7 @@ public:
     AppButton* getBtnShearPlate();
     void setBtnShearPlate(AppButton *btn);
     
-    QString getLanguage();
+    QString getLanguage() const;
     void setLanguage(const QString &language);
     
     QStringList getLanguageList();
@@ -46,6 +46,9 @@ public:
     void setTheme(const QString &theme);
     
     QVector<QVector<AppInfo> > getUserSaveData() const;
+    
+    bool getAlwaysOnTop() const;
+    void setAlwaysOnTop(bool alwaysOnTop);
     
 private:
     DynamicData();
@@ -62,6 +65,8 @@ private:
      * 用来保存复制的按钮地址
      */
     AppButton *_btnShearPlate;
+    
+    bool _alwaysOnTop;
     
     QString defaultSaveFileName();
 };

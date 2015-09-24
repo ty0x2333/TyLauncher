@@ -7,6 +7,7 @@ AppConfigDialog::AppConfigDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     initLanguages();
+    ui->checkBoxAlwaysOnTop->setChecked(DynamicData::getInstance()->getAlwaysOnTop());
 }
 
 AppConfigDialog::~AppConfigDialog()
