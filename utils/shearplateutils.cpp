@@ -1,6 +1,8 @@
 ﻿#include "shearplateutils.h"
 #include "dynamicdata.h"
 #include "AppButton.h"
+#include "utils/uiutils.h"
+#include <QObject>
 
 bool ShearPlateUtils::copy(AppButton *btn)
 {
@@ -21,10 +23,8 @@ void ShearPlateUtils::paste(AppButton *btn)
     if(DynamicData::getInstance()->BtnShearPlateIsEmpty())
         return;
     if(!btn->isEmpty()){
-//        _isCanHide = false;
-//        if( UIUtils::showWarnMsgBox(tr("Replace the button?"), this) == QMessageBox::Yes)
-//            btn->copyFrom(*DynamicData::getInstance()->getBtnShearPlate());
-//        _isCanHide = true;
+        if( UIUtils::showWarnMsgBox(QObject::tr("Replace the button?")) == QMessageBox::Ok)
+            btn->copyFrom(*DynamicData::getInstance()->getBtnShearPlate());
     }else{
         btn->copyFrom(*DynamicData::getInstance()->getBtnShearPlate());
     }
@@ -34,9 +34,7 @@ void ShearPlateUtils::remove(AppButton *btn)
 {
     if (btn->isEmpty())
         return;
-//    _isCanHide = false;
-//    if( UIUtils::showWarnMsgBox(tr("Delete the button?"), this) == QMessageBox::Yes){
-//        btn->clear();
-//    }
-//    _isCanHide = true;
+    if( UIUtils::showWarnMsgBox(QObject::tr("Delete the button?")) == QMessageBox::Ok){
+        btn->clear();
+    }
 }

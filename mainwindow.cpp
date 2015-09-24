@@ -32,7 +32,6 @@ MainWindow::MainWindow(QWidget *parent) :
     _aboutDialog(nullptr),
     _translator(nullptr),
     _netManager(nullptr),
-    _isCanHide(true),
     _needShowUpdateDialog(false)
 {
     ui->setupUi(this);
@@ -74,9 +73,7 @@ MainWindow::MainWindow(QWidget *parent) :
 bool MainWindow::loadSaveFile(const QString fileName)
 {
     if (!ui->tabWidget->configFromVector(DynamicData::getInstance()->getUserSaveData())){
-        _isCanHide = false;
         UIUtils::showCriticalMsgBox(tr("Load Save Failure!"), this);
-        _isCanHide = true;
         return false;
     }
     return true;
@@ -97,10 +94,12 @@ void MainWindow::saveUserSettings()
 
 void MainWindow::on_hotKey_triggered()
 {
-    if(this->isHidden())
+    if(this->isHidden()){
         restoreWindow();
-    else
-        hideWindow();
+    }else{
+        if (qApp->activeWindow() == this)
+            this->hide();
+    }
 }
 
 // @brief 还原窗口
@@ -127,7 +126,6 @@ void MainWindow::on_Quit_triggered()
     DynamicData::getInstance()->saveAppConfig();
     qApp->exit();
 }
-void MainWindow::setisCanHide(bool val){_isCanHide = val;}
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -148,16 +146,10 @@ void MainWindow::on_actionShowWindow_triggered()
 // @brief "关于"菜单项被点击
 void MainWindow::on_actionAbout_triggered()
 {
-    _isCanHide = false;
     if(_aboutDialog == nullptr)
         _aboutDialog = new AboutDialog(this);
     _aboutDialog->setModal(true);
     _aboutDialog->show();
-}
-void MainWindow::hideWindow()
-{
-    if(_isCanHide)
-        this->hide();
 }
 
 void MainWindow::on_actionHotKey_triggered()
@@ -172,20 +164,22 @@ bool MainWindow::eventFilter(QObject *watched, QEvent *event)
         {
         case QEvent::WindowDeactivate:
             TyLogDebug("QEvent::WindowDeactivate");
-            hideWindow();
+            if (!qApp->activeWindow())
+                this->hide();
             break;
         case QEvent::WindowStateChange:
             TyLogDebug("QEvent::WindowStateChange");
-            if(this->isMinimized())
-            {
+            if(this->isMinimized()){
                 event->ignore();// 截断事件
-                hideWindow();
+                if (!qApp->activeWindow())
+                    this->hide();
             }
             break;
         case QEvent::Close:
             TyLogDebug("QEvent::Close");
             event->ignore();// 截断事件
-            hideWindow();
+            if (!qApp->activeWindow())
+                this->hide();
             return true;
             break;
         case QEvent::Resize:
@@ -233,7 +227,9 @@ void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
         switch(keyEvent->key())
         {
         case Qt::Key_Escape:
-            hideWindow();
+            TyLogDebug("Esc Press, activeWindow: %d", qApp->activeWindow());
+            if (qApp->activeWindow())
+                this->hide();
             break;
         case Qt::Key_Delete:
         {
@@ -279,14 +275,12 @@ void MainWindow::on_actionSave_As_triggered()
                                               "User Settins File(*.tam);;All File(*.*)");
     fileDialog->setAcceptMode(QFileDialog::AcceptSave);
     fileDialog->setModal(true);
-    _isCanHide = false;
     if(fileDialog->exec() == QDialog::Accepted){
         QString fileName = fileDialog->selectedFiles()[0];
         DynamicData::getInstance()->setUserSettingsFileNames(fileName);
         saveUserSettings();
         DynamicData::getInstance()->saveAppConfig();
     }
-    _isCanHide = true;
     delete fileDialog;
 }
 // @brief 更新主题
@@ -296,14 +290,11 @@ void MainWindow::updateTheme()
     QString qss;
     QFile qssFile(DynamicData::getInstance()->getTheme());
     qssFile.open(QFile::ReadOnly);
-    if(qssFile.isOpen())
-    {
+    if(qssFile.isOpen()){
         qss = QLatin1String(qssFile.readAll());
         qApp->setStyleSheet(qss);
         qssFile.close();
-    }
-    else
-    {
+    }else{
         qApp->setStyleSheet("");
     }
     
@@ -381,39 +372,22 @@ void MainWindow::replyFinished(QNetworkReply *reply)
             QJsonObject jsonObj = doc.object();
             if( jsonObj["state"] == -1 )
                 throw QString("Server Error!");
-            if( jsonObj["need"] == false )
-            {
-                if(_needShowUpdateDialog)
-                {
-                    _isCanHide = false;
+            if( jsonObj["need"] == false ){
+                if(_needShowUpdateDialog){
                     UIUtils::showInfoMsgBox(tr("%1 is up tp date!").arg(qAppName()), this);
-                    _isCanHide = true;
                 }
-            }
-            else
-            {
-                _isCanHide = false;
+            }else{
                 QString infoStr = tr("There is a new version!");
                 infoStr += "\n" + jsonObj["name"].toString() + "\n" + tr("Whether to download?");
-                if(UIUtils::showInfoMsgBox(infoStr, this) == QMessageBox::Yes)
+                if(UIUtils::showInfoMsgBox(infoStr, this) == QMessageBox::Ok)
                     QDesktopServices::openUrl(QUrl::fromLocalFile(APP_URL));
-                _isCanHide = true;
             }
-        }
-        catch(QString& errStr)
-        {
-            _isCanHide = false;
+        }catch(QString& errStr){
             UIUtils::showCriticalMsgBox(errStr, this);
-            _isCanHide = true;
         }
-     } 
-     else 
-     {
-         if(_needShowUpdateDialog)
-         {
-             _isCanHide = false;
+     }else {
+         if(_needShowUpdateDialog){
              UIUtils::showCriticalMsgBox(tr("Please check your network connection."), this);
-             _isCanHide = true;
          }
      }
      reply->deleteLater(); 

@@ -189,9 +189,7 @@ void TabWidget::on_actionEdit_triggered()
 {
     if(_btnCurMenu == nullptr)
         return;
-//    _isCanHide = false;
     AppButtonDialog *appBtnDialog = new AppButtonDialog(this, _btnCurMenu);
     appBtnDialog->exec();
     _btnCurMenu = nullptr;
-//    _isCanHide = true;
 }

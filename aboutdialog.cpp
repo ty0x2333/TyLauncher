@@ -1,4 +1,4 @@
-#include "aboutdialog.h"
+﻿#include "aboutdialog.h"
 #include "ui_aboutdialog.h"
 #include "mainwindow.h"
 AboutDialog::AboutDialog(QWidget *parent) :
@@ -19,12 +19,10 @@ AboutDialog::~AboutDialog()
 
 void AboutDialog::on_AboutDialog_finished(int)
 {
-    ((MainWindow*)this->parent())->setisCanHide(true);
     this->close();
 }
 
 void AboutDialog::on_buttonBox_accepted()
 {
-    ((MainWindow*)this->parent())->setisCanHide(true);
     this->close();
 }

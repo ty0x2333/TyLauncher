@@ -29,10 +29,6 @@ public:
     void saveUserSettings();
     /// @brief 还原窗口
     virtual void restoreWindow();
-    /// @brief 隐藏窗口
-    void hideWindow();
-    /// @brief 设置是否可以隐藏窗口
-    void setisCanHide(bool val);
     ~MainWindow();
 private slots:
     /// @brief 托盘图标点击
@@ -79,8 +75,6 @@ private:
     
     QNetworkAccessManager* _netManager;
     
-    /// @brief 是否可以隐藏
-    bool _isCanHide;
     /// @brief 读取存档文件
     bool loadSaveFile(const QString fileName);
     /// @brief 重置数据
