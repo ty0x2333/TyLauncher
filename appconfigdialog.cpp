@@ -5,9 +5,14 @@
 #include "datasettings.h"
 #include "TyLog_Qt.h"
 #include <QAbstractButton>
+#include "utils/uiutils.h"
 
 #define KEY_PROPERTY_CHECKED "checked"
-#define KEY_PROPERTY_CURRENT_DATA "currentData"
+
+#define TITILE_RESET_MSG_BOX "Reset preferences?"
+
+#define CONTENT_RESET_MSG_BOX "This action will reset all your preferences (in all tabs) to default values.<br /><br />"\
+    "Do you really want to <strong>reset all preferences</strong>?"
 
 AppConfigDialog::AppConfigDialog(QWidget *parent)
     : QDialog(parent)
@@ -27,15 +32,16 @@ AppConfigDialog::~AppConfigDialog()
 
 void AppConfigDialog::apply()
 {
+    DynamicData *dynamicData = DYNAMIC_DATA;
     foreach (const QString &key, _options.keys()) {
-        DYNAMIC_DATA->setValue(key, _options[key].value());
+        dynamicData->setValue(key, _options[key].value());
     }
+    dynamicData->setValue(KEY_LANGUAGE, ui->comboBoxLanguage->currentData());
 }
 
 void AppConfigDialog::initOptions()
 {
     _options[KEY_ALWAYS_ON_TOP] = Option(DEFAULT_ALWAYS_ON_TOP, KEY_PROPERTY_CHECKED, ui->checkBoxAlwaysOnTop);
-    _options[KEY_LANGUAGE] = Option(DEFAULT_LANGUAGE, KEY_PROPERTY_CURRENT_DATA, ui->comboBoxLanguage);
 }
 
 void AppConfigDialog::initLanguages()
@@ -78,6 +84,14 @@ void AppConfigDialog::on_buttonBox_clicked(QAbstractButton *button)
         apply();
         break;
     case QDialogButtonBox::ResetRole:
+        if ( UIUtils::showQuestionMsgBox(tr(TITILE_RESET_MSG_BOX), 
+                                tr(CONTENT_RESET_MSG_BOX), 
+                                this) == QMessageBox::Yes){
+            foreach ( const QString &key, _options.keys() ) {
+                _options[key].reset();
+            }
+        }
+        ui->comboBoxLanguage->setCurrentIndex(0);
         break;
     default:
         return;
