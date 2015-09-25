@@ -49,8 +49,11 @@ copy "%QtRoot%\plugins\imageformats\qmng.dll"  "%PackagingRoot%\imageformats"
 copy "%QtRoot%\plugins\imageformats\qjp2.dll"  "%PackagingRoot%\imageformats"
 copy "%QtRoot%\plugins\imageformats\qjpeg.dll" "%PackagingRoot%\imageformats"
 copy "%QtRoot%\plugins\imageformats\qgif.dll"  "%PackagingRoot%\imageformats"
-copy "%QtRoot%\plugins\imageformats\qdds.dll"  "%PackagingRoot%\imageformats":: 或许不需要它
+:: 或许不需要它
+copy "%QtRoot%\plugins\imageformats\qdds.dll"  "%PackagingRoot%\imageformats"
 
 :: 拷贝 MSVC DLL
 copy "%WindowsRoot%\msvcp120.dll" "%PackagingRoot%"
 copy "%WindowsRoot%\msvcr120.dll" "%PackagingRoot%"
+
+echo Success Deploying Project In %PackagingRoot%
