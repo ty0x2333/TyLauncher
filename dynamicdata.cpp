@@ -18,6 +18,7 @@
 #include <QApplication>
 #include <QStringList>
 #include "model/option.h"
+#include "utils/stringutils.h"
 
 static DynamicData *s_shareDynamicData = nullptr;
 DynamicData::DynamicData()
@@ -71,12 +72,7 @@ void DynamicData::saveAppConfig()
 ////    configIniWrite->setValue("filename/save", _userSettingsFileNames);
 //    configIniWrite->setValue(KEY_LANGUAGE, _language);
 //    configIniWrite->setValue(KEY_ALWAYS_ON_TOP, _alwaysOnTop);
-//    TyLogInfo("success save ConfigFile: {\n\t%s: %s\n\tfilename: %s\n\t%s: %s\n\t%s: %s\n}", 
-//               KEY_THEME, _theme.toUtf8().data(), 
-//               _userSettingsFileNames.toUtf8().data(),
-//               KEY_LANGUAGE, _language.toUtf8().data(),
-//               KEY_ALWAYS_ON_TOP, _alwaysOnTop ? "true" : "false"
-//              );
+    TyLogInfo("Success Save AppConfig: %s", StringUtils::toString(_options).toUtf8().data());
 }
 // @brief 读取设置
 void DynamicData::loadAppConfig()
@@ -97,12 +93,7 @@ void DynamicData::loadAppConfig()
 //    _language = configIniRead->value(KEY_LANGUAGE, "").toString();
 //    if(_language.isEmpty())// 当取不到语言设置时,使用系统当前语言
 //        _language = QLocale::system().name();
-//    TyLogInfo("Load Settings:{%s: %s\n\tSaveFileName: %s\n\t%s: %s\n\t%s: %s\n}", 
-//               KEY_THEME, _theme.toUtf8().data(), 
-//               _userSettingsFileNames.toUtf8().data(), 
-//               KEY_LANGUAGE, _language.toUtf8().data(),
-//               KEY_ALWAYS_ON_TOP, _alwaysOnTop ? "true" : "false"
-//              );
+    TyLogInfo("Load AppConfig: %s", StringUtils::toString(_options).toUtf8().data());
 }
 // @brief 重置存档路径
 void DynamicData::resetSaveFileName()

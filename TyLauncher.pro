@@ -25,7 +25,8 @@ SOURCES += main.cpp\
     model/appinfo.cpp \
     utils/shearplateutils.cpp \
     appconfigdialog.cpp \
-    model/option.cpp
+    model/option.cpp \
+    utils/stringutils.cpp
 
 HEADERS  += mainwindow.h \
     appbutton.h \
@@ -41,7 +42,8 @@ HEADERS  += mainwindow.h \
     model/appinfo.h \
     utils/shearplateutils.h \
     appconfigdialog.h \
-    model/option.h
+    model/option.h \
+    utils/stringutils.h
 
 FORMS    += mainwindow.ui \
     aboutdialog.ui \
