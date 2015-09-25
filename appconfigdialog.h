@@ -5,6 +5,7 @@
 #include <QHash>
 
 class Option;
+class QAbstractButton;
 
 namespace Ui {
 class AppConfigDialog;
@@ -17,6 +18,10 @@ class AppConfigDialog : public QDialog
 public:
     explicit AppConfigDialog(QWidget *parent = 0);
     ~AppConfigDialog();
+    
+private slots:
+    void apply();
+    void on_buttonBox_clicked(QAbstractButton *button);
     
 private:
     Ui::AppConfigDialog *ui;

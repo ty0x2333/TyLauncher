@@ -3,8 +3,11 @@
 #include "dynamicdata.h"
 #include "model/option.h"
 #include "datasettings.h"
+#include "TyLog_Qt.h"
+#include <QAbstractButton>
 
 #define KEY_PROPERTY_CHECKED "checked"
+#define KEY_PROPERTY_CURRENT_DATA "currentData"
 
 AppConfigDialog::AppConfigDialog(QWidget *parent)
     : QDialog(parent)
@@ -22,9 +25,17 @@ AppConfigDialog::~AppConfigDialog()
     delete ui;
 }
 
+void AppConfigDialog::apply()
+{
+    foreach (const QString &key, _options.keys()) {
+        DYNAMIC_DATA->setValue(key, _options[key].value());
+    }
+}
+
 void AppConfigDialog::initOptions()
 {
     _options[KEY_ALWAYS_ON_TOP] = Option(DEFAULT_ALWAYS_ON_TOP, KEY_PROPERTY_CHECKED, ui->checkBoxAlwaysOnTop);
+    _options[KEY_LANGUAGE] = Option(DEFAULT_LANGUAGE, KEY_PROPERTY_CURRENT_DATA, ui->comboBoxLanguage);
 }
 
 void AppConfigDialog::initLanguages()
@@ -53,4 +64,16 @@ void AppConfigDialog::initLanguages()
     }
 
     ui->comboBoxLanguage->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+}
+
+void AppConfigDialog::on_buttonBox_clicked(QAbstractButton *button)
+{
+    switch( ui->buttonBox->buttonRole(button) ) {
+    case QDialogButtonBox::ApplyRole:
+        TyLogDebug("ConfigDialog Apply.");
+        apply();
+        break;
+    default:
+        return;
+    }
 }
