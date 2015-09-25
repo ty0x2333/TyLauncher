@@ -125,10 +125,10 @@
   </action>
   <action name="actionShowWindow">
    <property name="text">
-    <string>Show TyyAppManager</string>
+    <string>Show TyLauncher</string>
    </property>
    <property name="toolTip">
-    <string>Show TyyAppManager</string>
+    <string>Show TyLauncher</string>
    </property>
   </action>
   <action name="actionAbout">
