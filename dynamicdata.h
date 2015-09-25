@@ -1,5 +1,6 @@
 ﻿#ifndef DYNAMICDATA_H
 #define DYNAMICDATA_H
+#include <QObject>
 #include <QtGlobal>
 #include <QString>
 #include <QVector>
@@ -13,8 +14,10 @@ class Option;
 
 #define DYNAMIC_DATA DynamicData::getInstance()
 
-class DynamicData
+class DynamicData : public QObject
 {
+    Q_OBJECT
+    
 public:
     static DynamicData* getInstance();
 
@@ -54,6 +57,9 @@ public:
     
     bool getAlwaysOnTop() const;
     void setAlwaysOnTop(bool alwaysOnTop);
+    
+signals:
+    void appConfigChanged(const QString &key);
     
 private:
     DynamicData();

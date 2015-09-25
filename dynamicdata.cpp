@@ -216,9 +216,15 @@ QVariant DynamicData::value(const QString &name) const
 
 void DynamicData::setValue(const QString &name, const QVariant &value)
 {
-    Q_ASSERT(_options.contains(name));
+    if (!_options.contains(name)){
+        TyLogWarning("Key \"%s\" is not find.", name.toUtf8().data());
+        return;
+    }
     if ( _options[name].value() == value )
         return;
-    _options[name].setValue(value);
-//    emit configurationChanged();
+    if ( !value.isValid() || !_options[name].setValue(value) ){
+        TyLogWarning("Invalid value for option \"%s\"", name.toUtf8().data());
+        return;
+    }
+    emit appConfigChanged(name);
 }
