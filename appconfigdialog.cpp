@@ -73,6 +73,12 @@ void AppConfigDialog::on_buttonBox_clicked(QAbstractButton *button)
         TyLogDebug("ConfigDialog Apply.");
         apply();
         break;
+    case QDialogButtonBox::AcceptRole:
+        TyLogDebug("ConfigDialog Accept.");
+        apply();
+        break;
+    case QDialogButtonBox::ResetRole:
+        break;
     default:
         return;
     }
