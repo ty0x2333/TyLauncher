@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     tabwidget.cpp \
     model/appinfo.cpp \
     utils/shearplateutils.cpp \
-    appconfigdialog.cpp
+    appconfigdialog.cpp \
+    model/option.cpp
 
 HEADERS  += mainwindow.h \
     appbutton.h \
@@ -39,7 +40,8 @@ HEADERS  += mainwindow.h \
     datasettings.h \
     model/appinfo.h \
     utils/shearplateutils.h \
-    appconfigdialog.h
+    appconfigdialog.h \
+    model/option.h
 
 FORMS    += mainwindow.ui \
     aboutdialog.ui \
