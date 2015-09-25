@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 #endif
     // 设置样式
     QString qss;
-    QFile qssFile(DynamicData::getInstance()->getTheme());
+    QFile qssFile(DYNAMIC_DATA->getTheme());
     qssFile.open(QFile::ReadOnly);
     if(qssFile.isOpen()){
         qss = QLatin1String(qssFile.readAll());

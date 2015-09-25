@@ -7,7 +7,7 @@ AppConfigDialog::AppConfigDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     initLanguages();
-    ui->checkBoxAlwaysOnTop->setChecked(DynamicData::getInstance()->getAlwaysOnTop());
+    ui->checkBoxAlwaysOnTop->setChecked(DYNAMIC_DATA->getAlwaysOnTop());
 }
 
 AppConfigDialog::~AppConfigDialog()
@@ -21,7 +21,7 @@ void AppConfigDialog::initLanguages()
     bool currentLocaleFound = false;
     QSet<QString> languages;
     
-    QStringList list = DynamicData::getInstance()->getLanguageList();
+    QStringList list = DYNAMIC_DATA->getLanguageList();
     
     foreach ( const QString &locale, list ) {
         const QString language = QLocale(locale).nativeLanguageName();

@@ -8,6 +8,8 @@ class AppButton;
 class AppInfo;
 class QStringList;
 
+#define DYNAMIC_DATA DynamicData::getInstance()
+
 class DynamicData
 {
 public:

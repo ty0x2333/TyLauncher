@@ -39,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QWidget::installEventFilter(this);// 为这个窗口安装过滤器
     
     Qt::WindowFlags flags = windowFlags();
-    if (DynamicData::getInstance()->getAlwaysOnTop())
+    if (DYNAMIC_DATA->getAlwaysOnTop())
         flags |= Qt::WindowStaysOnTopHint;
 #if defined(Q_OS_OSX)
     setWindowFlags(flags);
@@ -56,7 +56,7 @@ MainWindow::MainWindow(QWidget *parent) :
     updateLanguage();
     
     // 尝试读取存档
-    if(!loadSaveFile(DynamicData::getInstance()->getUserSettingsFileNames()))
+    if(!loadSaveFile(DYNAMIC_DATA->getUserSettingsFileNames()))
         reset();// 还原默认设置
     ui->tabWidget->setStyleSheet("QTabBar::tab { min-width:" + QString::number(this->width() / 10 - 3) + "px;min-height:50px;}text-align:left top;");
 
@@ -79,7 +79,7 @@ MainWindow::MainWindow(QWidget *parent) :
 // @brief 读取存档文件
 bool MainWindow::loadSaveFile(const QString fileName)
 {
-    if (!ui->tabWidget->configFromVector(DynamicData::getInstance()->getUserSaveData())){
+    if (!ui->tabWidget->configFromVector(DYNAMIC_DATA->getUserSaveData())){
         UIUtils::showCriticalMsgBox(tr("Load Save Failure!"), this);
         return false;
     }
@@ -90,13 +90,13 @@ void MainWindow::reset()
 {
     ui->tabWidget->clearAllAppBtnData();
     // 重置存档位置
-    DynamicData::getInstance()->resetSaveFileName();
+    DYNAMIC_DATA->resetSaveFileName();
 }
 // @brief 保存设置
 // @param[in] 文件路径
 void MainWindow::saveUserSettings()
 {
-    DynamicData::getInstance()->saveUserSaveFile(ui->tabWidget->jsonString());
+    DYNAMIC_DATA->saveUserSaveFile(ui->tabWidget->jsonString());
 }
 
 void MainWindow::on_hotKey_triggered()
@@ -130,7 +130,7 @@ void MainWindow::onSystemTrayIconClicked(QSystemTrayIcon::ActivationReason reaso
 void MainWindow::on_Quit_triggered()
 {
     saveUserSettings();
-    DynamicData::getInstance()->saveAppConfig();
+    DYNAMIC_DATA->saveAppConfig();
     qApp->exit();
 }
 MainWindow::~MainWindow()
@@ -268,7 +268,7 @@ void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
 void MainWindow::on_actionSave_triggered()
 {
     saveUserSettings();
-    DynamicData::getInstance()->saveAppConfig();
+    DYNAMIC_DATA->saveAppConfig();
 }
 // @brief "另保存"菜单项响应
 void MainWindow::on_actionSave_As_triggered()
@@ -280,9 +280,9 @@ void MainWindow::on_actionSave_As_triggered()
     fileDialog->setModal(true);
     if(fileDialog->exec() == QDialog::Accepted){
         QString fileName = fileDialog->selectedFiles()[0];
-        DynamicData::getInstance()->setUserSettingsFileNames(fileName);
+        DYNAMIC_DATA->setUserSettingsFileNames(fileName);
         saveUserSettings();
-        DynamicData::getInstance()->saveAppConfig();
+        DYNAMIC_DATA->saveAppConfig();
     }
     delete fileDialog;
 }
@@ -291,7 +291,7 @@ void MainWindow::updateTheme()
 {
     // 设置样式
     QString qss;
-    QFile qssFile(DynamicData::getInstance()->getTheme());
+    QFile qssFile(DYNAMIC_DATA->getTheme());
     qssFile.open(QFile::ReadOnly);
     if(qssFile.isOpen()){
         qss = QLatin1String(qssFile.readAll());
@@ -305,13 +305,13 @@ void MainWindow::updateTheme()
 
 void MainWindow::on_actionDefaultTheme_triggered()
 {
-    DynamicData::getInstance()->setTheme(":/css/res/default.qss");
+    DYNAMIC_DATA->setTheme(":/css/res/default.qss");
     updateTheme();
 }
 
 void MainWindow::on_actionSystemTheme_triggered()
 {
-    DynamicData::getInstance()->setTheme("");
+    DYNAMIC_DATA->setTheme("");
     updateTheme();
 }
 
@@ -320,7 +320,7 @@ void MainWindow::onLanguageMenuClicked()
     QAction *action = dynamic_cast<QAction *>(QObject::sender());
     if (action == nullptr)
         return;
-    DynamicData::getInstance()->setLanguage(action->text());
+    DYNAMIC_DATA->setLanguage(action->text());
     updateLanguage();
 }
 
@@ -329,7 +329,7 @@ void MainWindow::updateLanguage()
 {
     if(_translator == nullptr)
         _translator = new QTranslator();
-    _translator->load(QString("language/") + DynamicData::getInstance()->getLanguage());
+    _translator->load(QString("language/") + DYNAMIC_DATA->getLanguage());
     qApp->installTranslator(_translator);
     ui->retranslateUi(this);
 }
@@ -350,7 +350,7 @@ void MainWindow::initTray()
 
 void MainWindow::initMenu()
 {
-    QStringList list = DynamicData::getInstance()->getLanguageList();
+    QStringList list = DYNAMIC_DATA->getLanguageList();
     for (QString languageName : list){
         QAction *action = new QAction(languageName, this);
         connect(action, SIGNAL(triggered()), this, SLOT(onLanguageMenuClicked()));

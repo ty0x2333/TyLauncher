@@ -8,7 +8,7 @@ bool ShearPlateUtils::copy(AppButton *btn)
 {
     if(btn->isEmpty())
         return false;
-    DynamicData::getInstance()->setBtnShearPlate(btn);
+    DYNAMIC_DATA->setBtnShearPlate(btn);
     return true;
 }
 
@@ -20,13 +20,13 @@ void ShearPlateUtils::shear(AppButton *btn)
 
 void ShearPlateUtils::paste(AppButton *btn)
 {
-    if(DynamicData::getInstance()->BtnShearPlateIsEmpty())
+    if(DYNAMIC_DATA->BtnShearPlateIsEmpty())
         return;
     if(!btn->isEmpty()){
         if( UIUtils::showWarnMsgBox(QObject::tr("Replace the button?")) == QMessageBox::Ok)
-            btn->copyFrom(*DynamicData::getInstance()->getBtnShearPlate());
+            btn->copyFrom(*DYNAMIC_DATA->getBtnShearPlate());
     }else{
-        btn->copyFrom(*DynamicData::getInstance()->getBtnShearPlate());
+        btn->copyFrom(*DYNAMIC_DATA->getBtnShearPlate());
     }
 }
 
