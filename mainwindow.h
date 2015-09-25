@@ -59,9 +59,9 @@ private slots:
     /// @brief "检查更新"菜单项响应
     void on_actionCheck_Update_triggered();
     
-    void onLanguageMenuClicked();
-    
     void on_actionSettings_triggered();
+    
+    void onAppConfigChanged(const QString &name);
     
 private:
     Ui::MainWindow *ui;

@@ -25,6 +25,7 @@
 #include <QCloseEvent>
 #include "utils/shearplateutils.h"
 #include "appconfigdialog.h"
+#include "datasettings.h"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -50,8 +51,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(on_Quit_triggered()));// 关联退出动作
     
     initTray();
-    
-    initMenu();
     // 更新语言
     updateLanguage();
     
@@ -75,6 +74,8 @@ MainWindow::MainWindow(QWidget *parent) :
     checkUpdate();
     
     connect(sc, SIGNAL(activated()),this, SLOT(on_hotKey_triggered()));
+    
+    connect(DYNAMIC_DATA, SIGNAL(appConfigChanged(QString)), this, SLOT(onAppConfigChanged(QString)));
 }
 // @brief 读取存档文件
 bool MainWindow::loadSaveFile(const QString fileName)
@@ -315,15 +316,6 @@ void MainWindow::on_actionSystemTheme_triggered()
     updateTheme();
 }
 
-void MainWindow::onLanguageMenuClicked()
-{
-    QAction *action = dynamic_cast<QAction *>(QObject::sender());
-    if (action == nullptr)
-        return;
-    DYNAMIC_DATA->setLanguage(action->text());
-    updateLanguage();
-}
-
 // @brief 更新语言
 void MainWindow::updateLanguage()
 {
@@ -348,15 +340,6 @@ void MainWindow::initTray()
     _trayIcon->show();// 显示托盘
 }
 
-void MainWindow::initMenu()
-{
-    QStringList list = DYNAMIC_DATA->getLanguageList();
-    for (QString languageName : list){
-        QAction *action = new QAction(languageName, this);
-        connect(action, SIGNAL(triggered()), this, SLOT(onLanguageMenuClicked()));
-        ui->menuLanguage->addAction(action);
-    }
-}
 // @brief 检查更新
 void MainWindow::checkUpdate()
 {
@@ -414,4 +397,13 @@ void MainWindow::on_actionSettings_triggered()
 {
     AppConfigDialog *configDialog = new AppConfigDialog(this);
     configDialog->exec();
+}
+
+void MainWindow::onAppConfigChanged(const QString &name)
+{
+    TyLogDebug("onAppConfigChanged : %s", name.toUtf8().data());
+    
+    if (name == KEY_LANGUAGE){
+        updateLanguage();
+    }
 }

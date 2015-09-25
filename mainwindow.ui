@@ -73,14 +73,8 @@
      <addaction name="actionDefaultTheme"/>
      <addaction name="actionSystemTheme"/>
     </widget>
-    <widget class="QMenu" name="menuLanguage">
-     <property name="title">
-      <string>Language</string>
-     </property>
-    </widget>
     <addaction name="actionHotKey"/>
     <addaction name="menu"/>
-    <addaction name="menuLanguage"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
