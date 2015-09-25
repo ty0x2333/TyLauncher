@@ -37,6 +37,7 @@ void AppConfigDialog::apply()
         dynamicData->setValue(key, _options[key].value());
     }
     dynamicData->setValue(KEY_LANGUAGE, ui->comboBoxLanguage->currentData());
+    dynamicData->saveAppConfig();
 }
 
 void AppConfigDialog::initOptions()
