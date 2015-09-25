@@ -20,11 +20,17 @@
 #include "model/option.h"
 #include "utils/stringutils.h"
 
+namespace {
+QString defaultSaveFileName()
+{
+    return QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/" + qApp->applicationName() + "/" + SAVE_FILE;
+}
+}// namespace
+
 static DynamicData *s_shareDynamicData = nullptr;
 DynamicData::DynamicData()
     : _btnShearPlate(nullptr)
     , _options()
-    , _userSettingsFileNames(QString())
 {
     initOptions();
 }
@@ -34,12 +40,9 @@ void DynamicData::initOptions()
     _options[KEY_ALWAYS_ON_TOP] = Option(DEFAULT_ALWAYS_ON_TOP);
     _options[KEY_LANGUAGE] = Option(DEFAULT_LANGUAGE);
     _options[KEY_THEME] = Option(DEFAULT_THEME);
+    _options[KEY_USER_SETTINGS_FILE_NAME] = Option(defaultSaveFileName());
 }
 
-QString DynamicData::defaultSaveFileName()
-{
-    return QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/" + qApp->applicationName() + "/" + SAVE_FILE;
-}
 DynamicData* DynamicData::getInstance()
 {
     if(s_shareDynamicData == nullptr){
@@ -68,10 +71,6 @@ void DynamicData::saveAppConfig()
     foreach ( const QString &key, _options.keys() ) {
         configIniWrite.setValue( key, _options[key].value() );
     }
-//    configIniWrite->setValue(KEY_THEME, _theme);
-////    configIniWrite->setValue("filename/save", _userSettingsFileNames);
-//    configIniWrite->setValue(KEY_LANGUAGE, _language);
-//    configIniWrite->setValue(KEY_ALWAYS_ON_TOP, _alwaysOnTop);
     TyLogInfo("Success Save AppConfig: %s", StringUtils::toString(_options).toUtf8().data());
 }
 // @brief 读取设置
@@ -88,17 +87,11 @@ void DynamicData::loadAppConfig()
             _options[key].reset();
         }
     }
-    _userSettingsFileNames = configIniRead.value("filename/save", defaultSaveFileName()).toString();
-    this->loadUserSaveFile(_userSettingsFileNames);
+    loadUserSaveFile(userSettingsFileName());
 //    _language = configIniRead->value(KEY_LANGUAGE, "").toString();
 //    if(_language.isEmpty())// 当取不到语言设置时,使用系统当前语言
 //        _language = QLocale::system().name();
     TyLogInfo("Load AppConfig: %s", StringUtils::toString(_options).toUtf8().data());
-}
-// @brief 重置存档路径
-void DynamicData::resetSaveFileName()
-{
-    _userSettingsFileNames = defaultSaveFileName();
 }
 
 bool DynamicData::BtnShearPlateIsEmpty(){    return _btnShearPlate == nullptr;}
@@ -148,9 +141,10 @@ void DynamicData::loadUserSaveFile(const QString fileName)
 
 void DynamicData::saveUserSaveFile(const QString &content)
 {
-    QFile file(_userSettingsFileNames);
-    if (!QFile::exists(_userSettingsFileNames)){
-        TyLogWarning("%s is not exists!", _userSettingsFileNames.toUtf8().data());
+    QString fileName = userSettingsFileName();
+    QFile file(fileName);
+    if (!QFile::exists(fileName)){
+        TyLogWarning("%s is not exists!", fileName.toUtf8().data());
         QFileInfo fileInfo(file);
         QDir dir;
         if (!dir.exists(fileInfo.path())){
@@ -159,14 +153,14 @@ void DynamicData::saveUserSaveFile(const QString &content)
         }
     }
     if(!file.open(QFile::WriteOnly)){
-        TyLogFatal("%s", QObject::tr("Can not save the file %1:\n %2.").arg(_userSettingsFileNames).arg(file.errorString()).toUtf8().data());
+        TyLogFatal("%s", QObject::tr("Can not save the file %1:\n %2.").arg(fileName).arg(file.errorString()).toUtf8().data());
         return;
     }
     QTextStream txtOutput(&file);
     txtOutput.setCodec("UTF-8");
     txtOutput << content;
     file.close();
-    TyLogInfo("success save UserSaveFile to %s.", _userSettingsFileNames.toUtf8().data());
+    TyLogInfo("Success Save UserSaveFile to %s.", fileName.toUtf8().data());
 }
 
 void DynamicData::resetUserSaveFile()
@@ -191,8 +185,8 @@ void DynamicData::resetUserSaveFile()
 QString DynamicData::getTheme() const{return value(KEY_THEME).toString();}
 void DynamicData::setTheme(const QString &theme){setValue(KEY_THEME, theme);}
 
-QString DynamicData::getUserSettingsFileNames() const{return _userSettingsFileNames;}
-void DynamicData::setUserSettingsFileNames(const QString &userSettingsFileNames){_userSettingsFileNames = userSettingsFileNames;}
+QString DynamicData::userSettingsFileName() const{return value(KEY_USER_SETTINGS_FILE_NAME).toString();}
+void DynamicData::setUserSettingsFileName(const QString &userSettingsFileNames){setValue(KEY_USER_SETTINGS_FILE_NAME, userSettingsFileNames);}
 
 QString DynamicData::getLanguage() const{return value(KEY_LANGUAGE).toString();}
 void DynamicData::setLanguage(const QString &language){setValue(KEY_LANGUAGE, language);}

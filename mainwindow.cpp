@@ -56,7 +56,7 @@ MainWindow::MainWindow(QWidget *parent) :
     updateLanguage();
     
     // 尝试读取存档
-    if(!loadSaveFile(DYNAMIC_DATA->getUserSettingsFileNames()))
+    if(!loadSaveFile(DYNAMIC_DATA->userSettingsFileName()))
         reset();// 还原默认设置
     ui->tabWidget->setStyleSheet("QTabBar::tab { min-width:" + QString::number(this->width() / 10 - 3) + "px;min-height:50px;}text-align:left top;");
 
@@ -90,7 +90,7 @@ void MainWindow::reset()
 {
     ui->tabWidget->clearAllAppBtnData();
     // 重置存档位置
-    DYNAMIC_DATA->resetSaveFileName();
+//    DYNAMIC_DATA->resetSaveFileName();
 }
 // @brief 保存设置
 // @param[in] 文件路径
@@ -280,7 +280,7 @@ void MainWindow::on_actionSave_As_triggered()
     fileDialog->setModal(true);
     if(fileDialog->exec() == QDialog::Accepted){
         QString fileName = fileDialog->selectedFiles()[0];
-        DYNAMIC_DATA->setUserSettingsFileNames(fileName);
+        DYNAMIC_DATA->setUserSettingsFileName(fileName);
         saveUserSettings();
         DYNAMIC_DATA->saveAppConfig();
     }

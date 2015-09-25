@@ -25,9 +25,6 @@ public:
     void saveAppConfig();
     void loadAppConfig();
 
-    /// @brief 重置存档路径
-    void resetSaveFileName();
-
     /// @brief 读取存档文件
     void loadUserSaveFile(const QString fileName);
     
@@ -44,8 +41,8 @@ public:
     
     QStringList getLanguageList();
     
-    QString getUserSettingsFileNames() const;
-    void setUserSettingsFileNames(const QString &userSettingsFileNames);
+    QString userSettingsFileName() const;
+    void setUserSettingsFileName(const QString &userSettingsFileNames);
     
     QString getTheme() const;
     void setTheme(const QString &theme);
@@ -64,8 +61,6 @@ private:
     void initOptions();
     
     QVector<QVector<AppInfo>> _userSaveData;
-    /// @brief 存档路径
-    QString _userSettingsFileNames;
     /**
      * @brief 按钮剪切缓存
      * 用来保存复制的按钮地址
@@ -73,8 +68,6 @@ private:
     AppButton *_btnShearPlate;
     
     QHash<QString, Option> _options;
-    
-    QString defaultSaveFileName();
 };
 
 #endif // DYNAMICDATA_H

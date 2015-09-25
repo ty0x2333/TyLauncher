@@ -29,7 +29,7 @@ void AppConfigDialog::initOptions()
 
 void AppConfigDialog::initLanguages()
 {
-    const QString currentLocale = QLocale().name();
+    const QString currentLocale = DYNAMIC_DATA->getLanguage();
     bool currentLocaleFound = false;
     QSet<QString> languages;
     
