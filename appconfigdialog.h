@@ -2,6 +2,9 @@
 #define APPCONFIGDIALOG_H
 
 #include <QDialog>
+#include <QHash>
+
+class Option;
 
 namespace Ui {
 class AppConfigDialog;
@@ -18,6 +21,9 @@ public:
 private:
     Ui::AppConfigDialog *ui;
     
+    QHash<QString, Option> _options;
+    
+    void initOptions();
     void initLanguages();
 };
 

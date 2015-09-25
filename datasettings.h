@@ -25,6 +25,7 @@
   */
 #define DEFAULT_LANGUAGE "en"
 #define DEFAULT_ALWAYS_ON_TOP true
+#define DEFAULT_THEME ":/css/res/default.qss"
 /** @} */
 
 #define DEFAULT_TAB_COUNT 10

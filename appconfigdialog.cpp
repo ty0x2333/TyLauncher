@@ -1,11 +1,18 @@
 ﻿#include "appconfigdialog.h"
 #include "ui_appconfigdialog.h"
 #include "dynamicdata.h"
-AppConfigDialog::AppConfigDialog(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::AppConfigDialog)
+#include "model/option.h"
+#include "datasettings.h"
+
+#define KEY_PROPERTY_CHECKED "checked"
+
+AppConfigDialog::AppConfigDialog(QWidget *parent)
+    : QDialog(parent)
+    , ui(new Ui::AppConfigDialog)
+    , _options()
 {
     ui->setupUi(this);
+    initOptions();
     initLanguages();
     ui->checkBoxAlwaysOnTop->setChecked(DYNAMIC_DATA->getAlwaysOnTop());
 }
@@ -13,6 +20,11 @@ AppConfigDialog::AppConfigDialog(QWidget *parent) :
 AppConfigDialog::~AppConfigDialog()
 {
     delete ui;
+}
+
+void AppConfigDialog::initOptions()
+{
+    _options[KEY_ALWAYS_ON_TOP] = Option(DEFAULT_ALWAYS_ON_TOP, KEY_PROPERTY_CHECKED, ui->checkBoxAlwaysOnTop);
 }
 
 void AppConfigDialog::initLanguages()

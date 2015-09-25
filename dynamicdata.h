@@ -3,10 +3,13 @@
 #include <QtGlobal>
 #include <QString>
 #include <QVector>
+#include <QHash>
+#include <QVariant>
 
 class AppButton;
 class AppInfo;
 class QStringList;
+class Option;
 
 #define DYNAMIC_DATA DynamicData::getInstance()
 
@@ -49,17 +52,18 @@ public:
     
     QVector<QVector<AppInfo> > getUserSaveData() const;
     
+    QVariant value(const QString &name) const;
+    void setValue(const QString &name, const QVariant &value);
+    
     bool getAlwaysOnTop() const;
     void setAlwaysOnTop(bool alwaysOnTop);
     
 private:
     DynamicData();
     
+    void initOptions();
+    
     QVector<QVector<AppInfo>> _userSaveData;
-    
-    QString _theme;
-    
-    QString _language;
     /// @brief 存档路径
     QString _userSettingsFileNames;
     /**
@@ -68,7 +72,7 @@ private:
      */
     AppButton *_btnShearPlate;
     
-    bool _alwaysOnTop;
+    QHash<QString, Option> _options;
     
     QString defaultSaveFileName();
 };
