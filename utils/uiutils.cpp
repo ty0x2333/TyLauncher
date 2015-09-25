@@ -16,7 +16,12 @@ int UIUtils::showWarnMsgBox(const QString &content, QWidget *parent, QMessageBox
     return showMessageBox(QMessageBox::Warning, QObject::tr(kWarningMsgBoxTitle), content, parent, buttons);
 }
 
-int UIUtils::showMessageBox(QMessageBox::Icon icon, const QString &title, const QString &content, QWidget *parent, QMessageBox::StandardButton buttons)
+int UIUtils::showQuestionMsgBox(const QString &title, const QString &content, QWidget *parent)
+{
+    return showMessageBox(QMessageBox::Question, title, content, parent, QMessageBox::Yes | QMessageBox::No);
+}
+
+int UIUtils::showMessageBox(QMessageBox::Icon icon, const QString &title, const QString &content, QWidget *parent, QMessageBox::StandardButtons buttons)
 {
     QMessageBox msgBox(icon, title, content, buttons, parent, Qt::WindowStaysOnTopHint);
     return msgBox.exec();

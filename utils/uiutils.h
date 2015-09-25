@@ -13,6 +13,7 @@ public:
     static int showCriticalMsgBox(const QString &content, QWidget *parent = 0, QMessageBox::StandardButton buttons = QMessageBox::Ok);
     static int showInfoMsgBox(const QString &content,  QWidget *parent = 0, QMessageBox::StandardButton buttons = QMessageBox::Ok);
     static int showWarnMsgBox(const QString &content, QWidget *parent = 0 , QMessageBox::StandardButton buttons = QMessageBox::Ok);
+    static int showQuestionMsgBox(const QString &title, const QString &content, QWidget *parent = 0);
     /**
      * @brief showMessageBox
      * @param icon MessageBox Icon
@@ -22,7 +23,7 @@ public:
      * @param buttons Dialog Buttons
      * @return Clicked Button Code
      */
-    static int showMessageBox(QMessageBox::Icon icon, const QString &title, const QString &content, QWidget *parent = 0, QMessageBox::StandardButton buttons = QMessageBox::Ok);
+    static int showMessageBox(QMessageBox::Icon icon, const QString &title, const QString &content, QWidget *parent = 0, QMessageBox::StandardButtons buttons = QMessageBox::Ok);
 };
 
 #endif // __UI_UTILS_H__
