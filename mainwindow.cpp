@@ -39,14 +39,10 @@ MainWindow::MainWindow(QWidget *parent) :
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("GB2312"));
     QWidget::installEventFilter(this);// 为这个窗口安装过滤器
     
-    Qt::WindowFlags flags = windowFlags();
-    if (DYNAMIC_DATA->getAlwaysOnTop())
-        flags |= Qt::WindowStaysOnTopHint;
-#if defined(Q_OS_OSX)
-    setWindowFlags(flags);
-#elif defined(Q_OS_WIN32)
-    flags |= Qt::FramelessWindowHint;
-    setWindowFlags(flags);
+#if defined(Q_OS_WIN32)
+    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
+#elif defined(Q_OS_OSX)
+    setWindowFlags(Qt::WindowStaysOnTopHint);
 #endif
     connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(on_Quit_triggered()));// 关联退出动作
     
@@ -117,6 +113,7 @@ void MainWindow::restoreWindow()
     setWindowState(Qt::WindowNoState);
     activateWindow();
 }
+
 // @brief 托盘图标点击
 void MainWindow::onSystemTrayIconClicked(QSystemTrayIcon::ActivationReason reason)
 {

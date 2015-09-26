@@ -16,7 +16,6 @@
   */
 #define KEY_LANGUAGE "language"
 #define KEY_THEME "theme"
-#define KEY_ALWAYS_ON_TOP "alwaysOnTop"
 #define KEY_USER_SETTINGS_FILE_NAME "userSettingsFileName"
 /** @} */
 
@@ -25,7 +24,6 @@
   * @{
   */
 #define DEFAULT_LANGUAGE "en"
-#define DEFAULT_ALWAYS_ON_TOP true
 #define DEFAULT_THEME ":/css/res/default.qss"
 /** @} */
 

@@ -45,19 +45,6 @@
         </item>
        </layout>
       </widget>
-      <widget class="QCheckBox" name="checkBoxAlwaysOnTop">
-       <property name="geometry">
-        <rect>
-         <x>190</x>
-         <y>120</y>
-         <width>111</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Always On Top</string>
-       </property>
-      </widget>
      </widget>
     </widget>
    </item>

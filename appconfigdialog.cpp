@@ -22,7 +22,6 @@ AppConfigDialog::AppConfigDialog(QWidget *parent)
     ui->setupUi(this);
     initOptions();
     initLanguages();
-    ui->checkBoxAlwaysOnTop->setChecked(DYNAMIC_DATA->getAlwaysOnTop());
 }
 
 AppConfigDialog::~AppConfigDialog()
@@ -42,7 +41,6 @@ void AppConfigDialog::apply()
 
 void AppConfigDialog::initOptions()
 {
-    _options[KEY_ALWAYS_ON_TOP] = Option(DEFAULT_ALWAYS_ON_TOP, KEY_PROPERTY_CHECKED, ui->checkBoxAlwaysOnTop);
 }
 
 void AppConfigDialog::initLanguages()

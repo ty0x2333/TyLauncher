@@ -55,9 +55,6 @@ public:
     QVariant value(const QString &name) const;
     void setValue(const QString &name, const QVariant &value);
     
-    bool getAlwaysOnTop() const;
-    void setAlwaysOnTop(bool alwaysOnTop);
-    
 signals:
     void appConfigChanged(const QString &key);
     

@@ -37,7 +37,6 @@ DynamicData::DynamicData()
 
 void DynamicData::initOptions()
 {
-    _options[KEY_ALWAYS_ON_TOP] = Option(DEFAULT_ALWAYS_ON_TOP);
     _options[KEY_LANGUAGE] = Option(DEFAULT_LANGUAGE);
     _options[KEY_THEME] = Option(DEFAULT_THEME);
     _options[KEY_USER_SETTINGS_FILE_NAME] = Option(defaultSaveFileName());
@@ -190,9 +189,6 @@ void DynamicData::setUserSettingsFileName(const QString &userSettingsFileNames){
 
 QString DynamicData::getLanguage() const{return value(KEY_LANGUAGE).toString();}
 void DynamicData::setLanguage(const QString &language){setValue(KEY_LANGUAGE, language);}
-
-bool DynamicData::getAlwaysOnTop() const{return value(KEY_ALWAYS_ON_TOP).toBool();}
-void DynamicData::setAlwaysOnTop(bool alwaysOnTop){setValue(KEY_ALWAYS_ON_TOP, alwaysOnTop);}
 
 QStringList DynamicData::getLanguageList()
 {
