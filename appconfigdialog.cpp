@@ -91,8 +91,8 @@ void AppConfigDialog::on_buttonBox_clicked(QAbstractButton *button)
             foreach ( const QString &key, _options.keys() ) {
                 _options[key].reset();
             }
+            ui->comboBoxLanguage->setCurrentIndex(0);
         }
-        ui->comboBoxLanguage->setCurrentIndex(0);
         break;
     default:
         return;
