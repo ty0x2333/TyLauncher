@@ -73,7 +73,6 @@
      <addaction name="actionDefaultTheme"/>
      <addaction name="actionSystemTheme"/>
     </widget>
-    <addaction name="actionHotKey"/>
     <addaction name="menu"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -98,17 +97,6 @@
    <addaction name="menuSettings"/>
    <addaction name="menuHelp"/>
   </widget>
-  <action name="actionHotKey">
-   <property name="text">
-    <string>HotKey...</string>
-   </property>
-   <property name="toolTip">
-    <string>Set HotKey...</string>
-   </property>
-   <property name="iconVisibleInMenu">
-    <bool>true</bool>
-   </property>
-  </action>
   <action name="actionHide">
    <property name="text">
     <string>Hide</string>

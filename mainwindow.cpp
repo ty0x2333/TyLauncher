@@ -176,10 +176,6 @@ void MainWindow::on_actionAbout_triggered()
     aboutDialog->exec();
 }
 
-void MainWindow::on_actionHotKey_triggered()
-{
-}
-
 bool MainWindow::eventFilter(QObject *watched, QEvent *event)
 {
     if(watched == this && event->type())

@@ -46,8 +46,6 @@ private slots:
     void on_actionShowWindow_triggered();
     /// @brief "关于"菜单项被点击
     void on_actionAbout_triggered();
-    /// @brief "设置热键"菜单项被点击
-    void on_actionHotKey_triggered();
     /// @brief "保存"菜单项响应
     void on_actionSave_triggered();
     /// @brief "另保存"菜单项响应
