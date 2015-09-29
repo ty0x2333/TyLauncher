@@ -17,6 +17,7 @@
 #include <QObject>
 #include <QApplication>
 #include <QStringList>
+#include <QKeySequence>
 #include "model/option.h"
 #include "utils/stringutils.h"
 
@@ -39,6 +40,7 @@ void DynamicData::initOptions()
 {
     _options[KEY_LANGUAGE] = Option(DEFAULT_LANGUAGE);
     _options[KEY_THEME] = Option(DEFAULT_THEME);
+    _options[KEY_HOT_KEY] = Option(DEFAULT_HOT_KEY);
     _options[KEY_USER_SETTINGS_FILE_NAME] = Option(defaultSaveFileName());
 }
 
@@ -181,15 +183,6 @@ void DynamicData::resetUserSaveFile()
     }
 }
 
-QString DynamicData::getTheme() const{return value(KEY_THEME).toString();}
-void DynamicData::setTheme(const QString &theme){setValue(KEY_THEME, theme);}
-
-QString DynamicData::userSettingsFileName() const{return value(KEY_USER_SETTINGS_FILE_NAME).toString();}
-void DynamicData::setUserSettingsFileName(const QString &userSettingsFileNames){setValue(KEY_USER_SETTINGS_FILE_NAME, userSettingsFileNames);}
-
-QString DynamicData::getLanguage() const{return value(KEY_LANGUAGE).toString();}
-void DynamicData::setLanguage(const QString &language){setValue(KEY_LANGUAGE, language);}
-
 QStringList DynamicData::getLanguageList()
 {
     QStringList strList;
@@ -201,6 +194,18 @@ QStringList DynamicData::getLanguageList()
     }
     return strList;
 }
+
+QString DynamicData::getTheme() const{return value(KEY_THEME).toString();}
+void DynamicData::setTheme(const QString &theme){setValue(KEY_THEME, theme);}
+
+QString DynamicData::userSettingsFileName() const{return value(KEY_USER_SETTINGS_FILE_NAME).toString();}
+void DynamicData::setUserSettingsFileName(const QString &userSettingsFileNames){setValue(KEY_USER_SETTINGS_FILE_NAME, userSettingsFileNames);}
+
+QString DynamicData::getLanguage() const{return value(KEY_LANGUAGE).toString();}
+void DynamicData::setLanguage(const QString &language){setValue(KEY_LANGUAGE, language);}
+
+QKeySequence DynamicData::getGlobalShortcut() const{return QKeySequence(value(KEY_HOT_KEY).toString());}
+void DynamicData::setGlobalShortcut(QKeySequence keySequence){setValue(KEY_HOT_KEY, keySequence.toString());}
 
 QVector<QVector<AppInfo> > DynamicData::getUserSaveData() const{return _userSaveData;}
 

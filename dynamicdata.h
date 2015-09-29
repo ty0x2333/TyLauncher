@@ -7,9 +7,12 @@
 #include <QHash>
 #include <QVariant>
 
+QT_BEGIN_NAMESPACE
+class QStringList;
+class QKeySequence;
+QT_END_NAMESPACE
 class AppButton;
 class AppInfo;
-class QStringList;
 class Option;
 
 #define DYNAMIC_DATA DynamicData::getInstance()
@@ -36,13 +39,16 @@ public:
     
     void resetUserSaveFile();
     
+    QStringList getLanguageList();
+    
+    QKeySequence getGlobalShortcut() const;
+    void setGlobalShortcut(QKeySequence keySequence);
+    
     AppButton* getBtnShearPlate();
     void setBtnShearPlate(AppButton *btn);
     
     QString getLanguage() const;
     void setLanguage(const QString &language);
-    
-    QStringList getLanguageList();
     
     QString userSettingsFileName() const;
     void setUserSettingsFileName(const QString &userSettingsFileNames);

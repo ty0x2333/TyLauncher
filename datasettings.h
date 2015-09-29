@@ -6,7 +6,6 @@
 
 #define KEY_APP_NAME "name"
 #define KEY_FILE_NAME "filename"
-#define KEY_HOT_KEY "hotkey"
 
 #define FILE_NAME_LANGUAGE "language"
 
@@ -17,6 +16,7 @@
 #define KEY_LANGUAGE "language"
 #define KEY_THEME "theme"
 #define KEY_USER_SETTINGS_FILE_NAME "userSettingsFileName"
+#define KEY_HOT_KEY "hotKey"
 /** @} */
 
 /**
@@ -25,6 +25,7 @@
   */
 #define DEFAULT_LANGUAGE "en"
 #define DEFAULT_THEME ":/css/res/default.qss"
+#define DEFAULT_HOT_KEY "Ctrl+Tab"
 /** @} */
 
 #define DEFAULT_TAB_COUNT 10

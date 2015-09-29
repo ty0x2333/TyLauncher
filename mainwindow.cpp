@@ -26,14 +26,15 @@
 #include "utils/shearplateutils.h"
 #include "appconfigdialog.h"
 #include "datasettings.h"
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow),
-    _trayIcon(nullptr),
-    _trayMenu(nullptr),
-    _translator(nullptr),
-    _netManager(nullptr),
-    _needShowUpdateDialog(false)
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
+    , _trayIcon(nullptr)
+    , _trayMenu(nullptr)
+    , _translator(nullptr)
+    , _netManager(nullptr)
+    , _globalShortcut(nullptr)
+    , _needShowUpdateDialog(false)
 {
     ui->setupUi(this);
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("GB2312"));
@@ -56,11 +57,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tabWidget->setStyleSheet("QTabBar::tab { min-width:" + QString::number(this->width() / 10 - 3) + "px;min-height:50px;}text-align:left top;");
 
     activateWindow();
-    QxtGlobalShortcut *sc = new QxtGlobalShortcut(this);
     
-    if (!sc->setShortcut(QKeySequence("Ctrl+Tab"))){
-        UIUtils::showCriticalMsgBox(tr("failed to register: \"Ctrl+Tab\""));
-    }
+    initGlobalShortcut();
     
     _netManager = new QNetworkAccessManager(this);
     
@@ -69,10 +67,33 @@ MainWindow::MainWindow(QWidget *parent) :
     // 检查更新
     checkUpdate();
     
-    connect(sc, SIGNAL(activated()),this, SLOT(on_hotKey_triggered()));
-    
     connect(DYNAMIC_DATA, SIGNAL(appConfigChanged(QString)), this, SLOT(onAppConfigChanged(QString)));
 }
+
+void MainWindow::initTray()
+{
+    _trayIcon = new QSystemTrayIcon(this);
+    _trayMenu = new QMenu();
+    connect(_trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+            this, SLOT(onSystemTrayIconClicked(QSystemTrayIcon::ActivationReason)));
+    _trayMenu->addAction(ui->actionShowWindow);// 添加显示主窗口菜单项
+    _trayMenu->addSeparator();// 分割线
+    _trayMenu->addAction(ui->actionQuit);// 添加退出菜单项
+    _trayIcon->setContextMenu(_trayMenu);// 设置托盘菜单
+    _trayIcon->setIcon(QIcon(":/img/res/logo.ico")); // 设置托盘图标
+    _trayIcon->show();// 显示托盘
+}
+
+void MainWindow::initGlobalShortcut()
+{
+    _globalShortcut = new QxtGlobalShortcut(this);
+    QKeySequence keySequence = DYNAMIC_DATA->getGlobalShortcut();
+    if (!_globalShortcut->setShortcut(keySequence)){
+        UIUtils::showCriticalMsgBox(tr("failed to register: \"%1\"").arg(keySequence.toString()));
+    }
+    connect(_globalShortcut, SIGNAL(activated()),this, SLOT(on_hotKey_triggered()));
+}
+
 // @brief 读取存档文件
 bool MainWindow::loadSaveFile(const QString fileName)
 {
@@ -134,12 +155,14 @@ void MainWindow::on_Quit_triggered()
 MainWindow::~MainWindow()
 {
     delete ui;
-    if(_trayIcon!=nullptr)
+    if (_trayIcon != nullptr)
         delete _trayIcon;
-    if(_trayMenu!=nullptr)
+    if (_trayMenu != nullptr)
         delete _trayMenu;
-    if(_translator!=nullptr)
+    if (_translator != nullptr)
         delete _translator;
+    if (_globalShortcut != nullptr)
+        delete _globalShortcut;
 }
 
 void MainWindow::on_actionShowWindow_triggered()
@@ -321,20 +344,6 @@ void MainWindow::updateLanguage()
     _translator->load(QString("language/") + DYNAMIC_DATA->getLanguage());
     qApp->installTranslator(_translator);
     ui->retranslateUi(this);
-}
-
-void MainWindow::initTray()
-{
-    _trayIcon = new QSystemTrayIcon(this);
-    _trayMenu = new QMenu();
-    connect(_trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
-            this, SLOT(onSystemTrayIconClicked(QSystemTrayIcon::ActivationReason)));
-    _trayMenu->addAction(ui->actionShowWindow);// 添加显示主窗口菜单项
-    _trayMenu->addSeparator();// 分割线
-    _trayMenu->addAction(ui->actionQuit);// 添加退出菜单项
-    _trayIcon->setContextMenu(_trayMenu);// 设置托盘菜单
-    _trayIcon->setIcon(QIcon(":/img/res/logo.ico")); // 设置托盘图标
-    _trayIcon->show();// 显示托盘
 }
 
 // @brief 检查更新

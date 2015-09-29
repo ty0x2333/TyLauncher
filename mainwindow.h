@@ -9,10 +9,12 @@ class QNetworkAccessManager;
 class QTranslator;
 class QCloseEvent;
 class QMenu;
+QT_END_NAMESPACE
+
 class AppButton;
 class AboutDialog;
 class AppConfigDialog;
-QT_END_NAMESPACE
+class QxtGlobalShortcut;
 
 namespace Ui {
 class MainWindow;
@@ -84,6 +86,8 @@ private:
     /// @brief 更新语言
     void updateLanguage();
 protected:
+    QxtGlobalShortcut* _globalShortcut;
+    
     /// @brief 是否需要显示更新对话框
     bool _needShowUpdateDialog;
 
@@ -91,6 +95,8 @@ protected:
     void initTray();
     
     void initMenu();
+    
+    void initGlobalShortcut();
 
     /// @brief 检查更新
     void checkUpdate();
