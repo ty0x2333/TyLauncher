@@ -6,9 +6,7 @@ AboutDialog::AboutDialog(QWidget *parent) :
     ui(new Ui::AboutDialog)
 {
     ui->setupUi(this);
-    //setWindowFlags(Qt::FramelessWindowHint);
-    this->setWindowTitle(tr("About ") + qApp->applicationName());
-    ui->appNameLbl->setText(qApp->applicationName());
+    setWindowFlags(windowFlags() | Qt::MSWindowsFixedSizeDialogHint);
     ui->versionLbl->setText(qApp->applicationVersion());
 }
 
