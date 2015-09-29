@@ -45,6 +45,28 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>130</y>
+         <width>177</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <layout class="QFormLayout" name="formLayout_2">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>HotKey</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QKeySequenceEdit" name="hotKeySequenceEdit"/>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </widget>
    </item>

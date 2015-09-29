@@ -411,5 +411,7 @@ void MainWindow::onAppConfigChanged(const QString &name)
     
     if (name == KEY_LANGUAGE){
         updateLanguage();
+    }else if (name == KEY_HOT_KEY){
+        _globalShortcut->setShortcut(DYNAMIC_DATA->getGlobalShortcut());
     }
 }
