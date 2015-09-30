@@ -1,6 +1,6 @@
 ﻿#include "shearplateutils.h"
 #include "dynamicdata.h"
-#include "AppButton.h"
+#include "widget/appbutton.h"
 #include "utils/uiutils.h"
 #include <QObject>
 

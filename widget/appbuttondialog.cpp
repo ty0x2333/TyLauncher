@@ -1,6 +1,6 @@
-#include "appbuttondialog.h"
+﻿#include "appbuttondialog.h"
 #include "ui_appbuttondialog.h"
-#include "appbutton.h"
+#include "widget/appbutton.h"
 #include <QFileDialog>
 #include <QFileIconProvider>
 AppButtonDialog::AppButtonDialog(QWidget *parent, AppButton *btn) :

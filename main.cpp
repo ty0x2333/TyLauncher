@@ -1,4 +1,4 @@
-﻿#include "mainwindow.h"
+﻿#include "widget/mainwindow.h"
 #include <QApplication>
 #include "StaticSetting.h"
 #include <QTranslator>

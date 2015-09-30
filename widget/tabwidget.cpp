@@ -5,10 +5,10 @@
 #include <QJsonObject>
 #include <QGridLayout>
 #include <QTabBar>
-#include "AppButton.h"
+#include "widget/appbutton.h"
 #include "datasettings.h"
 #include "TyLog_Qt.h"
-#include "appbuttondialog.h"
+#include "widget/appbuttondialog.h"
 #include "dynamicdata.h"
 #include "widget/appbuttonform.h"
 TabWidget::TabWidget(QWidget *parent)

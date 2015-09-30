@@ -3,7 +3,7 @@
 #include "qxtglobalshortcut.h"
 #include "dynamicdata.h"
 #include "aboutdialog.h"
-#include "appbutton.h"
+#include "widget/appbutton.h"
 #include "StaticSetting.h"
 #include "TyLog_Qt.h"
 #include "utils/uiutils.h"

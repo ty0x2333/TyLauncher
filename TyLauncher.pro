@@ -14,38 +14,38 @@ TEMPLATE = app
 CONFIG += c++11
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    appbutton.cpp \
-    aboutdialog.cpp \
-    appbuttondialog.cpp \
-    dynamicdata.cpp \
+    widget/mainwindow.cpp \
+    widget/aboutdialog.cpp \
+    widget/appbuttondialog.cpp \
+    widget/tabwidget.cpp \
+    widget/appbuttonform.cpp \
+    widget/appbutton.cpp \
+    widget/appconfigdialog.cpp \
     utils/uiutils.cpp \
     utils/apputils.cpp \
-    tabwidget.cpp \
-    model/appinfo.cpp \
     utils/shearplateutils.cpp \
-    appconfigdialog.cpp \
-    model/option.cpp \
     utils/stringutils.cpp \
-    widget/appbuttonform.cpp
+    model/appinfo.cpp \
+    model/option.cpp \
+    dynamicdata.cpp
 
-HEADERS  += mainwindow.h \
-    appbutton.h \
-    aboutdialog.h \
-    StaticSetting.h \
-    appbuttondialog.h \
-    dynamicdata.h \
-    TyLog_Qt.h \
+HEADERS  += widget/mainwindow.h \
+    widget/aboutdialog.h \
+    widget/appbuttondialog.h \
+    widget/tabwidget.h \
+    widget/appbuttonform.h \
+    widget/appbutton.h \
+    widget/appconfigdialog.h \
     utils/uiutils.h \
     utils/apputils.h \
-    tabwidget.h \
-    datasettings.h \
-    model/appinfo.h \
     utils/shearplateutils.h \
-    appconfigdialog.h \
-    model/option.h \
     utils/stringutils.h \
-    widget/appbuttonform.h
+    model/appinfo.h \
+    model/option.h \
+    dynamicdata.h \
+    TyLog_Qt.h \
+    datasettings.h \
+    StaticSetting.h
 
 FORMS    += mainwindow.ui \
     aboutdialog.ui \

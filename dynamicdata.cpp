@@ -1,7 +1,7 @@
 ﻿#include "dynamicdata.h"
 #include "StaticSetting.h"
 #include "model/appinfo.h"
-#include "appbutton.h"
+#include "widget/appbutton.h"
 #include <QSettings>
 #include <QJsonObject>
 #include <QJsonArray>
