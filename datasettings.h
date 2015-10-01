@@ -16,7 +16,7 @@
 #define KEY_LANGUAGE "language"
 #define KEY_THEME "theme"
 #define KEY_USER_SETTINGS_FILE_NAME "userSettingsFileName"
-#define KEY_HOT_KEY "hotKey"
+#define KEY_HOT_KEY "hotkey"
 /** @} */
 
 /**
