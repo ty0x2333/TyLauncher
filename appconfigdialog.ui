@@ -23,47 +23,38 @@
       <attribute name="title">
        <string>&amp;General</string>
       </attribute>
-      <widget class="QWidget" name="layoutWidget">
+      <widget class="QWidget" name="">
        <property name="geometry">
         <rect>
-         <x>190</x>
-         <y>70</y>
-         <width>181</width>
-         <height>22</height>
+         <x>191</x>
+         <y>71</y>
+         <width>281</width>
+         <height>81</height>
         </rect>
        </property>
        <layout class="QFormLayout" name="formLayout">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>Language</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
+        <property name="formAlignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+        <item row="1" column="1">
          <widget class="QComboBox" name="comboBoxLanguage"/>
         </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="layoutWidget">
-       <property name="geometry">
-        <rect>
-         <x>190</x>
-         <y>130</y>
-         <width>177</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <layout class="QFormLayout" name="formLayout_2">
-        <item row="0" column="0">
+        <item row="2" column="0">
          <widget class="QLabel" name="label_2">
           <property name="text">
            <string>HotKey</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
+        <item row="2" column="1">
          <widget class="QKeySequenceEdit" name="hotKeySequenceEdit"/>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Language</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
