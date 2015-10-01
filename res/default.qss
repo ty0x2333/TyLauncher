@@ -1,12 +1,4 @@
-/*
-浅绿:
-#40A46F
-深绿:
-#3a9564
-灰色:
-#aaaaaa
-*/
-QMainWindow,QDialog{background: #526874; color: #ffffff;}/*主窗口*/
+QMainWindow,QDialog{background: #526874; color: #ffffff;}
 /*StatusBar*/
 QStatusBar{background: #526874}
 /*MenuBar*/
@@ -20,8 +12,8 @@ QMenu {background: #40A46F;}
 QMenu::item {background: #40A46F;}
 QMenu::item:!enabled {background: #40A46F;}
 QMenu::item:selected {background: #40A46F;}
-/*QMenu::icon:checked {background: #3a9564;}*/
-QMenu::separator {color: #ffffff;}/*分割线*/
+
+QMenu::separator {color: #ffffff;}
 QMenu::indicator {background: #40A46F;}
 /*PushButton*/
 QPushButton{background: #40A46F; color:#ffffff}
@@ -32,6 +24,6 @@ AppButton:hover{border:1px solid #53adf1; color:#ffffff}
 AppButton:pressed{border:1px solid #3e82b5;}
 /*TabWidget*/
 QTabWidget{background: #ffffff}
-QTabBar::tab{text-align:left top; background: #40A46F; color: #aaaaaa}
-QTabBar::tab:hover{background: #3a9564; color: #ffffff}/*鼠标停留*/
+QTabBar::tab{text-align:left top; background: #40A46F; color: #aaaaaa; padding: 1.5em;}
+QTabBar::tab:hover{background: #3a9564; color: #ffffff}
 QTabBar::tab:selected{background: #ffffff; color: #000000}
