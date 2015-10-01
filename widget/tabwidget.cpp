@@ -5,12 +5,14 @@
 #include <QJsonObject>
 #include <QGridLayout>
 #include <QTabBar>
+#include <QResizeEvent>
 #include "widget/appbutton.h"
 #include "datasettings.h"
 #include "TyLog_Qt.h"
 #include "widget/appbuttondialog.h"
 #include "dynamicdata.h"
 #include "widget/appbuttonform.h"
+#include "widget/tabbar.h"
 TabWidget::TabWidget(QWidget *parent)
     : QTabWidget(parent)
     , ui(new Ui::TabWidget)
@@ -18,6 +20,9 @@ TabWidget::TabWidget(QWidget *parent)
     , _columnCount(DEFAULT_TAB_COLUMN_COUNT)
 {
     ui->setupUi(this);
+    TabBar *tabBar = new TabBar(this);
+    this->setTabBar(tabBar);
+    this->tabBar()->setDocumentMode(true);
     initTabs();
 }
 
@@ -64,7 +69,7 @@ void TabWidget::clearAllAppBtnData()
 
 void TabWidget::initTabs()
 {
-    for(int i = 0; i < 10; ++i){
+    for(int i = 0; i < DEFAULT_TAB_COUNT; ++i){
         this->addTab(new AppButtonForm(3, 10, this), QString::number((i + 1)%10));
     }
 }

@@ -27,7 +27,8 @@ SOURCES += main.cpp\
     utils/stringutils.cpp \
     model/appinfo.cpp \
     model/option.cpp \
-    dynamicdata.cpp
+    dynamicdata.cpp \
+    widget/tabbar.cpp
 
 HEADERS  += widget/mainwindow.h \
     widget/aboutdialog.h \
@@ -45,7 +46,8 @@ HEADERS  += widget/mainwindow.h \
     dynamicdata.h \
     TyLog_Qt.h \
     datasettings.h \
-    StaticSetting.h
+    StaticSetting.h \
+    widget/tabbar.h
 
 FORMS    += mainwindow.ui \
     aboutdialog.ui \

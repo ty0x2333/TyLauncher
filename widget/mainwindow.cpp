@@ -26,6 +26,7 @@
 #include "utils/shearplateutils.h"
 #include "appconfigdialog.h"
 #include "datasettings.h"
+#include "widget/tabwidget.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -54,8 +55,7 @@ MainWindow::MainWindow(QWidget *parent)
     // 尝试读取存档
     if(!loadSaveFile(DYNAMIC_DATA->userSettingsFileName()))
         reset();// 还原默认设置
-    ui->tabWidget->setStyleSheet("QTabBar::tab { min-width:" + QString::number(this->width() / 10 - 3) + "px;min-height:50px;}text-align:left top;");
-
+    
     activateWindow();
     
     initGlobalShortcut();
@@ -204,7 +204,8 @@ bool MainWindow::eventFilter(QObject *watched, QEvent *event)
             break;
         case QEvent::Resize:
             TyLogDebug("QEvent::Resize");
-            ui->tabWidget->setStyleSheet("QTabBar::tab {min-width:" + QString::number(this->width() / 10 - 3) + "px;min-height:50px;}");
+//            ui->tabWidget->setStyleSheet("QTabBar::tab { min-width:" + QString::number(this->width() / DEFAULT_TAB_COUNT) + "px;}");
+//            ui->tabWidget->setStyleSheet("QTabBar::tab {min-width:" + QString::number(this->width() / 10 - 3) + "px;min-height:50px;}");
             break;
         }
     }

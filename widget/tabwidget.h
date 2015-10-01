@@ -28,8 +28,7 @@ public:
      */
     void clearAllAppBtnData();
     
-//    void setAppButtonsRightMenu
-//    const char *readyReadMember
+protected:
     
 private slots:
     
