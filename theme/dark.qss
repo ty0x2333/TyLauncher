@@ -14,6 +14,13 @@ QLabel{
   color: hsl(220, 18%, 60%);
 }
 
+QToolTip{
+  color: white;
+  background-color: hsl(219,58%,93%);
+  border: 2px solid hsl(219,58%,93%);
+  padding: 2px;
+}
+
 QMainWindow, QDialog{
   background-color: hsl(220,24%,17%);
   color: #ffffff;
