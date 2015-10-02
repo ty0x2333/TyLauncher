@@ -323,7 +323,7 @@ void MainWindow::updateTheme()
 
 void MainWindow::on_actionDefaultTheme_triggered()
 {
-    DYNAMIC_DATA->setTheme(":/css/res/default.qss");
+    DYNAMIC_DATA->setTheme(DEFAULT_THEME);
     updateTheme();
 }
 

@@ -11,17 +11,21 @@ SET QtRoot="%QTDIR%"
 echo Root : %Root%
 echo Build: %Build%
 
-:: 创建 Packaging 文件夹
+:: Create Packaging Directory
 mkdir "%PackagingRoot%"
 
-:: 拷贝 exe
+:: Copy exe
 copy "%Build%\release\%AppName%.exe" "%PackagingRoot%"
 
-:: 拷贝 language 文件
+:: Copy language directory
 mkdir "%PackagingRoot%\language"
 copy "%Root%\language\*.qm" "%PackagingRoot%\language"
 
-:: 拷贝 Qt DLL
+:: Copy theme directory
+mkdir "%PackagingRoot%\theme"
+copy "%Root%\theme\*.qss" "%PackagingRoot%\theme"
+
+:: Copy Qt DLL
 copy "%QtRoot%\bin\Qt5Core.dll"    "%PackagingRoot%"
 copy "%QtRoot%\bin\Qt5Gui.dll"     "%PackagingRoot%"
 copy "%QtRoot%\bin\Qt5Network.dll" "%PackagingRoot%"
@@ -32,11 +36,11 @@ copy "%QtRoot%\bin\icudt54.dll" "%PackagingRoot%"
 copy "%QtRoot%\bin\icuin54.dll" "%PackagingRoot%"
 copy "%QtRoot%\bin\icuuc54.dll" "%PackagingRoot%"
 
-:: Qt platforms
+:: Copy Qt platforms
 mkdir "%PackagingRoot%\platforms"
 copy "%QtRoot%\plugins\platforms\qwindows.dll" "%PackagingRoot%\platforms"
 
-:: Qt imageformats
+:: Copy Qt imageformats
 mkdir "%PackagingRoot%\imageformats"
 copy "%QtRoot%\plugins\imageformats\qicns.dll" "%PackagingRoot%\imageformats"
 copy "%QtRoot%\plugins\imageformats\qico.dll"  "%PackagingRoot%\imageformats"
@@ -49,10 +53,10 @@ copy "%QtRoot%\plugins\imageformats\qmng.dll"  "%PackagingRoot%\imageformats"
 copy "%QtRoot%\plugins\imageformats\qjp2.dll"  "%PackagingRoot%\imageformats"
 copy "%QtRoot%\plugins\imageformats\qjpeg.dll" "%PackagingRoot%\imageformats"
 copy "%QtRoot%\plugins\imageformats\qgif.dll"  "%PackagingRoot%\imageformats"
-:: 或许不需要它
+:: maybe need not it
 copy "%QtRoot%\plugins\imageformats\qdds.dll"  "%PackagingRoot%\imageformats"
 
-:: 拷贝 MSVC DLL
+:: Copy MSVC DLL
 copy "%WindowsRoot%\msvcp120.dll" "%PackagingRoot%"
 copy "%WindowsRoot%\msvcr120.dll" "%PackagingRoot%"
 

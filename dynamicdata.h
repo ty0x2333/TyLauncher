@@ -39,7 +39,7 @@ public:
     
     void resetUserSaveFile();
     
-    QStringList getLanguageList();
+    QStringList getLanguageList() const;
     
     QKeySequence getGlobalShortcut() const;
     void setGlobalShortcut(QKeySequence keySequence);

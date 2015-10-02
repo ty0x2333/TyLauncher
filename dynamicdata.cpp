@@ -20,7 +20,7 @@
 #include <QKeySequence>
 #include "model/option.h"
 #include "utils/stringutils.h"
-
+#include "utils/apputils.h"
 namespace {
 QString defaultSaveFileName()
 {
@@ -183,15 +183,10 @@ void DynamicData::resetUserSaveFile()
     }
 }
 
-QStringList DynamicData::getLanguageList()
+QStringList DynamicData::getLanguageList() const
 {
-    QStringList strList;
-    strList.append(DEFAULT_LANGUAGE);
-    QDir dir(FILE_NAME_LANGUAGE);
-    QFileInfoList fileInfoList = dir.entryInfoList(QStringList("*.qm"));
-    for (QFileInfo info : fileInfoList){
-        strList.append(info.baseName());
-    }
+    QStringList strList = AppUtils::fileNameList(FILE_NAME_LANGUAGE, QStringList("*.qm"));
+    strList.insert(0, DEFAULT_LANGUAGE);
     return strList;
 }
 

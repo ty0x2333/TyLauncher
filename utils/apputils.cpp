@@ -2,6 +2,8 @@
 #include "TyLog_Qt.h"
 
 #ifdef Q_OS_WIN32
+#include <QDir>
+#include <QFileInfoList>
     #include <windows.h>
 #elif (defined(Q_OS_LINUX) || defined(Q_OS_MAC))
     #include <sys/types.h>
@@ -38,4 +40,15 @@ bool AppUtils::isRunTimeOnly()
     }
 #endif
     return true;
+}
+
+QStringList AppUtils::fileNameList(const QString &dirPath, const QStringList &filter)
+{
+    QStringList strList;
+    QDir dir(dirPath);
+    QFileInfoList fileInfoList = dir.entryInfoList(filter);
+    for (QFileInfo info : fileInfoList){
+        strList.append(info.baseName());
+    }
+    return strList;
 }

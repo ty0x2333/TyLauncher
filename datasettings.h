@@ -24,7 +24,7 @@
   * @{
   */
 #define DEFAULT_LANGUAGE "en"
-#define DEFAULT_THEME ":/css/res/default.qss"
+#define DEFAULT_THEME "theme/default.qss"
 #define DEFAULT_HOT_KEY "Ctrl+Tab"
 /** @} */
 
