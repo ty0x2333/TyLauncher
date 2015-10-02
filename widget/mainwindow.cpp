@@ -306,18 +306,6 @@ void MainWindow::on_actionSave_As_triggered()
     delete fileDialog;
 }
 
-void MainWindow::on_actionDefaultTheme_triggered()
-{
-    DYNAMIC_DATA->setTheme(DEFAULT_THEME);
-//    updateTheme();
-}
-
-void MainWindow::on_actionSystemTheme_triggered()
-{
-    DYNAMIC_DATA->setTheme("");
-//    updateTheme();
-}
-
 // @brief 更新语言
 void MainWindow::updateLanguage()
 {

@@ -2,10 +2,15 @@
 #include "dynamicdata.h"
 #include "TyLog_Qt.h"
 #include "utils/stringutils.h"
+#include "StaticSetting.h"
 #include <QFile>
 Application::Application(int &argc, char **argv, int flags)
     : QApplication(argc, argv, flags)
 {
+    this->setApplicationName(VER_PRODUCTNAME_STR);
+    this->setApplicationVersion(VER_FILEVERSION_DISPLAY_STR);
+    
+    updateTheme();
     connect(DYNAMIC_DATA, SIGNAL(themeConfigChanged()), this, SLOT(updateTheme()));
 }
 

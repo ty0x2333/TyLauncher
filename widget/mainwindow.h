@@ -51,10 +51,6 @@ private slots:
     /// @brief "另保存"菜单项响应
     void on_actionSave_As_triggered();
     
-    void on_actionDefaultTheme_triggered();
-    
-    void on_actionSystemTheme_triggered();
-    
     void replyFinished(QNetworkReply *reply);
     /// @brief "检查更新"菜单项响应
     void on_actionCheck_Update_triggered();
