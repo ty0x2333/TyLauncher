@@ -44,6 +44,7 @@ void AppConfigDialog::apply()
 void AppConfigDialog::initOptions()
 {
     _options[KEY_HOT_KEY] = Option(DEFAULT_HOT_KEY, "keySequence", ui->hotKeySequenceEdit);
+    _options[KEY_HOT_KEY].setValue(DYNAMIC_DATA->getGlobalShortcut());
 }
 
 void AppConfigDialog::initLanguages()

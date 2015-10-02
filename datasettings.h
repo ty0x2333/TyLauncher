@@ -28,7 +28,7 @@
   */
 #define DEFAULT_LANGUAGE "en"
 #define DEFAULT_THEME "dark"
-#define DEFAULT_HOT_KEY "Ctrl+Tab"
+#define DEFAULT_HOT_KEY "Ctrl+~"
 /** @} */
 
 #define DEFAULT_TAB_COUNT 10
