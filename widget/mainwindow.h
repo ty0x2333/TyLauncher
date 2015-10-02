@@ -79,8 +79,6 @@ private:
     /// @brief 重置数据
     void reset();
 
-    /// @brief 更新主题
-    void updateTheme();
     /// @brief 更新语言
     void updateLanguage();
 protected:

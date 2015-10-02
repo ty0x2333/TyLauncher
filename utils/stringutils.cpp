@@ -1,6 +1,7 @@
 ﻿#include "stringutils.h"
 #include <QString>
 #include "model/option.h"
+#include "datasettings.h"
 
 QString StringUtils::toString(QHash<QString, Option> options)
 {
@@ -10,4 +11,9 @@ QString StringUtils::toString(QHash<QString, Option> options)
     }
     str += "\n}";
     return str;
+}
+
+QString StringUtils::themeFileName(const QString &theme)
+{
+    return QString("%1%2%3%4").arg(FILE_NAME_THEME).arg("/").arg(theme).arg(".qss");
 }

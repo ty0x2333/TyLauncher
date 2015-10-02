@@ -89,6 +89,10 @@ void DynamicData::loadAppConfig()
         }
     }
     loadUserSaveFile(userSettingsFileName());
+    if (!getThemeList().contains(getTheme())){
+        TyLogFatal("not exists theme file, reset theme to default \"%s\"", DEFAULT_THEME);
+        _options[KEY_THEME].reset();
+    }
 //    _language = configIniRead->value(KEY_LANGUAGE, "").toString();
 //    if(_language.isEmpty())// 当取不到语言设置时,使用系统当前语言
 //        _language = QLocale::system().name();
@@ -190,6 +194,13 @@ QStringList DynamicData::getLanguageList() const
     return strList;
 }
 
+QStringList DynamicData::getThemeList() const
+{
+    QStringList strList = AppUtils::fileNameList(FILE_NAME_THEME, QStringList("*.qss"));
+    strList.insert(0, SYSTEM_THEME);
+    return strList;
+}
+
 QString DynamicData::getTheme() const{return value(KEY_THEME).toString();}
 void DynamicData::setTheme(const QString &theme){setValue(KEY_THEME, theme);}
 
@@ -223,4 +234,7 @@ void DynamicData::setValue(const QString &name, const QVariant &value)
         return;
     }
     emit appConfigChanged(name);
+    if (name == KEY_THEME){
+        emit themeConfigChanged();
+    }
 }

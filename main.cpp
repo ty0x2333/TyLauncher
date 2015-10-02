@@ -1,5 +1,5 @@
 ﻿#include "widget/mainwindow.h"
-#include <QApplication>
+#include "application.h"
 #include "StaticSetting.h"
 #include <QTranslator>
 #include <QFile>
@@ -7,10 +7,11 @@
 #include "utils/apputils.h"
 #include "utils/uiutils.h"
 #include <QObject>
+#include "utils/stringutils.h"
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+    Application a(argc, argv);
     a.setApplicationName(VER_PRODUCTNAME_STR);
     a.setApplicationVersion(VER_FILEVERSION_DISPLAY_STR);
 #ifndef QT_DEBUG
@@ -22,7 +23,7 @@ int main(int argc, char *argv[])
 #endif
     // 设置样式
     QString qss;
-    QFile qssFile(DYNAMIC_DATA->getTheme());
+    QFile qssFile(StringUtils::themeFileName(DYNAMIC_DATA->getTheme()));
     qssFile.open(QFile::ReadOnly);
     if(qssFile.isOpen()){
         qss = QLatin1String(qssFile.readAll());

@@ -40,6 +40,7 @@ public:
     void resetUserSaveFile();
     
     QStringList getLanguageList() const;
+    QStringList getThemeList() const;
     
     QKeySequence getGlobalShortcut() const;
     void setGlobalShortcut(QKeySequence keySequence);
@@ -63,7 +64,7 @@ public:
     
 signals:
     void appConfigChanged(const QString &key);
-    
+    void themeConfigChanged();
 private:
     DynamicData();
     

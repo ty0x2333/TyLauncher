@@ -30,6 +30,7 @@ private:
     
     void initOptions();
     void initLanguages();
+    void initThemes();
 };
 
 #endif // APPCONFIGDIALOG_H

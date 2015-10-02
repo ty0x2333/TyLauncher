@@ -22,6 +22,7 @@ AppConfigDialog::AppConfigDialog(QWidget *parent)
     ui->setupUi(this);
     initOptions();
     initLanguages();
+    initThemes();
 }
 
 AppConfigDialog::~AppConfigDialog()
@@ -36,6 +37,7 @@ void AppConfigDialog::apply()
         dynamicData->setValue(key, _options[key].value());
     }
     dynamicData->setValue(KEY_LANGUAGE, ui->comboBoxLanguage->currentData());
+    dynamicData->setValue(KEY_THEME, ui->comboBoxTheme->currentData());
     dynamicData->saveAppConfig();
 }
 
@@ -70,6 +72,26 @@ void AppConfigDialog::initLanguages()
     }
 
     ui->comboBoxLanguage->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+}
+
+void AppConfigDialog::initThemes()
+{
+    const QString currentTheme = DYNAMIC_DATA->getTheme();
+    QStringList list = DYNAMIC_DATA->getThemeList();
+    QSet<QString> themes;
+    foreach ( const QString &theme, list ) {
+
+        if ( !themes.contains(theme) ) {
+            themes.insert(theme);
+            const int index = ui->comboBoxTheme->count();
+            ui->comboBoxTheme->addItem(theme);
+            ui->comboBoxTheme->setItemData(index, theme);
+
+            if (currentTheme == theme) {
+                ui->comboBoxTheme->setCurrentIndex(index);
+            }
+        }
+    }
 }
 
 void AppConfigDialog::on_buttonBox_clicked(QAbstractButton *button)

@@ -11,6 +11,7 @@ class StringUtils
 {
 public:
     static QString toString(QHash<QString, Option> options);
+    static QString themeFileName(const QString& theme);
 };
 
 #endif // __STRINGUTILS_H__

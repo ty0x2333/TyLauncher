@@ -8,6 +8,7 @@
 #define KEY_FILE_NAME "filename"
 
 #define FILE_NAME_LANGUAGE "language"
+#define FILE_NAME_THEME "theme"
 
 /**
   * @brief Config File Keys
@@ -19,12 +20,14 @@
 #define KEY_HOT_KEY "hotkey"
 /** @} */
 
+#define SYSTEM_THEME "systemTheme"
+
 /**
   * @brief Config File Defaults
   * @{
   */
 #define DEFAULT_LANGUAGE "en"
-#define DEFAULT_THEME "theme/default.qss"
+#define DEFAULT_THEME "dark"
 #define DEFAULT_HOT_KEY "Ctrl+Tab"
 /** @} */
 

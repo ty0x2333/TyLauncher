@@ -27,6 +27,7 @@
 #include "appconfigdialog.h"
 #include "datasettings.h"
 #include "widget/tabwidget.h"
+#include "utils/stringutils.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -304,33 +305,17 @@ void MainWindow::on_actionSave_As_triggered()
     }
     delete fileDialog;
 }
-// @brief 更新主题
-void MainWindow::updateTheme()
-{
-    // 设置样式
-    QString qss;
-    QFile qssFile(DYNAMIC_DATA->getTheme());
-    qssFile.open(QFile::ReadOnly);
-    if(qssFile.isOpen()){
-        qss = QLatin1String(qssFile.readAll());
-        qApp->setStyleSheet(qss);
-        qssFile.close();
-    }else{
-        qApp->setStyleSheet("");
-    }
-    
-}
 
 void MainWindow::on_actionDefaultTheme_triggered()
 {
     DYNAMIC_DATA->setTheme(DEFAULT_THEME);
-    updateTheme();
+//    updateTheme();
 }
 
 void MainWindow::on_actionSystemTheme_triggered()
 {
     DYNAMIC_DATA->setTheme("");
-    updateTheme();
+//    updateTheme();
 }
 
 // @brief 更新语言
