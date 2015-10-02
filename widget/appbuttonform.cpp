@@ -62,17 +62,13 @@ bool AppButtonForm::configFromVector(QVector<AppInfo> dataVector)
     
     QGridLayout *layout = dynamic_cast<QGridLayout *>(this->layout());
     Q_ASSERT_X(layout != nullptr, "configFromVector", "layout() is not QGridLayout class!"); 
-    // 每一行
-    for(int r = 0; r < _rowCount; ++r){
-        // 每一列
-        for(int c = 0; c < _columnCount; ++c){
-            QLayoutItem *item = layout->itemAtPosition(r, c);
-            QWidget *widget = item->widget();
-            AppButton *btn = dynamic_cast<AppButton*>(widget);
-            Q_ASSERT_X(btn != nullptr, "configFromVector", "item->widget() is not AppButton class!"); 
-            btn->setDataFromAppInfo(dataVector[r*_rowCount + c]);
-            connect(btn, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(onAppButtonRightClicked(QPoint)));
-        }
+    for(int i = 0; i < _rowCount * _columnCount; ++i){
+        QLayoutItem *item = layout->itemAtPosition(i / _columnCount, i % _columnCount);
+        QWidget *widget = item->widget();
+        AppButton *btn = dynamic_cast<AppButton*>(widget);
+        Q_ASSERT_X(btn != nullptr, "configFromVector", "item->widget() is not AppButton class!"); 
+        btn->setDataFromAppInfo(dataVector[i]);
+        connect(btn, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(onAppButtonRightClicked(QPoint)));
     }
     return true;
 }
@@ -97,7 +93,11 @@ void AppButtonForm::clearAllAppBtnData()
 QJsonArray AppButtonForm::jsonArray() const
 {
     QJsonArray result;
-    for(AppButton* btn : this->findChildren<AppButton *>()){ // 遍历所有AppButton
+    QGridLayout *layout = dynamic_cast<QGridLayout *>(this->layout());
+    for(int i = 0; i < _rowCount * _columnCount; ++i){
+        QLayoutItem *item = layout->itemAtPosition(i / _columnCount, i % _columnCount);
+        QWidget *widget = item->widget();
+        AppButton *btn = dynamic_cast<AppButton*>(widget);
         QJsonObject obj;
         obj.insert(KEY_HOT_KEY, btn->text());// 按钮的快捷键
         obj.insert(KEY_APP_NAME, btn->getAppName());// 按钮的应用名
