@@ -177,7 +177,6 @@ void DynamicData::resetUserSaveFile()
     _userSaveData.clear();
     for(int i = 0; i < DEFAULT_TAB_COUNT; ++i){// 每一个Tab
         QVector<AppInfo> btnVector;
-        // 每一列
         for(int i = 0; i < DEFAULT_TAB_COLUMN_COUNT * DEFAULT_TAB_ROW_COUNT; ++i){
             AppInfo appInfo;
             appInfo.setHotKey(btnStr[i / DEFAULT_TAB_COLUMN_COUNT][i % DEFAULT_TAB_COLUMN_COUNT]);

@@ -62,15 +62,15 @@ bool AppButtonForm::configFromVector(QVector<AppInfo> dataVector)
     
     QGridLayout *layout = dynamic_cast<QGridLayout *>(this->layout());
     Q_ASSERT_X(layout != nullptr, "configFromVector", "layout() is not QGridLayout class!"); 
-    // 每一列
-    for(int c = 0; c < _columnCount; ++c){
-        // 每一行
-        for(int r = 0; r < _rowCount; ++r){
+    // 每一行
+    for(int r = 0; r < _rowCount; ++r){
+        // 每一列
+        for(int c = 0; c < _columnCount; ++c){
             QLayoutItem *item = layout->itemAtPosition(r, c);
             QWidget *widget = item->widget();
             AppButton *btn = dynamic_cast<AppButton*>(widget);
             Q_ASSERT_X(btn != nullptr, "configFromVector", "item->widget() is not AppButton class!"); 
-            btn->setDataFromAppInfo(dataVector[c*_rowCount + r]);
+            btn->setDataFromAppInfo(dataVector[r*_rowCount + c]);
             connect(btn, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(onAppButtonRightClicked(QPoint)));
         }
     }
