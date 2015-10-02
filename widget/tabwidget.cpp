@@ -6,6 +6,7 @@
 #include <QGridLayout>
 #include <QTabBar>
 #include <QResizeEvent>
+#include <QKeyEvent>
 #include "widget/appbutton.h"
 #include "datasettings.h"
 #include "TyLog_Qt.h"
@@ -13,6 +14,7 @@
 #include "dynamicdata.h"
 #include "widget/appbuttonform.h"
 #include "widget/tabbar.h"
+#include "utils/shearplateutils.h"
 TabWidget::TabWidget(QWidget *parent)
     : QTabWidget(parent)
     , ui(new Ui::TabWidget)
@@ -67,10 +69,45 @@ void TabWidget::clearAllAppBtnData()
     }
 }
 
+void TabWidget::keyReleaseEvent(QKeyEvent *keyEvent)
+{
+    if(keyEvent->modifiers() != Qt::ControlModifier){
+        return;
+    }
+    
+    QList<AppButton *> appButtonList = this->currentWidget()->findChildren<AppButton *>();
+    switch(keyEvent->key())
+    {
+    case Qt::Key_C:
+            for(AppButton* btn : appButtonList){ // 遍历所有AppButton，寻找当前鼠标指向的按钮
+                if(btn->isBeMousePointing()){
+                    ShearPlateUtils::copy(btn);
+                }
+            }
+        break;
+    case Qt::Key_X:
+            for(AppButton* btn : appButtonList){ // 遍历所有AppButton，寻找当前鼠标指向的按钮
+                if(btn->isBeMousePointing()){
+                    ShearPlateUtils::shear(btn);
+                }
+            }
+        break;
+    case Qt::Key_V:
+            for(AppButton* btn : appButtonList){ // 遍历所有AppButton
+                if(btn->isBeMousePointing()){// 找到被鼠标指向的AppButton
+                    ShearPlateUtils::paste(btn);
+                }
+            }
+        break;
+    default:
+        break;
+    }
+}
+
 void TabWidget::initTabs()
 {
     for(int i = 0; i < DEFAULT_TAB_COUNT; ++i){
-        this->addTab(new AppButtonForm(3, 10, this), QString::number((i + 1)%10));
+        this->addTab(new AppButtonForm(_rowCount, _columnCount, this), QString::number((i + 1)%10));
     }
 }
 

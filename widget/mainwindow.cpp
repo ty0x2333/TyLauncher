@@ -214,72 +214,42 @@ bool MainWindow::eventFilter(QObject *watched, QEvent *event)
 }
 void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
 {
-    if(keyEvent->modifiers() == Qt::ControlModifier)// 判断是否按下了Ctrl(功能键)
+    if(keyEvent->modifiers() == Qt::ControlModifier){
+        return;
+    }
+    switch(keyEvent->key())
+    {
+    case Qt::Key_Escape:
+        TyLogDebug("Esc Press, activeWindow: %d", qApp->activeWindow());
+        if (qApp->activeWindow())
+            this->hide();
+        break;
+    case Qt::Key_Delete:
     {
         QList<AppButton *> appButtonList = ui->tabWidget->currentWidget()->findChildren<AppButton *>();
-        switch(keyEvent->key())
-        {
-        case Qt::Key_C:
-                for(AppButton* btn : appButtonList){ // 遍历所有AppButton，寻找当前鼠标指向的按钮
-                    if(btn->isBeMousePointing()){
-                        ShearPlateUtils::copy(btn);
-                    }
-                }
-            break;
-        case Qt::Key_X:
-                for(AppButton* btn : appButtonList){ // 遍历所有AppButton，寻找当前鼠标指向的按钮
-                    if(btn->isBeMousePointing()){
-                        ShearPlateUtils::shear(btn);
-                    }
-                }
-            break;
-        case Qt::Key_V:
-                for(AppButton* btn : appButtonList){ // 遍历所有AppButton
-                    if(btn->isBeMousePointing()){// 找到被鼠标指向的AppButton
-                        ShearPlateUtils::paste(btn);
-                    }
-                }
-            break;
-        default:
-            break;
+        for(AppButton* btn : appButtonList){ // 遍历所有AppButton
+            if(btn->isBeMousePointing()){// 找到被鼠标指向的AppButton
+                ShearPlateUtils::remove(btn);
+            }
         }
     }
-    else
-    {
-        switch(keyEvent->key())
-        {
-        case Qt::Key_Escape:
-            TyLogDebug("Esc Press, activeWindow: %d", qApp->activeWindow());
-            if (qApp->activeWindow())
-                this->hide();
-            break;
-        case Qt::Key_Delete:
-        {
-            QList<AppButton *> appButtonList = ui->tabWidget->currentWidget()->findChildren<AppButton *>();
-            for(AppButton* btn : appButtonList){ // 遍历所有AppButton
-                if(btn->isBeMousePointing()){// 找到被鼠标指向的AppButton
-                    ShearPlateUtils::remove(btn);
-                }
+        break;
+    default:
+        QString keyStr = QKeySequence(keyEvent->key()).toString(QKeySequence::NativeText);
+        QList<AppButton *> appButtonList = ui->tabWidget->currentWidget()->findChildren<AppButton *>();
+        for(auto btn : appButtonList){
+            if(keyStr == btn->text()){
+                btn->click();
+                return;
             }
         }
-            break;
-        default:
-            QString keyStr = QKeySequence(keyEvent->key()).toString(QKeySequence::NativeText);
-            QList<AppButton *> appButtonList = ui->tabWidget->currentWidget()->findChildren<AppButton *>();
-            for(auto btn : appButtonList){
-                if(keyStr == btn->text()){
-                    btn->click();
-                    return;
-                }
+        QTabBar *tabBar = ui->tabWidget->tabBar();
+        for(int i = 0; i < tabBar->count(); ++i){
+            if(keyStr == tabBar->tabText(i)){
+                tabBar->setCurrentIndex(i);
             }
-            QTabBar *tabBar = ui->tabWidget->tabBar();
-            for(int i = 0; i < tabBar->count(); ++i){
-                if(keyStr == tabBar->tabText(i)){
-                    tabBar->setCurrentIndex(i);
-                }
-            }
-            break;
         }
+        break;
     }
 }
 

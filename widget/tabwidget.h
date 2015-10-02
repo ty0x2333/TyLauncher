@@ -7,6 +7,7 @@
 QT_BEGIN_NAMESPACE
 class QMenu;
 class AppButton;
+class QKeyEvent;
 QT_END_NAMESPACE
 
 namespace Ui {
@@ -29,6 +30,8 @@ public:
     void clearAllAppBtnData();
     
 protected:
+    
+    void keyReleaseEvent(QKeyEvent* keyEvent);
     
 private slots:
     
