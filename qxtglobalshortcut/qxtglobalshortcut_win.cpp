@@ -80,6 +80,8 @@ quint32 QxtGlobalShortcutPrivate::nativeKeycode(Qt::Key key)
 {
     switch (key)
     {
+    case Qt::Key_AsciiTilde:
+        return VK_OEM_3;
     case Qt::Key_Escape:
         return VK_ESCAPE;
     case Qt::Key_Tab:
