@@ -103,9 +103,9 @@
  * @{
  */
 
-#define TyLogBase(prefix, color, fmt, ...) qDebug(SHELL_COLORS_ESCAPE color prefix fmt SHELL_COLORS_RESET, ##__VA_ARGS__)
+#define TyLogBase(prefix, color, fmt, ...) qDebug(SHELL_COLORS_ESCAPE color prefix fmt##SHELL_COLORS_RESET, ##__VA_ARGS__)
 
-#define TyLogDetail(prefix, color, fmt, ...) qDebug(SHELL_COLORS_ESCAPE color prefix "<%s (%d)> " fmt SHELL_COLORS_RESET, QString(__FILE__).section('/', -1).toUtf8().data(), __LINE__, ##__VA_ARGS__)
+#define TyLogDetail(prefix, color, fmt, ...) qDebug(SHELL_COLORS_ESCAPE color prefix "<%s (%d)> " fmt##SHELL_COLORS_RESET, QString(__FILE__).section('/', -1).toUtf8().data(), __LINE__, ##__VA_ARGS__)
 
 #define TyLog TyLogDetail
 
