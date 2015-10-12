@@ -11,6 +11,12 @@ public:
      */
     static bool isRunTimeOnly();
     static QStringList fileNameList(const QString& dirPath, const QStringList &filter);
+    static QString macAddress();
+    /**
+     * @brief diskdriveSerialNumber
+     * @return 硬盘物理ID
+     */
+    static QString diskdriveSerialNumber();
 };
 
 #endif // __APP_UTILS_H__

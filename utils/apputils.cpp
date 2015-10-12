@@ -1,15 +1,19 @@
 ﻿#include "apputils.h"
 #include "TyLog_Qt.h"
 
+#define MAC_ADDRESS_NULL "00:00:00:00:00:00:00:E0"
+
 #ifdef Q_OS_WIN32
 #include <QDir>
 #include <QFileInfoList>
-    #include <windows.h>
+#include <QNetworkInterface>
+#include <QProcess>
+#include <windows.h>
 #elif (defined(Q_OS_LINUX) || defined(Q_OS_MAC))
-    #include <sys/types.h>
-    #include <sys/stat.h>
-    #include <fcntl.h>
-    #include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
 #endif
 
 bool AppUtils::isRunTimeOnly()
@@ -51,4 +55,32 @@ QStringList AppUtils::fileNameList(const QString &dirPath, const QStringList &fi
         strList.append(info.baseName());
     }
     return strList;
+}
+
+QString AppUtils::macAddress()
+{
+    QList<QNetworkInterface> list = QNetworkInterface::allInterfaces();
+    foreach (QNetworkInterface netInterface, list) {
+        QString hardwareAddress = netInterface.hardwareAddress();
+        if (!hardwareAddress.isEmpty() && hardwareAddress != MAC_ADDRESS_NULL){
+            return hardwareAddress;
+        }
+    }
+    return MAC_ADDRESS_NULL;
+}
+
+QString AppUtils::diskdriveSerialNumber()
+{
+    QProcess proc;
+//  QStringList args;
+//  args << "-c" << "ioreg -rd1 -c IOPlatformExpertDevice |  awk '/IOPlatformSerialNumber/ { print $3; }'";
+//  proc.start( "/bin/bash", args );
+//  若是想获取硬件ID可把上面的 IOPlatformSerialNumber 改为 IOPlatformUUID 即可
+#if defined(Q_OS_WIN32)
+    proc.start("wmic diskdrive get SerialNumber");
+    proc.waitForFinished();
+    QString info = proc.readAll().simplified();
+    QStringList list = info.simplified().split(" ");
+    return list[1];
+#endif
 }
