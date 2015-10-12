@@ -19,7 +19,6 @@
 #include <QFileDialog>
 #include <QDesktopServices>
 #include <QTranslator>
-#include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
 #include <QMenu>
 #include <QCloseEvent>
@@ -27,14 +26,15 @@
 #include "appconfigdialog.h"
 #include "datasettings.h"
 #include "widget/tabwidget.h"
+#include "widget/updatedialog.h"
 #include "utils/stringutils.h"
+#include "api/tyalgorithmapi.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , _trayIcon(nullptr)
     , _trayMenu(nullptr)
     , _translator(nullptr)
-    , _netManager(nullptr)
     , _globalShortcut(nullptr)
     , _needShowUpdateDialog(false)
 {
@@ -60,10 +60,6 @@ MainWindow::MainWindow(QWidget *parent)
     activateWindow();
     
     initGlobalShortcut();
-    
-    _netManager = new QNetworkAccessManager(this);
-    
-    connect(_netManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply*)));
     
     // 检查更新
     checkUpdate();
@@ -289,48 +285,7 @@ void MainWindow::updateLanguage()
 // @brief 检查更新
 void MainWindow::checkUpdate()
 {
-    QUrl url("http://tyyappmanager.sinaapp.com/update.php");
-    QByteArray param;
-    param.append("version=");
-    param.append(VER_FILEVERSION_DISPLAY_STR);
-    param.append("&system=");
-    param.append(APPLICATION_BIT);
-    _netManager->post(QNetworkRequest(url), param); 
-}
-
-void MainWindow::replyFinished(QNetworkReply *reply)
-{
-     if (reply->error() == QNetworkReply::NoError) 
-     { 
-        QByteArray bytes = reply->readAll();
-        try
-        {
-            QJsonParseError parseErr;
-            QJsonDocument doc = QJsonDocument::fromJson(bytes,&parseErr);
-            if(parseErr.error != QJsonParseError::NoError || !doc.isObject())
-                 throw QString("Server Error!");
-            QJsonObject jsonObj = doc.object();
-            if( jsonObj["state"] == -1 )
-                throw QString("Server Error!");
-            if( jsonObj["need"] == false ){
-                if(_needShowUpdateDialog){
-                    UIUtils::showInfoMsgBox(tr("%1 is up tp date!").arg(qAppName()), this);
-                }
-            }else{
-                QString infoStr = tr("There is a new version!");
-                infoStr += "\n" + jsonObj["name"].toString() + "\n" + tr("Whether to download?");
-                if(UIUtils::showInfoMsgBox(infoStr, this) == QMessageBox::Ok)
-                    QDesktopServices::openUrl(QUrl::fromLocalFile(APP_URL));
-            }
-        }catch(QString& errStr){
-            UIUtils::showCriticalMsgBox(errStr, this);
-        }
-     }else {
-         if(_needShowUpdateDialog){
-             UIUtils::showCriticalMsgBox(tr("Please check your network connection."), this);
-         }
-     }
-     reply->deleteLater(); 
+    TyAlgorithmAPI::checkUpdate(this, SLOT(checkUpdateFinished()));
 }
 
 void MainWindow::on_actionCheck_Update_triggered()
@@ -354,4 +309,43 @@ void MainWindow::onAppConfigChanged(const QString &name)
     }else if (name == KEY_HOT_KEY){
         _globalShortcut->setShortcut(DYNAMIC_DATA->getGlobalShortcut());
     }
+}
+
+void MainWindow::checkUpdateFinished()
+{
+    QNetworkReply *reply=dynamic_cast<QNetworkReply*>(sender());
+    if (reply == nullptr)
+        return;
+    if (reply->error() == QNetworkReply::NoError) { 
+        QByteArray bytes = reply->readAll();
+        TyLogDebug("reply: %s", bytes.data());
+        QT_TRY{
+            QJsonParseError parseErr;
+            QJsonDocument doc = QJsonDocument::fromJson(bytes,&parseErr);
+            if(parseErr.error != QJsonParseError::NoError || !doc.isObject()){
+                qDebug("QJsonParseError: %s\n ", bytes.toStdString().data());
+            }
+            QJsonObject jsonObj = doc.object();
+
+            if(jsonObj["need"] == true){
+                QJsonObject dataObj = jsonObj["data"].toObject();
+                UpdateDialog *updateDialog = new UpdateDialog(this, dataObj["version"].toString(), dataObj["version_explain"].toString());
+                updateDialog->exec();
+//                QString infoStr = tr("!");
+//                infoStr += "\n" + jsonObj["name"].toString() + "\n" + tr("Whether to download?");
+//                if(UIUtils::showInfoMsgBox(infoStr, this) == QMessageBox::Ok)
+//                    QDesktopServices::openUrl(QUrl::fromLocalFile(APP_URL));
+            }else{
+                if(_needShowUpdateDialog){
+                    UIUtils::showInfoMsgBox(tr("%1 !").arg(qAppName()), this);
+                }
+            }
+        }QT_CATCH(QString& errStr){
+            TyLogDebug("Json Parse Error: %s", errStr);
+        }
+    } 
+    else{
+        TyLogDebug("Network Error: %s", "Please check your network connection.");
+    }
+    reply->deleteLater();
 }

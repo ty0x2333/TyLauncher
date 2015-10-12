@@ -29,7 +29,10 @@ SOURCES += main.cpp\
     model/option.cpp \
     dynamicdata.cpp \
     widget/tabbar.cpp \
-    application.cpp
+    application.cpp \
+    api/asynchttphelper.cpp \
+    api/tyalgorithmapi.cpp \
+    widget/updatedialog.cpp
 
 HEADERS  += widget/mainwindow.h \
     widget/aboutdialog.h \
@@ -49,14 +52,18 @@ HEADERS  += widget/mainwindow.h \
     datasettings.h \
     StaticSetting.h \
     widget/tabbar.h \
-    application.h
+    application.h \
+    api/asynchttphelper.h \
+    api/tyalgorithmapi.h \
+    widget/updatedialog.h
 
 FORMS    += mainwindow.ui \
     aboutdialog.ui \
     appbuttondialog.ui \
     tabwidget.ui \
     appconfigdialog.ui \
-    appbuttonform.ui
+    appbuttonform.ui \
+    updatedialog.ui
 
 include(qxtglobalshortcut/qxtglobalshortcut.pri)
 

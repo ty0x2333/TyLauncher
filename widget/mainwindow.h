@@ -4,8 +4,6 @@
 #include <QMainWindow>
 #include <QSystemTrayIcon>
 QT_BEGIN_NAMESPACE
-class QNetworkReply;
-class QNetworkAccessManager;
 class QTranslator;
 class QCloseEvent;
 class QMenu;
@@ -50,8 +48,6 @@ private slots:
     void on_actionSave_triggered();
     /// @brief "另保存"菜单项响应
     void on_actionSave_As_triggered();
-    
-    void replyFinished(QNetworkReply *reply);
     /// @brief "检查更新"菜单项响应
     void on_actionCheck_Update_triggered();
     
@@ -59,6 +55,7 @@ private slots:
     
     void onAppConfigChanged(const QString &name);
     
+    void checkUpdateFinished();
 private:
     Ui::MainWindow *ui;
     /// @brief 托盘图标
@@ -67,8 +64,6 @@ private:
     QMenu *_trayMenu;
     /// @brief 翻译
     QTranslator* _translator;
-    
-    QNetworkAccessManager* _netManager;
     
     /// @brief 读取存档文件
     bool loadSaveFile(const QString fileName);
