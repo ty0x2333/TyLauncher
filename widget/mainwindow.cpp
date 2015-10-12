@@ -345,7 +345,11 @@ void MainWindow::checkUpdateFinished()
         }
     } 
     else{
-        TyLogDebug("Network Error: %s", "Please check your network connection.");
+        QString errorStr = StringUtils::networkErrorString(reply->error());
+        if(_needShowUpdateDialog){
+            UIUtils::showCriticalMsgBox(errorStr, this);
+        }
+        TyLogDebug("Network Error: %s", errorStr.toUtf8().data());
     }
     reply->deleteLater();
 }
