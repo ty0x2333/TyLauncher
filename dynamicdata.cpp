@@ -99,7 +99,7 @@ void DynamicData::loadAppConfig()
     TyLogInfo("Load AppConfig: %s", StringUtils::toString(_options).toUtf8().data());
 }
 
-bool DynamicData::BtnShearPlateIsEmpty(){    return _btnShearPlate == nullptr;}
+bool DynamicData::isBtnShearPlateEmpty(){    return _btnShearPlate == nullptr;}
 
 // @brief 读取存档文件
 void DynamicData::loadUserSaveFile(const QString fileName)

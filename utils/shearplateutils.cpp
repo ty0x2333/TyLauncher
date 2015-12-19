@@ -20,7 +20,7 @@ void ShearPlateUtils::shear(AppButton *btn)
 
 void ShearPlateUtils::paste(AppButton *btn)
 {
-    if(DYNAMIC_DATA->BtnShearPlateIsEmpty())
+    if(DYNAMIC_DATA->isBtnShearPlateEmpty())
         return;
     if(!btn->isEmpty()){
         if( UIUtils::showQuestionMsgBox(QObject::tr("Replace the button"), QObject::tr("Replace the button\nThe target button data will be erased.")) == QMessageBox::Yes)

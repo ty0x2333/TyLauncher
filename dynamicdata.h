@@ -25,7 +25,7 @@ public:
     static DynamicData* getInstance();
 
     /// @brief 获取按钮剪切缓存是否为空
-    bool BtnShearPlateIsEmpty();
+    bool isBtnShearPlateEmpty();
 
     /// @brief 保存设置
     void saveAppConfig();

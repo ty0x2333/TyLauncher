@@ -111,7 +111,7 @@ void AppButtonForm::onAppButtonRightClicked(QPoint)
 {
     _btnCurMenu = (AppButton*)sender();
     bool isNotBtnEmpty = !_btnCurMenu->isEmpty();
-    bool isNotBtnShearPlateEmpty = !DYNAMIC_DATA->BtnShearPlateIsEmpty();
+    bool isNotBtnShearPlateEmpty = !DYNAMIC_DATA->isBtnShearPlateEmpty();
     ui->actionOpenFolder->setEnabled(isNotBtnEmpty);// 打开文件夹
     ui->actionDelete->setEnabled(isNotBtnEmpty);// 删除
     ui->actionCopy->setEnabled(isNotBtnEmpty);// 复制
