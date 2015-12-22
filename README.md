@@ -71,3 +71,7 @@ In Qt Creator `Projects`
   like:
 
   ![Qt-Creator-After-Build-Packaging-Script.png](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-After-Build-Packaging-Script.png)
+
+## License
+
+`TyLauncher` is available under the MIT license. See the LICENSE file for more info.
