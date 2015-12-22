@@ -1,12 +1,14 @@
 # TyLauncher
 
-### Edit Build Configuration
+TyLauncher is replacement for Quick Launch and Start Menu. Application create by Qt.
+
+## Edit Build Configuration
 
 In Qt Creator `Projects`
 
 ![Qt-Creator-Projects.png](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-Projects.png)
 
-#### Step.1 Debug Build Configuration
+### Step.1 Debug Build Configuration
 
 1. Select `debug` build configuration.
 
@@ -28,7 +30,7 @@ In Qt Creator `Projects`
 
   ![Qt-Creator-After-Build-Script.png](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-After-Build-Script.png)
 
-#### Step.2 Release Build Configuration( like Step.1 )
+### Step.2 Release Build Configuration( like Step.1 )
 
 1. Select `release` build configuration.
 
@@ -38,7 +40,7 @@ In Qt Creator `Projects`
 
   The same as the Step.1.2.
 
-#### Step.3 Packaging Build Configuration
+### Step.3 Packaging Build Configuration
 
 > This step is optional
 
