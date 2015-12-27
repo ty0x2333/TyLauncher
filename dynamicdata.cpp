@@ -30,8 +30,7 @@ QString defaultSaveFileName()
 
 static DynamicData *s_shareDynamicData = nullptr;
 DynamicData::DynamicData()
-    : _btnShearPlate(nullptr)
-    , _options()
+    : _options()
 {
     initOptions();
 }
@@ -51,19 +50,6 @@ DynamicData* DynamicData::getInstance()
         s_shareDynamicData->loadAppConfig();// 读取应用配置
     }
     return s_shareDynamicData;
-}
-
-// @brief 获取按钮剪切缓存
-AppButton* DynamicData::getBtnShearPlate(){    return _btnShearPlate;}
-// @brief 设置按钮剪切缓存
-void DynamicData::setBtnShearPlate(AppButton *btn)
-{
-    if(_btnShearPlate != nullptr){
-        delete _btnShearPlate;
-        _btnShearPlate = nullptr;
-    }
-    _btnShearPlate = new AppButton("");
-    _btnShearPlate->copyFrom(*btn);
 }
 // @brief 保存设置
 void DynamicData::saveAppConfig()
@@ -98,8 +84,6 @@ void DynamicData::loadAppConfig()
 //        _language = QLocale::system().name();
     TyLogInfo("Load AppConfig: %s", StringUtils::toString(_options).toUtf8().data());
 }
-
-bool DynamicData::isBtnShearPlateEmpty(){    return _btnShearPlate == nullptr;}
 
 // @brief 读取存档文件
 void DynamicData::loadUserSaveFile(const QString fileName)

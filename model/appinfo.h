@@ -1,6 +1,10 @@
 ﻿#ifndef APPINFO_H
 #define APPINFO_H
 #include <QString>
+
+/**
+ * @brief Application Information Model
+ */
 class AppInfo
 {
 public:

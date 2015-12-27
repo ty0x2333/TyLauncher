@@ -22,13 +22,13 @@
 #include <QtNetwork/QNetworkReply>
 #include <QMenu>
 #include <QCloseEvent>
-#include "utils/shearplateutils.h"
 #include "appconfigdialog.h"
 #include "datasettings.h"
 #include "widget/tabwidget.h"
 #include "widget/updatedialog.h"
 #include "utils/stringutils.h"
 #include "api/tyalgorithmapi.h"
+#include "shearplate.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -225,7 +225,7 @@ void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
         QList<AppButton *> appButtonList = ui->tabWidget->currentWidget()->findChildren<AppButton *>();
         for(AppButton* btn : appButtonList){ // 遍历所有AppButton
             if(btn->isBeMousePointing()){// 找到被鼠标指向的AppButton
-                ShearPlateUtils::remove(btn);
+                SHEAR_PLATE->remove(btn);
             }
         }
     }

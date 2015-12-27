@@ -11,7 +11,7 @@
 #include <QMenu>
 #include "appbuttondialog.h"
 #include "dynamicdata.h"
-#include "utils/shearplateutils.h"
+#include "shearplate.h"
 
 AppButtonForm::AppButtonForm(const int &rowCount, const int &columnCount, QWidget *parent)
     : QWidget(parent)
@@ -111,7 +111,7 @@ void AppButtonForm::onAppButtonRightClicked(QPoint)
 {
     _btnCurMenu = (AppButton*)sender();
     bool isNotBtnEmpty = !_btnCurMenu->isEmpty();
-    bool isNotBtnShearPlateEmpty = !DYNAMIC_DATA->isBtnShearPlateEmpty();
+    bool isNotBtnShearPlateEmpty = !SHEAR_PLATE->isBtnShearPlateEmpty();
     ui->actionOpenFolder->setEnabled(isNotBtnEmpty);// 打开文件夹
     ui->actionDelete->setEnabled(isNotBtnEmpty);// 删除
     ui->actionCopy->setEnabled(isNotBtnEmpty);// 复制
@@ -132,7 +132,7 @@ void AppButtonForm::on_actionDelete_triggered()
 {
     if(_btnCurMenu == nullptr)
         return;
-    ShearPlateUtils::remove(_btnCurMenu);
+    SHEAR_PLATE->remove(_btnCurMenu);
     _btnCurMenu = nullptr;
 }
 
@@ -140,7 +140,7 @@ void AppButtonForm::on_actionCopy_triggered()
 {
     if(_btnCurMenu == nullptr)
         return;
-    ShearPlateUtils::copy(_btnCurMenu);
+    SHEAR_PLATE->copy(_btnCurMenu);
     _btnCurMenu = nullptr;
 }
 
@@ -148,7 +148,7 @@ void AppButtonForm::on_actionShear_triggered()
 {
     if(_btnCurMenu == nullptr)
         return;
-    ShearPlateUtils::shear(_btnCurMenu);
+    SHEAR_PLATE->shear(_btnCurMenu);
     _btnCurMenu = nullptr;
 }
 
@@ -156,7 +156,7 @@ void AppButtonForm::on_actionPaste_triggered()
 {
     if(_btnCurMenu == nullptr)
         return;
-    ShearPlateUtils::paste(_btnCurMenu);
+    SHEAR_PLATE->paste(_btnCurMenu);
     _btnCurMenu = nullptr;
 }
 

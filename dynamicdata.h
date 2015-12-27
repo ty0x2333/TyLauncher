@@ -24,9 +24,6 @@ class DynamicData : public QObject
 public:
     static DynamicData* getInstance();
 
-    /// @brief 获取按钮剪切缓存是否为空
-    bool isBtnShearPlateEmpty();
-
     /// @brief 保存设置
     void saveAppConfig();
     void loadAppConfig();
@@ -44,9 +41,6 @@ public:
     
     QKeySequence getGlobalShortcut() const;
     void setGlobalShortcut(QKeySequence keySequence);
-    
-    AppButton* getBtnShearPlate();
-    void setBtnShearPlate(AppButton *btn);
     
     QString getLanguage() const;
     void setLanguage(const QString &language);
@@ -71,11 +65,6 @@ private:
     void initOptions();
     
     QVector<QVector<AppInfo>> _userSaveData;
-    /**
-     * @brief 按钮剪切缓存
-     * 用来保存复制的按钮地址
-     */
-    AppButton *_btnShearPlate;
     
     QHash<QString, Option> _options;
 };

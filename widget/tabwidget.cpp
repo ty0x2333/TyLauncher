@@ -14,7 +14,8 @@
 #include "dynamicdata.h"
 #include "widget/appbuttonform.h"
 #include "widget/tabbar.h"
-#include "utils/shearplateutils.h"
+#include "shearplate.h"
+
 TabWidget::TabWidget(QWidget *parent)
     : QTabWidget(parent)
     , ui(new Ui::TabWidget)
@@ -81,21 +82,21 @@ void TabWidget::keyReleaseEvent(QKeyEvent *keyEvent)
     case Qt::Key_C:
             for(AppButton* btn : appButtonList){ // 遍历所有AppButton，寻找当前鼠标指向的按钮
                 if(btn->isBeMousePointing()){
-                    ShearPlateUtils::copy(btn);
+                    SHEAR_PLATE->copy(btn);
                 }
             }
         break;
     case Qt::Key_X:
             for(AppButton* btn : appButtonList){ // 遍历所有AppButton，寻找当前鼠标指向的按钮
                 if(btn->isBeMousePointing()){
-                    ShearPlateUtils::shear(btn);
+                    SHEAR_PLATE->shear(btn);
                 }
             }
         break;
     case Qt::Key_V:
             for(AppButton* btn : appButtonList){ // 遍历所有AppButton
                 if(btn->isBeMousePointing()){// 找到被鼠标指向的AppButton
-                    ShearPlateUtils::paste(btn);
+                    SHEAR_PLATE->paste(btn);
                 }
             }
         break;
