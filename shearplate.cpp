@@ -37,12 +37,15 @@ void ShearPlate::paste(AppButton *btn)
 {
     if(this->isBtnShearPlateEmpty())
         return;
+    AppInfo replacedinfo = btn->appInfo();
     if(!btn->isEmpty()){
         if( UIUtils::showQuestionMsgBox(QObject::tr("Replace the button"), QObject::tr("Replace the button\nThe target button data will be erased.")) == QMessageBox::Yes)
             btn->copyFrom(*_btnShearPlate);
     }else{
         btn->copyFrom(*_btnShearPlate);
     }
+    _btnShearPlate->appInfo();
+    _undoStack->push(new ReplaceAppButtonCommand(btn, _btnShearPlate->appInfo(), replacedinfo));
 }
 
 void ShearPlate::remove(AppButton *btn)
