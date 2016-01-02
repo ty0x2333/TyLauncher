@@ -32,7 +32,8 @@ SOURCES += main.cpp\
     api/asynchttphelper.cpp \
     api/tyalgorithmapi.cpp \
     widget/updatedialog.cpp \
-    shearplate.cpp
+    shearplate.cpp \
+    undo/commands.cpp
 
 HEADERS  += widget/mainwindow.h \
     widget/aboutdialog.h \
@@ -55,7 +56,8 @@ HEADERS  += widget/mainwindow.h \
     api/asynchttphelper.h \
     api/tyalgorithmapi.h \
     widget/updatedialog.h \
-    shearplate.h
+    shearplate.h \
+    undo/commands.h
 
 FORMS    += mainwindow.ui \
     aboutdialog.ui \

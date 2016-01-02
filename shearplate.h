@@ -5,7 +5,8 @@
 
 #define SHEAR_PLATE ShearPlate::getInstance()
 
-class AppButton;
+QT_FORWARD_DECLARE_CLASS(AppButton)
+QT_FORWARD_DECLARE_CLASS(QUndoStack)
 
 class ShearPlate : public QObject
 {
@@ -17,12 +18,17 @@ public:
     void shear(AppButton *btn);
     void paste(AppButton *btn);
     void remove(AppButton *btn);
+    
+    void undo();
+    void redo();
 
     AppButton* getBtnShearPlate();
     void setBtnShearPlate(AppButton *btn);
     
     /// @brief 获取按钮剪切缓存是否为空
     bool isBtnShearPlateEmpty();
+    
+    QUndoStack *undoStack() const;
     
 signals:
     
@@ -35,6 +41,8 @@ private:
      * 用来保存复制的按钮地址
      */
     AppButton *_btnShearPlate;
+    
+    QUndoStack *_undoStack;
 };
 
 #endif // SHEARPLATE_H

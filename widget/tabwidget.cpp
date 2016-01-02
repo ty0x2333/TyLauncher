@@ -100,6 +100,9 @@ void TabWidget::keyReleaseEvent(QKeyEvent *keyEvent)
                 }
             }
         break;
+    case Qt::Key_Z:
+            SHEAR_PLATE->undo();
+        break;
     default:
         break;
     }

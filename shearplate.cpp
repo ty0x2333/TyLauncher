@@ -1,6 +1,8 @@
 #include "shearplate.h"
 #include "widget/appbutton.h"
 #include "utils/uiutils.h"
+#include "undo/commands.h"
+#include <QUndoStack>
 static ShearPlate *s_shareShearPlate = nullptr;
 ShearPlate* ShearPlate::getInstance()
 {
@@ -14,7 +16,7 @@ ShearPlate::ShearPlate(QObject *parent)
     : QObject(parent)
     , _btnShearPlate(nullptr)
 {
-    
+    _undoStack = new QUndoStack(this);
 }
 
 bool ShearPlate::copy(AppButton *btn)
@@ -47,9 +49,22 @@ void ShearPlate::remove(AppButton *btn)
 {
     if (btn->isEmpty())
         return;
-    if( UIUtils::showQuestionMsgBox(QObject::tr("Delete the button"), QObject::tr("Delete the button\nThe target button data will be erased.")) == QMessageBox::Yes){
-        btn->clear();
+    if( UIUtils::showQuestionMsgBox(QObject::tr("Delete the button"), QObject::tr("Delete the button\nThe target button data will be erased.")) != QMessageBox::Yes){
+        return;
     }
+    AppInfo info = btn->appInfo();
+    btn->clear();
+    _undoStack->push(new RemoveAppButtonCommand(btn, info));
+}
+
+void ShearPlate::undo()
+{
+    _undoStack->undo();
+}
+
+void ShearPlate::redo()
+{
+    _undoStack->redo();
 }
 
 // @brief 获取按钮剪切缓存
@@ -66,3 +81,8 @@ void ShearPlate::setBtnShearPlate(AppButton *btn)
 }
 
 bool ShearPlate::isBtnShearPlateEmpty(){    return _btnShearPlate == nullptr;}
+
+QUndoStack *ShearPlate::undoStack() const
+{
+    return _undoStack;
+}
