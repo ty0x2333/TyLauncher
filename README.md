@@ -74,4 +74,4 @@ In Qt Creator `Projects`
 
 ## License
 
-`TyLauncher` is available under the MIT license. See the LICENSE file for more info.
+`TyLauncher` is available under the GPLv3 license. See the LICENSE file for more info.
