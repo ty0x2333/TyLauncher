@@ -18,6 +18,8 @@ public:
     
     void setDataFromAppInfo(const AppInfo &appInfo);
     
+    AppInfo appInfo();
+    
     QString getFileName();
     
     /// @brief 是否被鼠标所指向
