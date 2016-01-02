@@ -67,7 +67,7 @@ bool AppButtonForm::configFromVector(QVector<AppBtnInfo> dataVector)
         QWidget *widget = item->widget();
         AppButton *btn = dynamic_cast<AppButton*>(widget);
         Q_ASSERT_X(btn != nullptr, "configFromVector", "item->widget() is not AppButton class!"); 
-        btn->setDataFromAppBtnInfo(dataVector[i]);
+        btn->setAppBtnInfo(dataVector[i]);
         connect(btn, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(onAppButtonRightClicked(QPoint)));
     }
     return true;

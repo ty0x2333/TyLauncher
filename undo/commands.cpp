@@ -12,7 +12,7 @@ RemoveAppButtonCommand::RemoveAppButtonCommand(AppButton *appBtn, AppBtnInfo app
 
 void RemoveAppButtonCommand::undo()
 {
-    _appBtn->setDataFromAppBtnInfo(_appBtnInfo);
+    _appBtn->setAppBtnInfo(_appBtnInfo);
 }
 
 void RemoveAppButtonCommand::redo()
@@ -32,10 +32,10 @@ ReplaceAppButtonCommand::ReplaceAppButtonCommand(AppButton *replacedAppBtn, AppB
 }
 void ReplaceAppButtonCommand::undo()
 {
-    _replacedAppBtn->setDataFromAppBtnInfo(_replacedAppBtnInfo);
+    _replacedAppBtn->setAppBtnInfo(_replacedAppBtnInfo);
 }
 
 void ReplaceAppButtonCommand::redo()
 {
-    _replacedAppBtn->setDataFromAppBtnInfo(_appBtnInfo);
+    _replacedAppBtn->setAppBtnInfo(_appBtnInfo);
 }

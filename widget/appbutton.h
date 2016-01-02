@@ -16,8 +16,7 @@ public:
     explicit AppButton(const QString &text, QWidget *parent=0);
     explicit AppButton(const AppBtnInfo &appBtnInfo, QWidget *parent=0);
     
-    void setDataFromAppBtnInfo(const AppBtnInfo &appBtnInfo);
-    
+    void setAppBtnInfo(const AppBtnInfo &appBtnInfo);
     AppBtnInfo appBtnInfo();
     
     QString getFileName();

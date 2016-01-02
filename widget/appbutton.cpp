@@ -36,10 +36,10 @@ AppButton::AppButton(const AppBtnInfo &appBtnInfo, QWidget *parent) :
     _appIcon(nullptr)
 {
     init();
-    setDataFromAppBtnInfo(appBtnInfo);
+    setAppBtnInfo(appBtnInfo);
 }
 
-void AppButton::setDataFromAppBtnInfo(const AppBtnInfo &appBtnInfo)
+void AppButton::setAppBtnInfo(const AppBtnInfo &appBtnInfo)
 {
     this->setText(appBtnInfo.hotKey());
     _appName->setText(appBtnInfo.name());// 设置文件名
