@@ -2,7 +2,7 @@
 #define APPBUTTON_H
 
 #include <QPushButton>
-#include "model/appinfo.h"
+#include "model/appbtninfo.h"
 QT_BEGIN_NAMESPACE
 class QDragEnterEvent;
 class QLabel;
@@ -14,11 +14,11 @@ class AppButton : public QPushButton
 public:
     explicit AppButton(QWidget *parent=0);
     explicit AppButton(const QString &text, QWidget *parent=0);
-    explicit AppButton(const AppInfo &appInfo, QWidget *parent=0);
+    explicit AppButton(const AppBtnInfo &appBtnInfo, QWidget *parent=0);
     
-    void setDataFromAppInfo(const AppInfo &appInfo);
+    void setDataFromAppBtnInfo(const AppBtnInfo &appBtnInfo);
     
-    AppInfo appInfo();
+    AppBtnInfo appBtnInfo();
     
     QString getFileName();
     

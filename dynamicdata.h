@@ -7,13 +7,11 @@
 #include <QHash>
 #include <QVariant>
 
-QT_BEGIN_NAMESPACE
-class QStringList;
-class QKeySequence;
-QT_END_NAMESPACE
-class AppButton;
-class AppInfo;
-class Option;
+QT_FORWARD_DECLARE_CLASS(QStringList)
+QT_FORWARD_DECLARE_CLASS(QKeySequence)
+QT_FORWARD_DECLARE_CLASS(AppButton)
+QT_FORWARD_DECLARE_CLASS(AppBtnInfo)
+QT_FORWARD_DECLARE_CLASS(Option)
 
 #define DYNAMIC_DATA DynamicData::getInstance()
 
@@ -51,7 +49,7 @@ public:
     QString getTheme() const;
     void setTheme(const QString &theme);
     
-    QVector<QVector<AppInfo> > getUserSaveData() const;
+    QVector<QVector<AppBtnInfo> > getUserSaveData() const;
     
     QVariant value(const QString &name) const;
     void setValue(const QString &name, const QVariant &value);
@@ -64,7 +62,7 @@ private:
     
     void initOptions();
     
-    QVector<QVector<AppInfo>> _userSaveData;
+    QVector<QVector<AppBtnInfo>> _userSaveData;
     
     QHash<QString, Option> _options;
 };

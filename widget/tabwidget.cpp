@@ -47,7 +47,7 @@ QString TabWidget::jsonString() const
     return doc.toJson();
 }
 
-bool TabWidget::configFromVector(QVector<QVector<AppInfo> > dataVector)
+bool TabWidget::configFromVector(QVector<QVector<AppBtnInfo> > dataVector)
 {
     Q_ASSERT(dataVector.size() == DEFAULT_TAB_COUNT); 
     try{

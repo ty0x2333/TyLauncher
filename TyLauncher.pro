@@ -24,7 +24,6 @@ SOURCES += main.cpp\
     utils/uiutils.cpp \
     utils/apputils.cpp \
     utils/stringutils.cpp \
-    model/appinfo.cpp \
     model/option.cpp \
     dynamicdata.cpp \
     widget/tabbar.cpp \
@@ -33,7 +32,8 @@ SOURCES += main.cpp\
     api/tyalgorithmapi.cpp \
     widget/updatedialog.cpp \
     shearplate.cpp \
-    undo/commands.cpp
+    undo/commands.cpp \
+    model/appbtninfo.cpp
 
 HEADERS  += widget/mainwindow.h \
     widget/aboutdialog.h \
@@ -45,7 +45,6 @@ HEADERS  += widget/mainwindow.h \
     utils/uiutils.h \
     utils/apputils.h \
     utils/stringutils.h \
-    model/appinfo.h \
     model/option.h \
     dynamicdata.h \
     TyLog_Qt.h \
@@ -57,7 +56,8 @@ HEADERS  += widget/mainwindow.h \
     api/tyalgorithmapi.h \
     widget/updatedialog.h \
     shearplate.h \
-    undo/commands.h
+    undo/commands.h \
+    model/appbtninfo.h
 
 FORMS    += mainwindow.ui \
     aboutdialog.ui \

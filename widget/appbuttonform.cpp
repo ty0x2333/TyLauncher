@@ -1,7 +1,7 @@
 ﻿#include "appbuttonform.h"
 #include "ui_appbuttonform.h"
 #include "appbutton.h"
-#include "model/appinfo.h"
+#include "model/appbtninfo.h"
 #include "TyLog_Qt.h"
 #include "datasettings.h"
 #include <QGridLayout>
@@ -53,7 +53,7 @@ AppButtonForm::~AppButtonForm()
         delete _btnMenu;
 }
 
-bool AppButtonForm::configFromVector(QVector<AppInfo> dataVector)
+bool AppButtonForm::configFromVector(QVector<AppBtnInfo> dataVector)
 {
     if (dataVector.size() != _rowCount * _columnCount){
         TyLogFatal("arr.size() == _rowCount * _columnCount, %d != %d", dataVector.size(), _rowCount * _columnCount);
@@ -67,7 +67,7 @@ bool AppButtonForm::configFromVector(QVector<AppInfo> dataVector)
         QWidget *widget = item->widget();
         AppButton *btn = dynamic_cast<AppButton*>(widget);
         Q_ASSERT_X(btn != nullptr, "configFromVector", "item->widget() is not AppButton class!"); 
-        btn->setDataFromAppInfo(dataVector[i]);
+        btn->setDataFromAppBtnInfo(dataVector[i]);
         connect(btn, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(onAppButtonRightClicked(QPoint)));
     }
     return true;

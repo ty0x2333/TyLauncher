@@ -9,13 +9,13 @@
 class RemoveAppButtonCommand : public QUndoCommand
 {
 public:
-    RemoveAppButtonCommand(AppButton *appBtn, AppInfo appInfo, QUndoCommand *parent = 0);
+    RemoveAppButtonCommand(AppButton *appBtn, AppBtnInfo appBtnInfo, QUndoCommand *parent = 0);
     void undo() Q_DECL_OVERRIDE;
     void redo() Q_DECL_OVERRIDE;
 
 private:
     AppButton *_appBtn;
-    AppInfo _appInfo;
+    AppBtnInfo _appBtnInfo;
 };
 
 /**
@@ -24,14 +24,14 @@ private:
 class ReplaceAppButtonCommand : public QUndoCommand
 {
 public:
-    ReplaceAppButtonCommand(AppButton *replacedAppBtn, AppInfo appInfo, AppInfo replacedAppInfo,QUndoCommand *parent = 0);
+    ReplaceAppButtonCommand(AppButton *replacedAppBtn, AppBtnInfo appBtnInfo, AppBtnInfo replacedAppBtnInfo,QUndoCommand *parent = 0);
     void undo() Q_DECL_OVERRIDE;
     void redo() Q_DECL_OVERRIDE;
 
 private:
     AppButton *_replacedAppBtn;
-    AppInfo _appInfo;
-    AppInfo _replacedAppInfo;
+    AppBtnInfo _appBtnInfo;
+    AppBtnInfo _replacedAppBtnInfo;
 };
 
 #endif // COMMANDS_H

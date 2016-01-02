@@ -1,16 +1,16 @@
-﻿#ifndef APPINFO_H
-#define APPINFO_H
+﻿#ifndef APP_BTN_INFO_H
+#define APP_BTN_INFO_H
 #include <QString>
 
 /**
- * @brief Application Information Model
+ * @brief Application Button Information Model
  */
-class AppInfo
+class AppBtnInfo
 {
 public:
-    AppInfo();
+    AppBtnInfo();
     
-    AppInfo(const QString &name, const QString &fileName = QString(), const QString &hotKey = QString());
+    AppBtnInfo(const QString &name, const QString &fileName = QString(), const QString &hotKey = QString());
     
     QString hotKey() const;
     void setHotKey(const QString &hotKey);

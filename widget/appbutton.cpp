@@ -28,7 +28,7 @@ AppButton::AppButton(const QString &text, QWidget *parent) :
 {
     init();
 }
-AppButton::AppButton(const AppInfo &appInfo, QWidget *parent) :
+AppButton::AppButton(const AppBtnInfo &appBtnInfo, QWidget *parent) :
     QPushButton(parent),
     _isBeMousePointing(false),
     _fileName(""),
@@ -36,20 +36,20 @@ AppButton::AppButton(const AppInfo &appInfo, QWidget *parent) :
     _appIcon(nullptr)
 {
     init();
-    setDataFromAppInfo(appInfo);
+    setDataFromAppBtnInfo(appBtnInfo);
 }
 
-void AppButton::setDataFromAppInfo(const AppInfo &appInfo)
+void AppButton::setDataFromAppBtnInfo(const AppBtnInfo &appBtnInfo)
 {
-    this->setText(appInfo.hotKey());
-    _appName->setText(appInfo.name());// 设置文件名
+    this->setText(appBtnInfo.hotKey());
+    _appName->setText(appBtnInfo.name());// 设置文件名
     // 设置文件路径
-    setAppFileName(appInfo.fileName());
+    setAppFileName(appBtnInfo.fileName());
 }
 
-AppInfo AppButton::appInfo()
+AppBtnInfo AppButton::appBtnInfo()
 {
-    return AppInfo(_appName->text(), _fileName, this->text());
+    return AppBtnInfo(_appName->text(), _fileName, this->text());
 }
 
 void AppButton::init()

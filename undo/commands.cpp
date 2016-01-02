@@ -2,17 +2,17 @@
 /**
  * @brief RemoveAppButtonCommand
  */
-RemoveAppButtonCommand::RemoveAppButtonCommand(AppButton *appBtn, AppInfo appInfo, QUndoCommand *parent)
+RemoveAppButtonCommand::RemoveAppButtonCommand(AppButton *appBtn, AppBtnInfo appBtnInfo, QUndoCommand *parent)
     : QUndoCommand(parent)
 {
-    setText(QObject::tr("Remove %1").arg(appInfo.name()));
+    setText(QObject::tr("Remove %1").arg(appBtnInfo.name()));
     _appBtn = appBtn;
-    _appInfo = appInfo;
+    _appBtnInfo = appBtnInfo;
 }
 
 void RemoveAppButtonCommand::undo()
 {
-    _appBtn->setDataFromAppInfo(_appInfo);
+    _appBtn->setDataFromAppBtnInfo(_appBtnInfo);
 }
 
 void RemoveAppButtonCommand::redo()
@@ -22,20 +22,20 @@ void RemoveAppButtonCommand::redo()
 /**
  * @brief ReplaceAppButtonCommand
  */
-ReplaceAppButtonCommand::ReplaceAppButtonCommand(AppButton *replacedAppBtn, AppInfo appInfo, AppInfo replacedAppInfo,QUndoCommand *parent)
+ReplaceAppButtonCommand::ReplaceAppButtonCommand(AppButton *replacedAppBtn, AppBtnInfo appBtnInfo, AppBtnInfo replacedAppBtnInfo,QUndoCommand *parent)
     : QUndoCommand(parent)
 {
-    setText(QObject::tr("Replace %1 to %2").arg(replacedAppInfo.name()).arg(appInfo.name()));
+    setText(QObject::tr("Replace %1 to %2").arg(replacedAppBtnInfo.name()).arg(appBtnInfo.name()));
     _replacedAppBtn = replacedAppBtn;
-    _appInfo = appInfo;
-    _replacedAppInfo = replacedAppInfo;
+    _appBtnInfo = appBtnInfo;
+    _replacedAppBtnInfo = replacedAppBtnInfo;
 }
 void ReplaceAppButtonCommand::undo()
 {
-    _replacedAppBtn->setDataFromAppInfo(_replacedAppInfo);
+    _replacedAppBtn->setDataFromAppBtnInfo(_replacedAppBtnInfo);
 }
 
 void ReplaceAppButtonCommand::redo()
 {
-    _replacedAppBtn->setDataFromAppInfo(_appInfo);
+    _replacedAppBtn->setDataFromAppBtnInfo(_appBtnInfo);
 }

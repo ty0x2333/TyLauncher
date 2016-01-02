@@ -3,7 +3,7 @@
 
 #include <QTabWidget>
 #include <QString>
-#include "model/appinfo.h"
+#include "model/appbtninfo.h"
 QT_BEGIN_NAMESPACE
 class QMenu;
 class AppButton;
@@ -22,7 +22,7 @@ public:
     explicit TabWidget(QWidget *parent = 0);
     ~TabWidget();
     QString jsonString() const;
-    bool configFromVector(QVector<QVector<AppInfo>>);
+    bool configFromVector(QVector<QVector<AppBtnInfo>>);
     /**
      * @brief clear all app button data
      * @note  hotkey will not clear.
