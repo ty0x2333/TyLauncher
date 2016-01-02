@@ -29,8 +29,9 @@ bool ShearPlate::copy(AppButton *btn)
 
 void ShearPlate::shear(AppButton *btn)
 {
-    if(copy(btn))
-        btn->clear();// 在复制成功的情况下清除按钮
+    if(copy(btn)) {
+        clearBtn(btn);
+    }
 }
 
 void ShearPlate::paste(AppButton *btn)
@@ -55,9 +56,7 @@ void ShearPlate::remove(AppButton *btn)
     if( UIUtils::showQuestionMsgBox(QObject::tr("Delete the button"), QObject::tr("Delete the button\nThe target button data will be erased.")) != QMessageBox::Yes){
         return;
     }
-    AppInfo info = btn->appInfo();
-    btn->clear();
-    _undoStack->push(new RemoveAppButtonCommand(btn, info));
+    clearBtn(btn);
 }
 
 void ShearPlate::undo()
@@ -88,4 +87,11 @@ bool ShearPlate::isBtnShearPlateEmpty(){    return _btnShearPlate == nullptr;}
 QUndoStack *ShearPlate::undoStack() const
 {
     return _undoStack;
+}
+
+void ShearPlate::clearBtn(AppButton *btn)
+{
+    AppInfo info = btn->appInfo();
+    btn->clear();
+    _undoStack->push(new RemoveAppButtonCommand(btn, info));
 }

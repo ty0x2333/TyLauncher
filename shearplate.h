@@ -35,6 +35,8 @@ signals:
 public slots:
     
 private:
+    void clearBtn(AppButton *btn);
+    
     explicit ShearPlate(QObject *parent = 0);
     /**
      * @brief 按钮剪切缓存
