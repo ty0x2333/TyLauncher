@@ -5,7 +5,7 @@
 /**
  * @brief Application Button Information Model
  */
-class AppBtnInfo
+class AppBtnInfo : public AppInfo
 {
 public:
     AppBtnInfo();
@@ -15,18 +15,8 @@ public:
     QString hotKey() const;
     void setHotKey(const QString &hotKey);
     
-    QString name() const;
-    void setName(const QString &name);
-    
-    QString fileName() const;
-    void setFileName(const QString &fileName);
-    
-    AppInfo appInfo() const;
-    void setAppInfo(const AppInfo &appInfo);
-    
 private:
     QString _hotKey;
-    AppInfo _appInfo;
 };
 
 #endif // APPINFO_H

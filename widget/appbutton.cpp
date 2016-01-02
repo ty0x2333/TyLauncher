@@ -42,7 +42,7 @@ AppButton::AppButton(const AppBtnInfo &appBtnInfo, QWidget *parent) :
 void AppButton::setAppBtnInfo(const AppBtnInfo &appBtnInfo)
 {
     this->setText(appBtnInfo.hotKey());
-    setAppInfo(appBtnInfo.appInfo());
+    setAppInfo(appBtnInfo);
 }
 
 AppBtnInfo AppButton::appBtnInfo()

@@ -1,11 +1,14 @@
 #include "appinfo.h"
 
+AppInfo::AppInfo()
+    : _name(QString())
+    , _fileName(QString())
+{}
+
 AppInfo::AppInfo(const QString &name, const QString &fileName) 
     : _name(name)
     , _fileName(fileName)
-{
-    
-}
+{}
 
 QString AppInfo::name() const
 {

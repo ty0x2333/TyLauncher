@@ -5,6 +5,7 @@
 class AppInfo
 {
 public:
+    AppInfo();
     AppInfo(const QString &name, const QString &fileName = QString());
     QString name() const;
     void setName(const QString &name);
