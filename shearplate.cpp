@@ -52,7 +52,7 @@ void ShearPlate::remove(AppButton *btn)
     if( UIUtils::showQuestionMsgBox(QObject::tr("Delete the button"), QObject::tr("Delete the button\nThe target button data will be erased.")) != QMessageBox::Yes){
         return;
     }
-    AppBtnInfo info = btn->appBtnInfo();
+    AppInfo info = btn->appInfo();
     btn->clear();
     _undoStack->push(new RemoveAppButtonCommand(btn, info));
 }
