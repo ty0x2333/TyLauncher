@@ -204,7 +204,7 @@ bool MainWindow::eventFilter(QObject *watched, QEvent *event)
 }
 void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
 {
-    if(keyEvent->modifiers() == Qt::ControlModifier){
+    if(keyEvent->modifiers() != Qt::NoModifier){
         return;
     }
     switch(keyEvent->key())
