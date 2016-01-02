@@ -42,14 +42,24 @@ AppButton::AppButton(const AppBtnInfo &appBtnInfo, QWidget *parent) :
 void AppButton::setAppBtnInfo(const AppBtnInfo &appBtnInfo)
 {
     this->setText(appBtnInfo.hotKey());
-    _appName->setText(appBtnInfo.name());// 设置文件名
-    // 设置文件路径
-    setAppFileName(appBtnInfo.fileName());
+    setAppInfo(appBtnInfo.appInfo());
 }
 
 AppBtnInfo AppButton::appBtnInfo()
 {
     return AppBtnInfo(_appName->text(), _fileName, this->text());
+}
+
+void AppButton::setAppInfo(const AppInfo &appInfo)
+{
+    _appName->setText(appInfo.name());// 设置文件名
+    // 设置文件路径
+    setAppFileName(appInfo.fileName());
+}
+
+AppInfo AppButton::appInfo()
+{
+    return AppInfo(_appName->text(), _fileName);
 }
 
 void AppButton::init()

@@ -19,6 +19,9 @@ public:
     void setAppBtnInfo(const AppBtnInfo &appBtnInfo);
     AppBtnInfo appBtnInfo();
     
+    void setAppInfo(const AppInfo &appInfo);
+    AppInfo appInfo();
+    
     QString getFileName();
     
     /// @brief 是否被鼠标所指向
