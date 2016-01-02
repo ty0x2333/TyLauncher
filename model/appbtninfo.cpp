@@ -2,15 +2,13 @@
 #include <QString>
 
 AppBtnInfo::AppBtnInfo()
-    : _name(QString())
-    , _fileName(QString())
+    : _appInfo(QString(), QString())
     , _hotKey(QString())
 {
 }
 
 AppBtnInfo::AppBtnInfo(const QString &name, const QString &fileName, const QString &hotKey)
-    : _name(name)
-    , _fileName(fileName)
+    : _appInfo(AppInfo(name, fileName))
     , _hotKey(hotKey)
 {
 }
@@ -25,21 +23,31 @@ void AppBtnInfo::setHotKey(const QString &hotKey)
 }
 QString AppBtnInfo::name() const
 {
-    return _name;
+    return _appInfo.name();
 }
 
 void AppBtnInfo::setName(const QString &name)
 {
-    _name = name;
+    _appInfo.setName(name);
 }
 QString AppBtnInfo::fileName() const
 {
-    return _fileName;
+    return _appInfo.fileName();
 }
 
 void AppBtnInfo::setFileName(const QString &fileName)
 {
-    _fileName = fileName;
+    _appInfo.setFileName(fileName);
 }
+AppInfo AppBtnInfo::appInfo() const
+{
+    return _appInfo;
+}
+
+void AppBtnInfo::setAppInfo(const AppInfo &appInfo)
+{
+    _appInfo = appInfo;
+}
+
 
 

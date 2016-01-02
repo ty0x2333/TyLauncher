@@ -1,7 +1,7 @@
 ﻿#ifndef APP_BTN_INFO_H
 #define APP_BTN_INFO_H
 #include <QString>
-
+#include "model/appinfo.h"
 /**
  * @brief Application Button Information Model
  */
@@ -21,10 +21,12 @@ public:
     QString fileName() const;
     void setFileName(const QString &fileName);
     
+    AppInfo appInfo() const;
+    void setAppInfo(const AppInfo &appInfo);
+    
 private:
     QString _hotKey;
-    QString _name;
-    QString _fileName;
+    AppInfo _appInfo;
 };
 
 #endif // APPINFO_H
