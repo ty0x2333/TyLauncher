@@ -47,6 +47,11 @@ void AppButton::setDataFromAppInfo(const AppInfo &appInfo)
     setAppFileName(appInfo.fileName());
 }
 
+AppInfo AppButton::getAppInfo()
+{
+    return AppInfo(_appName, _fileName, this->text());
+}
+
 void AppButton::init()
 {
     setStyleSheet("text-align:left top;");
