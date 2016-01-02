@@ -54,7 +54,12 @@ void AppButton::setAppInfo(const AppInfo &appInfo)
 {
     _appName->setText(appInfo.name());// 设置文件名
     // 设置文件路径
-    setAppFileName(appInfo.fileName());
+    if (appInfo.isEmpty()) {
+        _fileName = QString();
+        _appIcon->setPixmap(QPixmap());
+    } else {
+        setAppFileName(appInfo.fileName());
+    }
 }
 
 AppInfo AppButton::appInfo()

@@ -19,6 +19,12 @@ public:
     void setAppBtnInfo(const AppBtnInfo &appBtnInfo);
     AppBtnInfo appBtnInfo();
     
+    /**
+     * @brief setAppInfo
+     * 
+     * @note  icon will remove when appInfo is empty.
+     * @param appInfo
+     */
     void setAppInfo(const AppInfo &appInfo);
     AppInfo appInfo();
     
