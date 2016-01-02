@@ -331,7 +331,7 @@ void MainWindow::checkUpdateFinished()
 //                    QDesktopServices::openUrl(QUrl::fromLocalFile(APP_URL));
             }else{
                 if(_needShowUpdateDialog){
-                    UIUtils::showInfoMsgBox(tr("%1 !").arg(qAppName()), this);
+                    UIUtils::showInfoMsgBox(tr("%1 is up to date!").arg(qAppName()), this);
                 }
             }
         }QT_CATCH(QString& errStr){

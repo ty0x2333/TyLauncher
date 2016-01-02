@@ -2,9 +2,9 @@
 #define __TYALGORITHM_API_H__
 #include <QObject>
 #include <QString>
-static const QString APP_ID = "9a3ccf3ff5160a6b4074737f674129ce";
+static const QString APP_ID = "41f14ff474c07266a4124105a00da6b2";
 static const QString HTTP = "http://";
-static const QString HOST = "localhost/tyyapps/index.php/";
+static const QString HOST = "api.tylauncher.com/index.php/";
 static const QString API = "api/";
 static const QString BASE_URL = HTTP + HOST + API;
 class TyAlgorithmAPI
