@@ -29,5 +29,10 @@ void AppInfo::setFileName(const QString &fileName)
     _fileName = fileName;
 }
 
+bool AppInfo::isEmpty() const
+{
+    return _fileName.isEmpty() && _name.isEmpty();
+}
+
 
 

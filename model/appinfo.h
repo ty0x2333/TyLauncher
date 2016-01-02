@@ -13,6 +13,8 @@ public:
     QString fileName() const;
     void setFileName(const QString &fileName);
     
+    bool isEmpty() const;
+    
 private:
     QString _name;
     QString _fileName;
