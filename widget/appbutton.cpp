@@ -172,7 +172,7 @@ bool AppButton::eventFilter(QObject *, QEvent *event)
 // @brief 指示按钮是否为空
 bool AppButton::isEmpty()
 {
-    return _fileName.isEmpty() && !_appIcon->pixmap() && _appName->text().isEmpty();
+    return _fileName.isEmpty() && _appName->text().isEmpty();
 }
 
 AppButton::~AppButton()
