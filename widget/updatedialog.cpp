@@ -13,6 +13,13 @@ UpdateDialog::UpdateDialog(QWidget *parent, const QString &lastVersion, const QS
             setExplain(explainText);
         }
     }
+    ui->logoLbl->setToolTip(
+                "<html><head/><body><p>" + 
+                tr("Application Logo.") + 
+                "</p><p><span style=\" font-weight:600;\">" + 
+                tr("If you think it is not good, or you have better design. Please contact me.") + 
+                "</span></p></body></html>"
+                );
 }
 
 UpdateDialog::~UpdateDialog()

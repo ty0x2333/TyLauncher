@@ -10,9 +10,6 @@
     <height>300</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Form</string>
-  </property>
   <action name="actionOpenFolder">
    <property name="text">
     <string>Open Folder</string>
