@@ -4,13 +4,10 @@
 #include <QWidget>
 #include <QVector>
 
-class AppButton;
-class AppInfo;
-
-QT_BEGIN_NAMESPACE
-class QJsonArray;
-class QMenu;
-QT_END_NAMESPACE
+QT_FORWARD_DECLARE_CLASS(AppButton)
+QT_FORWARD_DECLARE_CLASS(AppBtnInfo)
+QT_FORWARD_DECLARE_CLASS(QJsonArray)
+QT_FORWARD_DECLARE_CLASS(QMenu)
 
 namespace Ui {
 class AppButtonForm;
@@ -24,7 +21,7 @@ public:
     explicit AppButtonForm(const int &rowCount, const int &columnCount, QWidget *parent = 0);
     ~AppButtonForm();
     
-    bool configFromVector(QVector<AppInfo> dataVector);
+    bool configFromVector(QVector<AppBtnInfo> dataVector);
     QJsonArray jsonArray() const;
     /**
      * @brief clear all app button data

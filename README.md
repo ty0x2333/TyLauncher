@@ -1,24 +1,31 @@
-# TyLauncher
-
+TyLauncher
+=========
 TyLauncher is replacement for Quick Launch and Start Menu. Application create by Qt.
+
+[![GitHub License](https://img.shields.io/github/license/luckytianyiyan/tylauncher.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
+[![GitHub release](https://img.shields.io/github/release/luckytianyiyan/TyLauncher.svg)](https://github.com/luckytianyiyan/TyLauncher/releases/latest)
+
+## Example
+
+![TyLauncher-MainInterface](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/TyLauncher-MainInterface.png)
 
 ## Edit Build Configuration
 
 In Qt Creator `Projects`
 
-![Qt-Creator-Projects.png](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-Projects.png)
+![Qt-Creator-Projects](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-Projects.png)
 
 ### Step.1 Debug Build Configuration
 
 1. Select `debug` build configuration.
 
-  ![Qt-Creator-Debug-Configuration.png](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-Debug-Configuration.png)
+  ![Qt-Creator-Debug-Configuration](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-Debug-Configuration.png)
 
 2. Add `after-build` Script
 
   Add a Build Steps - Custom Process Steps
 
-  ![Qt-Creator-Add-Build-Steps-Debug.png](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-Add-Build-Steps-Debug.png)
+  ![Qt-Creator-Add-Build-Steps-Debug](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-Add-Build-Steps-Debug.png)
 
   - Commend: `%{sourceDir}\build-script\after-build.bat`
 
@@ -28,13 +35,13 @@ In Qt Creator `Projects`
 
   like:
 
-  ![Qt-Creator-After-Build-Script.png](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-After-Build-Script.png)
+  ![Qt-Creator-After-Build-Script](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-After-Build-Script.png)
 
 ### Step.2 Release Build Configuration( like Step.1 )
 
 1. Select `release` build configuration.
 
-  ![Qt-Creator-Release-Configuration.png](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-Release-Configuration.png)
+  ![Qt-Creator-Release-Configuration](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-Release-Configuration.png)
 
 2. Add `after-build` Script
 
@@ -46,21 +53,21 @@ In Qt Creator `Projects`
 
 1. Select `release` build configuration.
 
-  ![Qt-Creator-Release-Configuration.png](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-Release-Configuration.png)
+  ![Qt-Creator-Release-Configuration](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-Release-Configuration.png)
 
 2. Add `Packaging` build configuration
 
   clone `release` build configuration.
 
-  ![Qt-Creator-Release-Packaging.png](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-Release-Packaging.png)
+  ![Qt-Creator-Release-Packaging](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-Release-Packaging.png)
 
-  ![Qt-Creator-New-Packaging.png](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-New-Packaging.png)
+  ![Qt-Creator-New-Packaging](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-New-Packaging.png)
 
 3. Add `after-build-packaging` Script
 
   Add a Build Steps - Custom Process Steps
 
-  ![Qt-Creator-Add-Build-Steps-Packaging.png](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-Add-Build-Steps-Packaging.png)
+  ![Qt-Creator-Add-Build-Steps-Packaging](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-Add-Build-Steps-Packaging.png)
 
   - Commend: `%{sourceDir}\build-script\after-build-packaging.bat`
 
@@ -70,8 +77,8 @@ In Qt Creator `Projects`
 
   like:
 
-  ![Qt-Creator-After-Build-Packaging-Script.png](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-After-Build-Packaging-Script.png)
+  ![Qt-Creator-After-Build-Packaging-Script](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-After-Build-Packaging-Script.png)
 
 ## License
 
-`TyLauncher` is available under the MIT license. See the LICENSE file for more info.
+`TyLauncher` is available under the GPLv3 license. See the LICENSE file for more info.

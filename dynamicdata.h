@@ -7,13 +7,11 @@
 #include <QHash>
 #include <QVariant>
 
-QT_BEGIN_NAMESPACE
-class QStringList;
-class QKeySequence;
-QT_END_NAMESPACE
-class AppButton;
-class AppInfo;
-class Option;
+QT_FORWARD_DECLARE_CLASS(QStringList)
+QT_FORWARD_DECLARE_CLASS(QKeySequence)
+QT_FORWARD_DECLARE_CLASS(AppButton)
+QT_FORWARD_DECLARE_CLASS(AppBtnInfo)
+QT_FORWARD_DECLARE_CLASS(Option)
 
 #define DYNAMIC_DATA DynamicData::getInstance()
 
@@ -23,9 +21,6 @@ class DynamicData : public QObject
     
 public:
     static DynamicData* getInstance();
-
-    /// @brief 获取按钮剪切缓存是否为空
-    bool BtnShearPlateIsEmpty();
 
     /// @brief 保存设置
     void saveAppConfig();
@@ -45,9 +40,6 @@ public:
     QKeySequence getGlobalShortcut() const;
     void setGlobalShortcut(QKeySequence keySequence);
     
-    AppButton* getBtnShearPlate();
-    void setBtnShearPlate(AppButton *btn);
-    
     QString getLanguage() const;
     void setLanguage(const QString &language);
     
@@ -57,7 +49,7 @@ public:
     QString getTheme() const;
     void setTheme(const QString &theme);
     
-    QVector<QVector<AppInfo> > getUserSaveData() const;
+    QVector<QVector<AppBtnInfo> > getUserSaveData() const;
     
     QVariant value(const QString &name) const;
     void setValue(const QString &name, const QVariant &value);
@@ -70,12 +62,7 @@ private:
     
     void initOptions();
     
-    QVector<QVector<AppInfo>> _userSaveData;
-    /**
-     * @brief 按钮剪切缓存
-     * 用来保存复制的按钮地址
-     */
-    AppButton *_btnShearPlate;
+    QVector<QVector<AppBtnInfo>> _userSaveData;
     
     QHash<QString, Option> _options;
 };

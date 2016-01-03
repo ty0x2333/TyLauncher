@@ -24,10 +24,6 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-    /**
-     * @brief 保存用户存档
-     */
-    void saveUserSettings();
     /// @brief 还原窗口
     virtual void restoreWindow();
     ~MainWindow();

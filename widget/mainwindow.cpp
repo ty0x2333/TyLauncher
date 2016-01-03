@@ -22,13 +22,13 @@
 #include <QtNetwork/QNetworkReply>
 #include <QMenu>
 #include <QCloseEvent>
-#include "utils/shearplateutils.h"
 #include "appconfigdialog.h"
 #include "datasettings.h"
 #include "widget/tabwidget.h"
 #include "widget/updatedialog.h"
 #include "utils/stringutils.h"
 #include "api/tyalgorithmapi.h"
+#include "shearplate.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -107,12 +107,6 @@ void MainWindow::reset()
     // 重置存档位置
 //    DYNAMIC_DATA->resetSaveFileName();
 }
-// @brief 保存设置
-// @param[in] 文件路径
-void MainWindow::saveUserSettings()
-{
-    DYNAMIC_DATA->saveUserSaveFile(ui->tabWidget->jsonString());
-}
 
 void MainWindow::on_hotKey_triggered()
 {
@@ -145,7 +139,7 @@ void MainWindow::onSystemTrayIconClicked(QSystemTrayIcon::ActivationReason reaso
 // @brief 托盘菜单的退出按钮响应
 void MainWindow::on_Quit_triggered()
 {
-    saveUserSettings();
+    DYNAMIC_DATA->saveUserSaveFile(ui->tabWidget->jsonString());
     DYNAMIC_DATA->saveAppConfig();
     qApp->exit();
 }
@@ -210,7 +204,7 @@ bool MainWindow::eventFilter(QObject *watched, QEvent *event)
 }
 void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
 {
-    if(keyEvent->modifiers() == Qt::ControlModifier){
+    if(keyEvent->modifiers() != Qt::NoModifier){
         return;
     }
     switch(keyEvent->key())
@@ -225,7 +219,7 @@ void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
         QList<AppButton *> appButtonList = ui->tabWidget->currentWidget()->findChildren<AppButton *>();
         for(AppButton* btn : appButtonList){ // 遍历所有AppButton
             if(btn->isBeMousePointing()){// 找到被鼠标指向的AppButton
-                ShearPlateUtils::remove(btn);
+                SHEAR_PLATE->remove(btn);
             }
         }
     }
@@ -252,7 +246,7 @@ void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
 // @brief "保存"菜单项响应
 void MainWindow::on_actionSave_triggered()
 {
-    saveUserSettings();
+    DYNAMIC_DATA->saveUserSaveFile(ui->tabWidget->jsonString());
     DYNAMIC_DATA->saveAppConfig();
 }
 // @brief "另保存"菜单项响应
@@ -266,7 +260,7 @@ void MainWindow::on_actionSave_As_triggered()
     if(fileDialog->exec() == QDialog::Accepted){
         QString fileName = fileDialog->selectedFiles()[0];
         DYNAMIC_DATA->setUserSettingsFileName(fileName);
-        saveUserSettings();
+        DYNAMIC_DATA->saveUserSaveFile(ui->tabWidget->jsonString());
         DYNAMIC_DATA->saveAppConfig();
     }
     delete fileDialog;
@@ -330,6 +324,7 @@ void MainWindow::checkUpdateFinished()
             if(jsonObj["need"] == true){
                 QJsonObject dataObj = jsonObj["data"].toObject();
                 UpdateDialog *updateDialog = new UpdateDialog(this, dataObj["version"].toString(), dataObj["version_explain"].toString());
+                updateDialog->setUpdateLink(dataObj["href"].toString());
                 updateDialog->exec();
 //                QString infoStr = tr("!");
 //                infoStr += "\n" + jsonObj["name"].toString() + "\n" + tr("Whether to download?");
@@ -337,7 +332,7 @@ void MainWindow::checkUpdateFinished()
 //                    QDesktopServices::openUrl(QUrl::fromLocalFile(APP_URL));
             }else{
                 if(_needShowUpdateDialog){
-                    UIUtils::showInfoMsgBox(tr("%1 !").arg(qAppName()), this);
+                    UIUtils::showInfoMsgBox(tr("%1 is up to date!").arg(qAppName()), this);
                 }
             }
         }QT_CATCH(QString& errStr){

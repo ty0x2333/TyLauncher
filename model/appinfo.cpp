@@ -1,28 +1,15 @@
-﻿#include "appinfo.h"
-#include <QString>
+#include "appinfo.h"
 
 AppInfo::AppInfo()
     : _name(QString())
     , _fileName(QString())
-    , _hotKey(QString())
-{
-}
+{}
 
-AppInfo::AppInfo(const QString &name, const QString &fileName, const QString &hotKey)
+AppInfo::AppInfo(const QString &name, const QString &fileName) 
     : _name(name)
     , _fileName(fileName)
-    , _hotKey(hotKey)
-{
-}
-QString AppInfo::hotKey() const
-{
-    return _hotKey;
-}
+{}
 
-void AppInfo::setHotKey(const QString &hotKey)
-{
-    _hotKey = hotKey;
-}
 QString AppInfo::name() const
 {
     return _name;
@@ -41,5 +28,11 @@ void AppInfo::setFileName(const QString &fileName)
 {
     _fileName = fileName;
 }
+
+bool AppInfo::isEmpty() const
+{
+    return _fileName.isEmpty() && _name.isEmpty();
+}
+
 
 

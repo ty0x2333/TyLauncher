@@ -14,7 +14,8 @@
 #include "dynamicdata.h"
 #include "widget/appbuttonform.h"
 #include "widget/tabbar.h"
-#include "utils/shearplateutils.h"
+#include "shearplate.h"
+
 TabWidget::TabWidget(QWidget *parent)
     : QTabWidget(parent)
     , ui(new Ui::TabWidget)
@@ -46,7 +47,7 @@ QString TabWidget::jsonString() const
     return doc.toJson();
 }
 
-bool TabWidget::configFromVector(QVector<QVector<AppInfo> > dataVector)
+bool TabWidget::configFromVector(QVector<QVector<AppBtnInfo> > dataVector)
 {
     Q_ASSERT(dataVector.size() == DEFAULT_TAB_COUNT); 
     try{
@@ -71,7 +72,8 @@ void TabWidget::clearAllAppBtnData()
 
 void TabWidget::keyReleaseEvent(QKeyEvent *keyEvent)
 {
-    if(keyEvent->modifiers() != Qt::ControlModifier){
+    Qt::KeyboardModifiers modifiers = keyEvent->modifiers();
+    if(!(modifiers & Qt::ControlModifier)) {
         return;
     }
     
@@ -79,25 +81,32 @@ void TabWidget::keyReleaseEvent(QKeyEvent *keyEvent)
     switch(keyEvent->key())
     {
     case Qt::Key_C:
-            for(AppButton* btn : appButtonList){ // 遍历所有AppButton，寻找当前鼠标指向的按钮
-                if(btn->isBeMousePointing()){
-                    ShearPlateUtils::copy(btn);
-                }
+        for(AppButton* btn : appButtonList){ // 遍历所有AppButton，寻找当前鼠标指向的按钮
+            if(btn->isBeMousePointing()){
+                SHEAR_PLATE->copy(btn);
             }
+        }
         break;
     case Qt::Key_X:
-            for(AppButton* btn : appButtonList){ // 遍历所有AppButton，寻找当前鼠标指向的按钮
-                if(btn->isBeMousePointing()){
-                    ShearPlateUtils::shear(btn);
-                }
+        for(AppButton* btn : appButtonList){ // 遍历所有AppButton，寻找当前鼠标指向的按钮
+            if(btn->isBeMousePointing()){
+                SHEAR_PLATE->shear(btn);
             }
+        }
         break;
     case Qt::Key_V:
-            for(AppButton* btn : appButtonList){ // 遍历所有AppButton
-                if(btn->isBeMousePointing()){// 找到被鼠标指向的AppButton
-                    ShearPlateUtils::paste(btn);
-                }
+        for(AppButton* btn : appButtonList){ // 遍历所有AppButton
+            if(btn->isBeMousePointing()){// 找到被鼠标指向的AppButton
+                SHEAR_PLATE->paste(btn);
             }
+        }
+        break;
+    case Qt::Key_Z:
+        if (modifiers & Qt::ShiftModifier) {
+            SHEAR_PLATE->redo();
+        } else {
+            SHEAR_PLATE->undo();
+        }
         break;
     default:
         break;

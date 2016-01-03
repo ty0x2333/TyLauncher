@@ -90,10 +90,10 @@
   </action>
   <action name="actionShowWindow">
    <property name="text">
-    <string>Show TyLauncher</string>
+    <string>Show Window</string>
    </property>
    <property name="toolTip">
-    <string>Show TyLauncher</string>
+    <string>Show Window</string>
    </property>
   </action>
   <action name="actionAbout">

@@ -1,7 +1,7 @@
 ﻿#include "appbuttonform.h"
 #include "ui_appbuttonform.h"
 #include "appbutton.h"
-#include "model/appinfo.h"
+#include "model/appbtninfo.h"
 #include "TyLog_Qt.h"
 #include "datasettings.h"
 #include <QGridLayout>
@@ -11,7 +11,7 @@
 #include <QMenu>
 #include "appbuttondialog.h"
 #include "dynamicdata.h"
-#include "utils/shearplateutils.h"
+#include "shearplate.h"
 
 AppButtonForm::AppButtonForm(const int &rowCount, const int &columnCount, QWidget *parent)
     : QWidget(parent)
@@ -53,7 +53,7 @@ AppButtonForm::~AppButtonForm()
         delete _btnMenu;
 }
 
-bool AppButtonForm::configFromVector(QVector<AppInfo> dataVector)
+bool AppButtonForm::configFromVector(QVector<AppBtnInfo> dataVector)
 {
     if (dataVector.size() != _rowCount * _columnCount){
         TyLogFatal("arr.size() == _rowCount * _columnCount, %d != %d", dataVector.size(), _rowCount * _columnCount);
@@ -67,7 +67,7 @@ bool AppButtonForm::configFromVector(QVector<AppInfo> dataVector)
         QWidget *widget = item->widget();
         AppButton *btn = dynamic_cast<AppButton*>(widget);
         Q_ASSERT_X(btn != nullptr, "configFromVector", "item->widget() is not AppButton class!"); 
-        btn->setDataFromAppInfo(dataVector[i]);
+        btn->setAppBtnInfo(dataVector[i]);
         connect(btn, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(onAppButtonRightClicked(QPoint)));
     }
     return true;
@@ -111,7 +111,7 @@ void AppButtonForm::onAppButtonRightClicked(QPoint)
 {
     _btnCurMenu = (AppButton*)sender();
     bool isNotBtnEmpty = !_btnCurMenu->isEmpty();
-    bool isNotBtnShearPlateEmpty = !DYNAMIC_DATA->BtnShearPlateIsEmpty();
+    bool isNotBtnShearPlateEmpty = !SHEAR_PLATE->isBtnShearPlateEmpty();
     ui->actionOpenFolder->setEnabled(isNotBtnEmpty);// 打开文件夹
     ui->actionDelete->setEnabled(isNotBtnEmpty);// 删除
     ui->actionCopy->setEnabled(isNotBtnEmpty);// 复制
@@ -132,7 +132,7 @@ void AppButtonForm::on_actionDelete_triggered()
 {
     if(_btnCurMenu == nullptr)
         return;
-    ShearPlateUtils::remove(_btnCurMenu);
+    SHEAR_PLATE->remove(_btnCurMenu);
     _btnCurMenu = nullptr;
 }
 
@@ -140,7 +140,7 @@ void AppButtonForm::on_actionCopy_triggered()
 {
     if(_btnCurMenu == nullptr)
         return;
-    ShearPlateUtils::copy(_btnCurMenu);
+    SHEAR_PLATE->copy(_btnCurMenu);
     _btnCurMenu = nullptr;
 }
 
@@ -148,7 +148,7 @@ void AppButtonForm::on_actionShear_triggered()
 {
     if(_btnCurMenu == nullptr)
         return;
-    ShearPlateUtils::shear(_btnCurMenu);
+    SHEAR_PLATE->shear(_btnCurMenu);
     _btnCurMenu = nullptr;
 }
 
@@ -156,7 +156,7 @@ void AppButtonForm::on_actionPaste_triggered()
 {
     if(_btnCurMenu == nullptr)
         return;
-    ShearPlateUtils::paste(_btnCurMenu);
+    SHEAR_PLATE->paste(_btnCurMenu);
     _btnCurMenu = nullptr;
 }
 

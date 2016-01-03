@@ -28,7 +28,7 @@ AppButton::AppButton(const QString &text, QWidget *parent) :
 {
     init();
 }
-AppButton::AppButton(const AppInfo &appInfo, QWidget *parent) :
+AppButton::AppButton(const AppBtnInfo &appBtnInfo, QWidget *parent) :
     QPushButton(parent),
     _isBeMousePointing(false),
     _fileName(""),
@@ -36,15 +36,35 @@ AppButton::AppButton(const AppInfo &appInfo, QWidget *parent) :
     _appIcon(nullptr)
 {
     init();
-    setDataFromAppInfo(appInfo);
+    setAppBtnInfo(appBtnInfo);
 }
 
-void AppButton::setDataFromAppInfo(const AppInfo &appInfo)
+void AppButton::setAppBtnInfo(const AppBtnInfo &appBtnInfo)
 {
-    this->setText(appInfo.hotKey());
+    this->setText(appBtnInfo.hotKey());
+    setAppInfo(appBtnInfo);
+}
+
+AppBtnInfo AppButton::appBtnInfo()
+{
+    return AppBtnInfo(_appName->text(), _fileName, this->text());
+}
+
+void AppButton::setAppInfo(const AppInfo &appInfo)
+{
     _appName->setText(appInfo.name());// 设置文件名
     // 设置文件路径
-    setAppFileName(appInfo.fileName());
+    if (appInfo.isEmpty()) {
+        _fileName = QString();
+        _appIcon->setPixmap(QPixmap());
+    } else {
+        setAppFileName(appInfo.fileName());
+    }
+}
+
+AppInfo AppButton::appInfo()
+{
+    return AppInfo(_appName->text(), _fileName);
 }
 
 void AppButton::init()
@@ -152,7 +172,7 @@ bool AppButton::eventFilter(QObject *, QEvent *event)
 // @brief 指示按钮是否为空
 bool AppButton::isEmpty()
 {
-    return _fileName.isEmpty() && !_appIcon->pixmap() && _appName->text().isEmpty();
+    return _fileName.isEmpty() && _appName->text().isEmpty();
 }
 
 AppButton::~AppButton()

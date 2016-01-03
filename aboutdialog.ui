@@ -11,16 +11,13 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>About TyLauncher</string>
+   <string>About</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QLabel" name="label">
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Application Logo.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;If you think it is not good, or you have better design. Please contact me.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
+      <widget class="QLabel" name="logoLbl">
        <property name="text">
         <string/>
        </property>
@@ -59,9 +56,6 @@
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="developerLbl">
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Application Developer's email.&lt;/p&gt;&lt;p&gt;You can &lt;span style=&quot; font-weight:600;&quot;&gt;contact me&lt;/span&gt; through it.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
          <property name="text">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;style type=&quot;text/css&quot;&gt;a{color: hsl(219,58%,93%);text-decoration:none;}&lt;/style&gt;&lt;p&gt;Developer: &lt;a href=&quot;mailto:luckytianyiyan@gmail.com&quot;&gt;luckytianyiyan@gmail.com&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
@@ -74,9 +68,6 @@
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
           <widget class="QLabel" name="versionTitleLbl">
-           <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Application Version.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
            <property name="text">
             <string>Version: </string>
            </property>
@@ -84,9 +75,6 @@
          </item>
          <item>
           <widget class="QLabel" name="versionLbl">
-           <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Application Version.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
            <property name="text">
             <string>unknow</string>
            </property>
@@ -109,9 +97,6 @@
        </item>
        <item row="3" column="0">
         <widget class="QLabel" name="websiteLbl">
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Application Developer's personal website&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;You can get more help here.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
          <property name="text">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;style type=&quot;text/css&quot;&gt;a{color: hsl(219,58%,93%);text-decoration:none;}&lt;/style&gt;&lt;p&gt;My Website: &lt;a href=&quot;http://www.tianyiyan.com&quot;&gt;http://www.tianyiyan.com&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>

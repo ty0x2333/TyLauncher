@@ -1,6 +1,6 @@
 ﻿#include "dynamicdata.h"
 #include "StaticSetting.h"
-#include "model/appinfo.h"
+#include "model/appbtninfo.h"
 #include "widget/appbutton.h"
 #include <QSettings>
 #include <QJsonObject>
@@ -30,8 +30,7 @@ QString defaultSaveFileName()
 
 static DynamicData *s_shareDynamicData = nullptr;
 DynamicData::DynamicData()
-    : _btnShearPlate(nullptr)
-    , _options()
+    : _options()
 {
     initOptions();
 }
@@ -51,19 +50,6 @@ DynamicData* DynamicData::getInstance()
         s_shareDynamicData->loadAppConfig();// 读取应用配置
     }
     return s_shareDynamicData;
-}
-
-// @brief 获取按钮剪切缓存
-AppButton* DynamicData::getBtnShearPlate(){    return _btnShearPlate;}
-// @brief 设置按钮剪切缓存
-void DynamicData::setBtnShearPlate(AppButton *btn)
-{
-    if(_btnShearPlate != nullptr){
-        delete _btnShearPlate;
-        _btnShearPlate = nullptr;
-    }
-    _btnShearPlate = new AppButton("");
-    _btnShearPlate->copyFrom(*btn);
 }
 // @brief 保存设置
 void DynamicData::saveAppConfig()
@@ -99,8 +85,6 @@ void DynamicData::loadAppConfig()
     TyLogInfo("Load AppConfig: %s", StringUtils::toString(_options).toUtf8().data());
 }
 
-bool DynamicData::BtnShearPlateIsEmpty(){    return _btnShearPlate == nullptr;}
-
 // @brief 读取存档文件
 void DynamicData::loadUserSaveFile(const QString fileName)
 {
@@ -127,7 +111,7 @@ void DynamicData::loadUserSaveFile(const QString fileName)
         throw QString("Save File Failure!");
     QJsonArray tabArr = doc.array();
     for(int i = 0; i < DEFAULT_TAB_COUNT; ++i){// 每一个Tab
-        QVector<AppInfo> btnVector;
+        QVector<AppBtnInfo> btnVector;
         QJsonValue val = tabArr.at(i);
         if(!val.isArray())
             throw QString("Save File Failure!");
@@ -137,8 +121,8 @@ void DynamicData::loadUserSaveFile(const QString fileName)
             if(!valObj.isObject())
                 throw QString("Save File Failure!");
             QJsonObject obj = valObj.toObject();
-            AppInfo appInfo(obj[KEY_APP_NAME].toString(), obj[KEY_FILE_NAME].toString(), obj[KEY_HOT_KEY].toString());
-            btnVector.append(appInfo);
+            AppBtnInfo appBtnInfo(obj[KEY_APP_NAME].toString(), obj[KEY_FILE_NAME].toString(), obj[KEY_HOT_KEY].toString());
+            btnVector.append(appBtnInfo);
         }
         _userSaveData.append(btnVector);
     }
@@ -176,9 +160,9 @@ void DynamicData::resetUserSaveFile()
                             };
     _userSaveData.clear();
     for(int i = 0; i < DEFAULT_TAB_COUNT; ++i){// 每一个Tab
-        QVector<AppInfo> btnVector;
+        QVector<AppBtnInfo> btnVector;
         for(int i = 0; i < DEFAULT_TAB_COLUMN_COUNT * DEFAULT_TAB_ROW_COUNT; ++i){
-            AppInfo appInfo;
+            AppBtnInfo appInfo;
             appInfo.setHotKey(btnStr[i / DEFAULT_TAB_COLUMN_COUNT][i % DEFAULT_TAB_COLUMN_COUNT]);
             btnVector.append(appInfo);
         }
@@ -212,7 +196,7 @@ void DynamicData::setLanguage(const QString &language){setValue(KEY_LANGUAGE, la
 QKeySequence DynamicData::getGlobalShortcut() const{return QKeySequence(value(KEY_HOT_KEY).toString());}
 void DynamicData::setGlobalShortcut(QKeySequence keySequence){setValue(KEY_HOT_KEY, keySequence.toString());}
 
-QVector<QVector<AppInfo> > DynamicData::getUserSaveData() const{return _userSaveData;}
+QVector<QVector<AppBtnInfo> > DynamicData::getUserSaveData() const{return _userSaveData;}
 
 QVariant DynamicData::value(const QString &name) const
 {
