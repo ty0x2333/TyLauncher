@@ -324,6 +324,7 @@ void MainWindow::checkUpdateFinished()
             if(jsonObj["need"] == true){
                 QJsonObject dataObj = jsonObj["data"].toObject();
                 UpdateDialog *updateDialog = new UpdateDialog(this, dataObj["version"].toString(), dataObj["version_explain"].toString());
+                updateDialog->setUpdateLink(dataObj["href"].toString());
                 updateDialog->exec();
 //                QString infoStr = tr("!");
 //                infoStr += "\n" + jsonObj["name"].toString() + "\n" + tr("Whether to download?");

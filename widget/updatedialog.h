@@ -17,8 +17,17 @@ public:
     
     void setExplain(const QString& explainText);
     void setLastVersion(const QString& lastVersion);
+    void setUpdateLink(const QString& updateLink);
+private slots:
+    void on_pushButtonUpdate_clicked();
+    
+    void on_pushButtonOk_clicked();
+    
+    void on_pushButtonCancel_clicked();
+    
 private:
     Ui::UpdateDialog *ui;
+    QString _updateLink;
 };
 
 #endif // UPDATEDIALOG_H
