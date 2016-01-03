@@ -1,6 +1,7 @@
 #include "asynchttphelper.h"
 #include <QNetworkReply>
 #include <QApplication>
+#include "TyLog_Qt.h"
 AsyncHttpHelper* AsyncHttpHelper::_sharedAsyncHttpHelper = nullptr;
 
 void AsyncHttpHelper::get(const QNetworkRequest& request, const QObject *receiver, 
@@ -28,6 +29,10 @@ void AsyncHttpHelper::post(const QNetworkRequest &request, const QByteArray &dat
         _netManager = new QNetworkAccessManager(this);
     QNetworkReply *reply = _netManager->post(request, data);
     connect(reply, SIGNAL(finished()), receiver, finishedMember);
+    QUrl url = request.url();
+    QString u = url.toString();
+//    TyLogInfo("request to: %s\nbody: %s", request.url().toString().toUtf8(), data);
+    TyLogInfo("request to: %s\nbody: %s", request.url().toString().toUtf8().data(), data.data());
     if (errorMember != nullptr)
         connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), receiver, errorMember);
     if (sslErrorsReadMember != nullptr)
