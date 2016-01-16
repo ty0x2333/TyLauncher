@@ -92,7 +92,7 @@ macx {
     QT += macextras
 
     # Icon is mandatory for submission
-    ICON = res/icon.icns
+#    ICON = res/icon.icns
 }
 
 DISTFILES += \

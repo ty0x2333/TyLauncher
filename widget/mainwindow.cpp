@@ -77,7 +77,7 @@ void MainWindow::initTray()
     _trayMenu->addSeparator();// 分割线
     _trayMenu->addAction(ui->actionQuit);// 添加退出菜单项
     _trayIcon->setContextMenu(_trayMenu);// 设置托盘菜单
-    _trayIcon->setIcon(QIcon(":/img/res/logo.ico")); // 设置托盘图标
+    _trayIcon->setIcon(this->windowIcon()); // 设置托盘图标
     _trayIcon->show();// 显示托盘
 }
 

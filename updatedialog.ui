@@ -27,7 +27,7 @@
           <enum>Qt::AutoText</enum>
          </property>
          <property name="pixmap">
-          <pixmap resource="res.qrc">:/img/res/icon_128x128.png</pixmap>
+          <pixmap resource="res.qrc">:/img/images/logo.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>false</bool>
