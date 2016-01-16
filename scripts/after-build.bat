@@ -1,5 +1,5 @@
 @echo off
-echo '-- Start Builf Script --'
+echo '-- Start Built Script --'
 SET Root=%~f1
 SET Build=%~f2
 echo Root : %Root%

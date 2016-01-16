@@ -26,12 +26,9 @@ Makefile*
 *-build-*
 
 # QtCreator
-
+build-*
 *.autosave
 
 # QtCtreator Qml
 *.qmlproject.user
 *.qmlproject.user.*
-
-# Build Script
-!/build-script/*
