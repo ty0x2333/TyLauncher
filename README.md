@@ -1,5 +1,6 @@
 TyLauncher
 =========
+![TyLauncher-logo](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/logo.png)
 TyLauncher is replacement for Quick Launch and Start Menu. Application create by Qt.
 
 [![GitHub License](https://img.shields.io/github/license/luckytianyiyan/tylauncher.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
@@ -9,7 +10,7 @@ TyLauncher is replacement for Quick Launch and Start Menu. Application create by
 
 ![TyLauncher-MainInterface](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/TyLauncher-MainInterface.png)
 
-## Edit Build Configuration
+## Build Configuration
 
 In Qt Creator `Projects`
 
@@ -27,15 +28,11 @@ In Qt Creator `Projects`
 
   ![Qt-Creator-Add-Build-Steps-Debug](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-Add-Build-Steps-Debug.png)
 
-  - Commend: `%{sourceDir}\build-script\after-build.bat`
+  - Commend: `%{sourceDir}\scripts\after-build.bat`
 
   - Arguments: `%{sourceDir} %{buildDir}`
 
   - Working directory: `%{buildDir}`
-
-  like:
-
-  ![Qt-Creator-After-Build-Script](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-After-Build-Script.png)
 
 ### Step.2 Release Build Configuration( like Step.1 )
 
@@ -69,15 +66,16 @@ In Qt Creator `Projects`
 
   ![Qt-Creator-Add-Build-Steps-Packaging](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-Add-Build-Steps-Packaging.png)
 
-  - Commend: `%{sourceDir}\build-script\after-build-packaging.bat`
+  - Commend: `%{sourceDir}\scripts\after-build-packaging-i386.bat`
 
-  - Arguments: `%{sourceDir} %{buildDir} %{CurrentProject:Name}`
+  or packaging x64 application. use
+
+  - Arguments: `%{sourceDir} %{buildDir} %{CurrentProject:Name} [windows root]`
+
+    > if you packaging x86 application. windows root is like "C:\Windows\System32"
+    > or x64 application. windows root is like "C:\Windows\SysWOW64"
 
   - Working directory: `%{buildDir}`
-
-  like:
-
-  ![Qt-Creator-After-Build-Packaging-Script](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-After-Build-Packaging-Script.png)
 
 ## License
 
