@@ -66,14 +66,17 @@ In Qt Creator `Projects`
 
   ![Qt-Creator-Add-Build-Steps-Packaging](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-Add-Build-Steps-Packaging.png)
 
-  - Commend: `%{sourceDir}\scripts\after-build-packaging-i386.bat`
-
-  or packaging x64 application. use
+  - Commend: `%{sourceDir}\scripts\after-build-packaging.bat`
 
   - Arguments: `%{sourceDir} %{buildDir} %{CurrentProject:Name} [windows root]`
 
-    > if you packaging x86 application. windows root is like "C:\Windows\System32"
-    > or x64 application. windows root is like "C:\Windows\SysWOW64"
+    > if you packaging x86 application. `[windows root]` is like "C:/Windows/System32"
+
+    `%{sourceDir} %{buildDir} %{CurrentProject:Name} "C:/Windows/System32"`
+
+    > or x64 application. `[windows root]` is like "C:/Windows/SysWOW64"
+
+    `%{sourceDir} %{buildDir} %{CurrentProject:Name} "C:/Windows/SysWOW64"`
 
   - Working directory: `%{buildDir}`
 
