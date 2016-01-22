@@ -3,4 +3,7 @@
         <file>images/logo.png</file>
         <file>images/logo.ico</file>
     </qresource>
+    <qresource prefix="/">
+        <file>config.json</file>
+    </qresource>
 </RCC>

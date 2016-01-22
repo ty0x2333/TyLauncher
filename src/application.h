@@ -29,6 +29,11 @@ public:
 
 protected slots:
     void updateTheme();
+    
+protected:
+    QString currentEnvironmentDescription() const;
+    
+    void configFromJsonFile();
 };
 
 #endif // APPLICATION_H
