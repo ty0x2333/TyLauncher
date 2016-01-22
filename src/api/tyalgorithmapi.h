@@ -20,7 +20,11 @@
 #define __TYALGORITHM_API_H__
 #include <QObject>
 #include <QString>
+#ifdef QT_DEBUG
+static const QString APP_ID = "43d492365884cf7331130587eac9d305";
+#else
 static const QString APP_ID = "41f14ff474c07266a4124105a00da6b2";
+#endif
 static const QString HTTP = "http://";
 static const QString HOST = "api.tylauncher.com/index.php/";
 static const QString API = "api/";
