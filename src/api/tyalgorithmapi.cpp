@@ -21,6 +21,7 @@
 #include <QNetworkRequest>
 #include <QUrl>
 #include <QCoreApplication>
+#include "utils/apputils.h"
 
 TyAlgorithmAPI::TyAlgorithmAPI()
 {
@@ -35,6 +36,8 @@ void TyAlgorithmAPI::checkUpdate(const QObject *receiver, const char *finishedMe
     param.append(APP_ID);
     param.append("&version=");
     param.append(qApp->applicationVersion());
+    param.append("&UUID=");
+    param.append(AppUtils::driveUniqueID());
     QNetworkRequest request(url);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
     AsyncHttpHelper::getInstance()->post(request, param, receiver, finishedMember, errorMember);
