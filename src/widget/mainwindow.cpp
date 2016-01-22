@@ -331,7 +331,7 @@ void MainWindow::checkUpdateFinished()
     if (reply->error() == QNetworkReply::NoError) { 
         QByteArray bytes = reply->readAll();
         TyLogDebug("reply: %s", bytes.data());
-        QT_TRY{
+        QT_TRY {
             QJsonParseError parseErr;
             QJsonDocument doc = QJsonDocument::fromJson(bytes,&parseErr);
             if(parseErr.error != QJsonParseError::NoError || !doc.isObject()){
@@ -339,27 +339,22 @@ void MainWindow::checkUpdateFinished()
             }
             QJsonObject jsonObj = doc.object();
 
-            if(jsonObj["need"] == true){
+            if(jsonObj["need"] == true) {
                 QJsonObject dataObj = jsonObj["data"].toObject();
                 UpdateDialog *updateDialog = new UpdateDialog(this, dataObj["version"].toString(), dataObj["version_explain"].toString());
                 updateDialog->setUpdateLink(dataObj["href"].toString());
                 updateDialog->exec();
-//                QString infoStr = tr("!");
-//                infoStr += "\n" + jsonObj["name"].toString() + "\n" + tr("Whether to download?");
-//                if(UIUtils::showInfoMsgBox(infoStr, this) == QMessageBox::Ok)
-//                    QDesktopServices::openUrl(QUrl::fromLocalFile(APP_URL));
-            }else{
-                if(_needShowUpdateDialog){
+            } else {
+                if(_needShowUpdateDialog) {
                     UIUtils::showInfoMsgBox(tr("%1 is up to date!").arg(qAppName()), this);
                 }
             }
-        }QT_CATCH(QString& errStr){
+        } QT_CATCH(QString& errStr) {
             TyLogDebug("Json Parse Error: %s", errStr);
         }
-    } 
-    else{
+    } else {
         QString errorStr = StringUtils::networkErrorString(reply->error());
-        if(_needShowUpdateDialog){
+        if(_needShowUpdateDialog) {
             UIUtils::showCriticalMsgBox(errorStr, this);
         }
         TyLogDebug("Network Error: %s", errorStr.toUtf8().data());
