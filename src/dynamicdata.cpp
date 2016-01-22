@@ -148,7 +148,11 @@ void DynamicData::loadUserSaveFile(const QString fileName)
 
 void DynamicData::saveUserSaveFile(const QString &content)
 {
-    QString fileName = userSettingsFileName();
+    saveUserSaveFile(content, userSettingsFileName());
+}
+
+void DynamicData::saveUserSaveFile(const QString& content, const QString& fileName)
+{
     QFile file(fileName);
     if (!QFile::exists(fileName)){
         TyLogWarning("%s is not exists!", fileName.toUtf8().data());

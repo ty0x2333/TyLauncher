@@ -40,15 +40,25 @@ class DynamicData : public QObject
 public:
     static DynamicData* getInstance();
 
-    /// @brief 保存设置
     void saveAppConfig();
     void loadAppConfig();
 
-    /// @brief 读取存档文件
     void loadUserSaveFile(const QString fileName);
     
-    /// @brief 保存存档文件
+    /**
+     * @brief save User savefile
+     * save to userSettingsFileName()
+     * @see   saveUserSaveFile(const QString& content, const QString& toFileName)
+     * @see   userSettingsFileName()
+     */
     void saveUserSaveFile(const QString& content);
+    
+    /**
+     * @brief save User savefile
+     * @param content
+     * @param toFileName
+     */
+    void saveUserSaveFile(const QString& content, const QString& toFileName);
     
     void resetUserSaveFile();
     
