@@ -193,8 +193,13 @@ bool MainWindow::eventFilter(QObject *watched, QEvent *event)
         {
         case QEvent::WindowDeactivate:
             TyLogDebug("QEvent::WindowDeactivate");
-            if (!qApp->activeWindow())
+            TyLogDebug("active status{\n\thas activeWindow: %s\n\thas activeModalWidget: %s\n\thas activePopupWidget: %s\n}", 
+                       qApp->activeWindow() ? "YES" : "NO",
+                       qApp->activeModalWidget() ? "YES" : "NO",
+                       qApp->activePopupWidget() ? "YES" : "NO");
+            if (!qApp->activeModalWidget()) {
                 this->hide();
+            }
             break;
         case QEvent::WindowStateChange:
             TyLogDebug("QEvent::WindowStateChange");
@@ -272,14 +277,11 @@ void MainWindow::on_actionSave_As_triggered()
 {
     QFileDialog *fileDialog = new QFileDialog(this, tr("Save As"), 
                                               ".", 
-                                              "User Settins File(*.tam);;All File(*.*)");
+                                              "User Settins File(*.json);;All File(*.*)");
     fileDialog->setAcceptMode(QFileDialog::AcceptSave);
-    fileDialog->setModal(true);
     if(fileDialog->exec() == QDialog::Accepted){
-        QString fileName = fileDialog->selectedFiles()[0];
-        DYNAMIC_DATA->setUserSettingsFileName(fileName);
-        DYNAMIC_DATA->saveUserSaveFile(ui->tabWidget->jsonString());
-        DYNAMIC_DATA->saveAppConfig();
+        QString fileName = fileDialog->selectedFiles().first();
+        DYNAMIC_DATA->saveUserSaveFile(ui->tabWidget->jsonString(), fileName);
     }
     delete fileDialog;
 }
