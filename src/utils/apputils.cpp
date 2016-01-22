@@ -18,6 +18,8 @@
  */
 #include "apputils.h"
 #include "TyLog_Qt.h"
+#include <QCryptographicHash>
+#include <QSysInfo>
 
 #define MAC_ADDRESS_NULL "00:00:00:00:00:00:00:E0"
 
@@ -101,4 +103,23 @@ QString AppUtils::diskdriveSerialNumber()
     QStringList list = info.simplified().split(" ");
     return list[1];
 #endif
+}
+
+QString AppUtils::driveUniqueID()
+{
+    QString data = AppUtils::diskdriveSerialNumber() + AppUtils::macAddress();
+    QByteArray hash = QCryptographicHash::hash ( data.toUtf8(), QCryptographicHash::Md5 );  
+    QString md5 = hash.toHex();
+
+    return md5;
+}
+
+QString AppUtils::currentSystem()
+{
+    return QSysInfo::kernelType();
+}
+
+QString AppUtils::currentSystemVersion()
+{
+    return QSysInfo::kernelVersion();
 }

@@ -35,6 +35,12 @@ public:
      * @return 硬盘物理ID
      */
     static QString diskdriveSerialNumber();
+    
+    static QString driveUniqueID();
+    
+    static QString currentSystem();
+    
+    static QString currentSystemVersion();
 };
 
 #endif // __APP_UTILS_H__
