@@ -19,14 +19,24 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 #include <QApplication>
+#if defined(qApp)
+#undef qApp
+#endif
+#define qApp (static_cast<Application *>(QCoreApplication::instance()))
 
 class Application : public QApplication
 {
     Q_OBJECT
+    Q_PROPERTY(QString githubRepository READ githubRepository WRITE setGithubRepository)
 
 public:
     Application(int &argc, char **argv, int flags= ApplicationFlags);
-
+    
+    QString githubRepository() const;
+    void setGithubRepository(const QString &githubRepository);
+    
+    QString issuesPostLink() const;
+    
 protected slots:
     void updateTheme();
     
@@ -34,6 +44,8 @@ protected:
     QString currentEnvironmentDescription() const;
     
     void configFromJsonFile();
+    
+    QString _githubRepository;
 };
 
 #endif // APPLICATION_H

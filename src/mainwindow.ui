@@ -63,8 +63,10 @@
     <property name="title">
      <string>Help</string>
     </property>
-    <addaction name="actionCheck_Update"/>
     <addaction name="actionAbout"/>
+    <addaction name="actionCheck_Update"/>
+    <addaction name="separator"/>
+    <addaction name="actionReport_Bug_Request_a_New_Feature"/>
    </widget>
    <widget class="QMenu" name="menuFile">
     <property name="title">
@@ -130,6 +132,11 @@
   <action name="actionSettings">
    <property name="text">
     <string>Settings</string>
+   </property>
+  </action>
+  <action name="actionReport_Bug_Request_a_New_Feature">
+   <property name="text">
+    <string>Report Bug / Request a New Feature</string>
    </property>
   </action>
  </widget>

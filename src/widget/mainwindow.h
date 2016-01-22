@@ -70,6 +70,8 @@ private slots:
     void onAppConfigChanged(const QString &name);
     
     void checkUpdateFinished();
+    void on_actionReport_Bug_Request_a_New_Feature_triggered();
+    
 private:
     Ui::MainWindow *ui;
     /// @brief 托盘图标

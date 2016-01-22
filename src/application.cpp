@@ -101,3 +101,18 @@ void Application::configFromJsonFile()
     }
     TyLogDebug("%s\n}", logStr.toUtf8().data());
 }
+QString Application::githubRepository() const
+{
+    return _githubRepository;
+}
+
+void Application::setGithubRepository(const QString &githubRepository)
+{
+    _githubRepository = githubRepository;
+}
+
+QString Application::issuesPostLink() const
+{
+    return githubRepository().isEmpty() ? QString() : githubRepository() + "/issues/new";
+}
+

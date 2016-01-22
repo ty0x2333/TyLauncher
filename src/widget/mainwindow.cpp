@@ -17,6 +17,7 @@
  * along with TyLauncher.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "mainwindow.h"
+#include "application.h"
 #include "ui_mainwindow.h"
 #include "qxtglobalshortcut.h"
 #include "dynamicdata.h"
@@ -362,4 +363,9 @@ void MainWindow::checkUpdateFinished()
         TyLogDebug("Network Error: %s", errorStr.toUtf8().data());
     }
     reply->deleteLater();
+}
+
+void MainWindow::on_actionReport_Bug_Request_a_New_Feature_triggered()
+{
+    QDesktopServices::openUrl(qApp->issuesPostLink());
 }
