@@ -21,19 +21,23 @@
 #include "mainwindow.h"
 
 static QString const kToolTipFormat = QString("<html><head/><body><p>%1</p><p><span style=\" font-weight:600;\">%2</span></p></body></html>");
-
+static QString const kLinkFormat = QString("<html><head/><body><style type=\"text/css\">a{color: hsl(219,58%,93%);text-decoration:none;}</style><p><a href=\"%1\">%2</a></p></body></html>");
 AboutDialog::AboutDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AboutDialog)
 {
     ui->setupUi(this);
     setWindowFlags(windowFlags() | Qt::MSWindowsFixedSizeDialogHint);
-    ui->versionLbl->setText(qApp->applicationVersion());
     
-    ui->logoLbl->setToolTip(kToolTipFormat.arg(tr("Application Logo.")).arg(tr("If you think it is not good, or you have better design. Please contact me.")));
-
+    // ToolTip
     ui->developerLbl->setToolTip(kToolTipFormat.arg(tr("Application Developer's email.")).arg(tr("You can <span style=\" font-weight:600\">contact me</span> through it.")));
-    ui->websiteLbl->setToolTip(kToolTipFormat.arg(tr("Application Developer's personal website")).arg(tr("You can get more help here.")));
+    ui->blogLbl->setToolTip(kToolTipFormat.arg(tr("Application Developer's personal website")).arg(tr("You can get more help here.")));
+    // Text
+    ui->versionLbl->setText(qApp->applicationVersion());
+    ui->appNameLbl->setText(qAppName());
+    ui->websiteURLLbl->setText(kLinkFormat.arg(qApp->organizationDomain(), qApp->organizationDomain()));
+    ui->blogLbl->setText(kLinkFormat.arg("http://blog.tianyiyan.com", "http://blog.tianyiyan.com"));
+    ui->developerLbl->setText(kLinkFormat.arg("mailto:luckytianyiyan@gmail.com", qApp->organizationName()));
 }
 
 AboutDialog::~AboutDialog()

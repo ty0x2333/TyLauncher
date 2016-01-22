@@ -15,8 +15,8 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
+    <layout class="QFormLayout" name="formLayout_6">
+     <item row="0" column="0">
       <widget class="QLabel" name="logoLbl">
        <property name="text">
         <string/>
@@ -32,14 +32,8 @@
        </property>
       </widget>
      </item>
-     <item>
-      <layout class="QFormLayout" name="formLayout">
-       <property name="labelAlignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-       </property>
-       <property name="formAlignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-       </property>
+     <item row="0" column="1">
+      <layout class="QFormLayout" name="formLayout_5">
        <item row="0" column="0">
         <widget class="QLabel" name="appNameLbl">
          <property name="font">
@@ -49,40 +43,90 @@
            <bold>true</bold>
           </font>
          </property>
-         <property name="text">
-          <string>TyLauncher</string>
-         </property>
         </widget>
        </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="developerLbl">
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;style type=&quot;text/css&quot;&gt;a{color: hsl(219,58%,93%);text-decoration:none;}&lt;/style&gt;&lt;p&gt;Developer: &lt;a href=&quot;mailto:luckytianyiyan@gmail.com&quot;&gt;luckytianyiyan@gmail.com&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="openExternalLinks">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
+       <item row="1" column="0" colspan="2">
+        <layout class="QFormLayout" name="formLayout_3">
+         <item row="0" column="0">
           <widget class="QLabel" name="versionTitleLbl">
            <property name="text">
-            <string>Version: </string>
+            <string>Version:  </string>
            </property>
           </widget>
          </item>
-         <item>
+         <item row="0" column="1">
           <widget class="QLabel" name="versionLbl">
            <property name="text">
-            <string>unknow</string>
+            <string/>
            </property>
           </widget>
          </item>
         </layout>
        </item>
-       <item row="4" column="0">
+       <item row="2" column="0" colspan="2">
+        <layout class="QFormLayout" name="formLayout_2">
+         <item row="0" column="0">
+          <widget class="QLabel" name="developerTitleLbl">
+           <property name="text">
+            <string>Developer:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="developerLbl">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="openExternalLinks">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="3" column="0" colspan="2">
+        <layout class="QFormLayout" name="formLayout">
+         <item row="0" column="0">
+          <widget class="QLabel" name="websiteTitleLbl">
+           <property name="text">
+            <string>Website:  </string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="websiteURLLbl">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="openExternalLinks">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="4" column="0" colspan="2">
+        <layout class="QFormLayout" name="formLayout_4">
+         <item row="0" column="0">
+          <widget class="QLabel" name="blogTitleLbl">
+           <property name="text">
+            <string>Blog:     </string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="blogLbl">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="openExternalLinks">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="5" column="1">
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -94,16 +138,6 @@
           </size>
          </property>
         </spacer>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="websiteLbl">
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;style type=&quot;text/css&quot;&gt;a{color: hsl(219,58%,93%);text-decoration:none;}&lt;/style&gt;&lt;p&gt;My Website: &lt;a href=&quot;http://www.tianyiyan.com&quot;&gt;http://www.tianyiyan.com&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="openExternalLinks">
-          <bool>true</bool>
-         </property>
-        </widget>
        </item>
       </layout>
      </item>
