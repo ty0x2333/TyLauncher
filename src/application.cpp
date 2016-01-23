@@ -29,13 +29,13 @@ Application::Application(int &argc, char **argv, int flags)
     : QApplication(argc, argv, flags)
 {
     this->setObjectName("Application");
-    
+
     configFromJsonFile();
     
     updateTheme();
     connect(DYNAMIC_DATA, SIGNAL(themeConfigChanged()), this, SLOT(updateTheme()));
     
-    TyLogDebug("%s", this->currentEnvironmentDescription().toUtf8().data());
+    TyLogDebug("Current Environment: %s", this->currentEnvironmentDescription().toUtf8().data());
 }
 
 void Application::updateTheme()
@@ -101,6 +101,16 @@ void Application::configFromJsonFile()
     }
     TyLogDebug("%s\n}", logStr.toUtf8().data());
 }
+QString Application::organizationEmail() const
+{
+    return _organizationEmail;
+}
+
+void Application::setOrganizationEmail(const QString &organizationEmail)
+{
+    _organizationEmail = organizationEmail;
+}
+
 QString Application::githubRepository() const
 {
     return _githubRepository;

@@ -19,6 +19,7 @@
 #include "aboutdialog.h"
 #include "ui_aboutdialog.h"
 #include "mainwindow.h"
+#include "application.h"
 
 static QString const kToolTipFormat = QString("<html><head/><body><p>%1</p><p><span style=\" font-weight:600;\">%2</span></p></body></html>");
 static QString const kLinkFormat = QString("<html><head/><body><style type=\"text/css\">a{color: hsl(219,58%,93%);text-decoration:none;}</style><p><a href=\"%1\">%2</a></p></body></html>");
@@ -37,7 +38,7 @@ AboutDialog::AboutDialog(QWidget *parent) :
     ui->appNameLbl->setText(qAppName());
     ui->websiteURLLbl->setText(kLinkFormat.arg(qApp->organizationDomain(), qApp->organizationDomain()));
     ui->blogLbl->setText(kLinkFormat.arg("http://blog.tianyiyan.com", "http://blog.tianyiyan.com"));
-    ui->developerLbl->setText(kLinkFormat.arg("mailto:luckytianyiyan@gmail.com", qApp->organizationName()));
+    ui->developerLbl->setText(kLinkFormat.arg("mailto:" + qApp->organizationEmail(), qApp->organizationEmail()));
 }
 
 AboutDialog::~AboutDialog()
