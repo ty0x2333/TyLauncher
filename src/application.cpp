@@ -101,6 +101,16 @@ void Application::configFromJsonFile()
     }
     TyLogDebug("%s\n}", logStr.toUtf8().data());
 }
+QString Application::copyright() const
+{
+    return _copyright;
+}
+
+void Application::setCopyright(const QString &copyright)
+{
+    _copyright = copyright;
+}
+
 QString Application::organizationEmail() const
 {
     return _organizationEmail;

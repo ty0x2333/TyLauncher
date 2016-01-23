@@ -39,6 +39,7 @@ AboutDialog::AboutDialog(QWidget *parent) :
     ui->websiteURLLbl->setText(kLinkFormat.arg(qApp->organizationDomain(), qApp->organizationDomain()));
     ui->blogLbl->setText(kLinkFormat.arg("http://blog.tianyiyan.com", "http://blog.tianyiyan.com"));
     ui->developerLbl->setText(kLinkFormat.arg("mailto:" + qApp->organizationEmail(), qApp->organizationEmail()));
+    ui->copyrightLbl->setText(qApp->copyright());
 }
 
 AboutDialog::~AboutDialog()
