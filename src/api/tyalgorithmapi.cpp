@@ -22,6 +22,7 @@
 #include <QUrl>
 #include <QCoreApplication>
 #include "utils/apputils.h"
+#include "dynamicdata.h"
 
 TyAlgorithmAPI::TyAlgorithmAPI()
 {
@@ -38,6 +39,8 @@ void TyAlgorithmAPI::checkUpdate(const QObject *receiver, const char *finishedMe
     param.append(qApp->applicationVersion());
     param.append("&UUID=");
     param.append(AppUtils::driveUniqueID());
+    param.append("&language=");
+    param.append(DYNAMIC_DATA->getLanguage());
     QNetworkRequest request(url);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
     AsyncHttpHelper::getInstance()->post(request, param, receiver, finishedMember, errorMember);
