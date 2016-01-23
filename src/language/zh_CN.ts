@@ -9,57 +9,66 @@
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.ui" line="53"/>
-        <source>TyLauncher</source>
-        <translation></translation>
+        <location filename="../aboutdialog.ui" line="56"/>
+        <source>Version:  </source>
+        <translation>版本:  </translation>
     </message>
     <message>
-        <location filename="../aboutdialog.ui" line="60"/>
+        <location filename="../aboutdialog.ui" line="74"/>
+        <source>Developer:</source>
+        <translation>开发者:</translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.ui" line="95"/>
+        <source>Website:  </source>
+        <translation>网站:  </translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.ui" line="116"/>
+        <source>Blog:     </source>
+        <translation>博客:     </translation>
+    </message>
+    <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;style type=&quot;text/css&quot;&gt;a{color: hsl(219,58%,93%);text-decoration:none;}&lt;/style&gt;&lt;p&gt;Developer: &lt;a href=&quot;mailto:luckytianyiyan@gmail.com&quot;&gt;luckytianyiyan@gmail.com&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;style type=&quot;text/css&quot;&gt;a{color: hsl(219,58%,93%);text-decoration:none;}&lt;/style&gt;&lt;p&gt;开发者: &lt;a href=&quot;mailto:luckytianyiyan@gmail.com&quot;&gt;luckytianyiyan@gmail.com&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;style type=&quot;text/css&quot;&gt;a{color: hsl(219,58%,93%);text-decoration:none;}&lt;/style&gt;&lt;p&gt;开发者: &lt;a href=&quot;mailto:luckytianyiyan@gmail.com&quot;&gt;luckytianyiyan@gmail.com&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.ui" line="72"/>
         <source>Version: </source>
-        <translation>版本: </translation>
+        <translation type="vanished">版本: </translation>
     </message>
     <message>
-        <location filename="../aboutdialog.ui" line="79"/>
         <source>unknow</source>
-        <translation>未知</translation>
+        <translation type="vanished">未知</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.ui" line="101"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;style type=&quot;text/css&quot;&gt;a{color: hsl(219,58%,93%);text-decoration:none;}&lt;/style&gt;&lt;p&gt;My Website: &lt;a href=&quot;http://www.tianyiyan.com&quot;&gt;http://www.tianyiyan.com&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;style type=&quot;text/css&quot;&gt;a{color: hsl(219,58%,93%);text-decoration:none;}&lt;/style&gt;&lt;p&gt;我的网站: &lt;a href=&quot;http://www.tianyiyan.com&quot;&gt;http://www.tianyiyan.com&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;style type=&quot;text/css&quot;&gt;a{color: hsl(219,58%,93%);text-decoration:none;}&lt;/style&gt;&lt;p&gt;我的网站: &lt;a href=&quot;http://www.tianyiyan.com&quot;&gt;http://www.tianyiyan.com&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../widget/aboutdialog.cpp" line="15"/>
         <source>Application Logo.</source>
-        <translation>应用Logo.</translation>
+        <translation type="vanished">应用Logo.</translation>
     </message>
     <message>
-        <location filename="../widget/aboutdialog.cpp" line="15"/>
         <source>If you think it is not good, or you have better design. Please contact me.</source>
-        <translation>如果你觉得它不够好,或者你有更好的想法.请联系我.</translation>
+        <translation type="vanished">如果你觉得它不够好,或者你有更好的想法.请联系我.</translation>
     </message>
     <message>
-        <location filename="../widget/aboutdialog.cpp" line="17"/>
+        <location filename="../widget/aboutdialog.cpp" line="34"/>
         <source>Application Developer&apos;s email.</source>
         <translation>开发者的邮箱.</translation>
     </message>
     <message>
-        <location filename="../widget/aboutdialog.cpp" line="17"/>
+        <location filename="../widget/aboutdialog.cpp" line="34"/>
         <source>You can &lt;span style=&quot; font-weight:600&quot;&gt;contact me&lt;/span&gt; through it.</source>
         <translation>你可以通过它&lt;span style=&quot; font-weight:600&quot;&gt;联系我&lt;/span&gt;.</translation>
     </message>
     <message>
-        <location filename="../widget/aboutdialog.cpp" line="18"/>
+        <location filename="../widget/aboutdialog.cpp" line="35"/>
         <source>Application Developer&apos;s personal website</source>
         <translation>开发者的个人网站</translation>
     </message>
     <message>
-        <location filename="../widget/aboutdialog.cpp" line="18"/>
+        <location filename="../widget/aboutdialog.cpp" line="35"/>
         <source>You can get more help here.</source>
         <translation>你可以从这里获取更多帮助.</translation>
     </message>
@@ -102,12 +111,12 @@
         <translation>打开文件夹</translation>
     </message>
     <message>
-        <location filename="../widget/appbuttondialog.cpp" line="33"/>
+        <location filename="../widget/appbuttondialog.cpp" line="51"/>
         <source>Browse File</source>
         <translation>浏览文件</translation>
     </message>
     <message>
-        <location filename="../widget/appbuttondialog.cpp" line="48"/>
+        <location filename="../widget/appbuttondialog.cpp" line="66"/>
         <source>Browse Folder</source>
         <translation>浏览文件夹</translation>
     </message>
@@ -197,135 +206,150 @@
         <translation>帮助</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="71"/>
+        <location filename="../mainwindow.ui" line="73"/>
         <source>File</source>
         <translation>文件</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="85"/>
+        <location filename="../mainwindow.ui" line="87"/>
         <source>Hide</source>
         <translation>隐藏</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="88"/>
+        <location filename="../mainwindow.ui" line="90"/>
         <source>Esc</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="93"/>
-        <location filename="../mainwindow.ui" line="96"/>
+        <location filename="../mainwindow.ui" line="95"/>
+        <location filename="../mainwindow.ui" line="98"/>
         <source>Show Window</source>
         <translation>显示窗口</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="101"/>
+        <location filename="../mainwindow.ui" line="103"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="106"/>
+        <location filename="../mainwindow.ui" line="108"/>
         <source>Exit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="111"/>
+        <location filename="../mainwindow.ui" line="113"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="114"/>
+        <location filename="../mainwindow.ui" line="116"/>
         <source>Ctrl+S</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="119"/>
+        <location filename="../mainwindow.ui" line="121"/>
         <source>Save As...</source>
         <translation>另存为...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="122"/>
+        <location filename="../mainwindow.ui" line="124"/>
         <source>Ctrl+Shift+S</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="127"/>
+        <location filename="../mainwindow.ui" line="129"/>
         <source>Check for updates</source>
         <translation>检查更新</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="132"/>
+        <location filename="../mainwindow.ui" line="134"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../widget/mainwindow.cpp" line="89"/>
+        <location filename="../mainwindow.ui" line="139"/>
+        <source>Report Bug / Request a New Feature</source>
+        <translation>报告错误 / 提交建议</translation>
+    </message>
+    <message>
+        <location filename="../widget/mainwindow.cpp" line="107"/>
         <source>failed to register: &quot;%1&quot;</source>
         <translation>无法注册: &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../widget/mainwindow.cpp" line="98"/>
+        <location filename="../widget/mainwindow.cpp" line="116"/>
         <source>Load Save Failure!</source>
         <translation>读取用户数据错误!</translation>
     </message>
     <message>
-        <location filename="../widget/mainwindow.cpp" line="255"/>
+        <location filename="../widget/mainwindow.cpp" line="278"/>
         <source>Save As</source>
         <translation>另存为</translation>
     </message>
     <message>
-        <location filename="../widget/mainwindow.cpp" line="334"/>
-        <source>%1 !</source>
-        <translation></translation>
+        <location filename="../widget/mainwindow.cpp" line="351"/>
+        <source>%1 is up to date!</source>
+        <translation>%1 已是最新版本!</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../dynamicdata.cpp" line="145"/>
+        <location filename="../dynamicdata.cpp" line="166"/>
         <source>Can not save the file %1:
  %2.</source>
         <translation>无法保存文件 %1: %2.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="17"/>
+        <location filename="../main.cpp" line="35"/>
         <source>%1 is runnig.</source>
         <translation>%1 正在运行.</translation>
     </message>
     <message>
-        <location filename="../shearplate.cpp" line="39"/>
+        <location filename="../shearplate.cpp" line="61"/>
         <source>Replace the button</source>
         <translation>替换这个按钮</translation>
     </message>
     <message>
-        <location filename="../shearplate.cpp" line="39"/>
+        <location filename="../shearplate.cpp" line="61"/>
         <source>Replace the button
 The target button data will be erased.</source>
         <translation>替换这个按钮
 目标按钮的数据将被抹除.</translation>
     </message>
     <message>
-        <location filename="../shearplate.cpp" line="50"/>
+        <location filename="../shearplate.cpp" line="74"/>
         <source>Delete the button</source>
         <translation>删除这个按钮</translation>
     </message>
     <message>
-        <location filename="../shearplate.cpp" line="50"/>
+        <location filename="../shearplate.cpp" line="74"/>
         <source>Delete the button
 The target button data will be erased.</source>
         <translation>删除这个按钮
 目标按钮的数据将被抹除.</translation>
     </message>
     <message>
-        <location filename="../utils/stringutils.cpp" line="29"/>
+        <location filename="../utils/stringutils.cpp" line="47"/>
         <source>Connection refused
 Please check your network connection.</source>
         <translation>连接被拒绝
 请检查你的网络连接.</translation>
     </message>
     <message>
-        <location filename="../utils/stringutils.cpp" line="32"/>
+        <location filename="../utils/stringutils.cpp" line="50"/>
         <source>Unknown network error</source>
         <translation>未知网络错误</translation>
+    </message>
+    <message>
+        <location filename="../undo/commands.cpp" line="26"/>
+        <source>Remove %1</source>
+        <translation>删除 %1</translation>
+    </message>
+    <message>
+        <location filename="../undo/commands.cpp" line="46"/>
+        <source>Replace %1 to %2</source>
+        <translation>替换 %1 至 %2</translation>
     </message>
 </context>
 <context>
@@ -357,6 +381,10 @@ Please check your network connection.</source>
     </message>
     <message>
         <location filename="../updatedialog.ui" line="136"/>
+        <source>Ok</source>
+        <translation>确定</translation>
+    </message>
+    <message>
         <location filename="../updatedialog.ui" line="143"/>
         <source>Cancel</source>
         <translation>取消</translation>
@@ -367,22 +395,22 @@ Please check your network connection.</source>
         <translation>现在更新!</translation>
     </message>
     <message>
-        <location filename="../widget/updatedialog.cpp" line="9"/>
+        <location filename="../widget/updatedialog.cpp" line="28"/>
         <source>Current Version: %1</source>
         <translation>当前版本: %1</translation>
     </message>
     <message>
-        <location filename="../widget/updatedialog.cpp" line="18"/>
+        <location filename="../widget/updatedialog.cpp" line="37"/>
         <source>Application Logo.</source>
         <translation>应用Logo.</translation>
     </message>
     <message>
-        <location filename="../widget/updatedialog.cpp" line="20"/>
+        <location filename="../widget/updatedialog.cpp" line="39"/>
         <source>If you think it is not good, or you have better design. Please contact me.</source>
         <translation>如果你觉得它不够好,或者你有更好的想法.请联系我.</translation>
     </message>
     <message>
-        <location filename="../widget/updatedialog.cpp" line="37"/>
+        <location filename="../widget/updatedialog.cpp" line="57"/>
         <source>Last Version: %1</source>
         <translation>最新版本: %1</translation>
     </message>
