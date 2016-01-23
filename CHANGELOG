@@ -1,0 +1,12 @@
+CHANGELOG-TyLauncher
+===
+## v2.2.0.0
+#### Bug fixes
+1. "Save As" abnormal program exit
+
+#### New features
+1. The new logo
+2. Add "Report Bug / Request a New Feature" menu
+
+#### Enhancements
+1. backup file using "json" suffix
