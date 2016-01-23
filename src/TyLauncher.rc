@@ -12,8 +12,8 @@ IDI_ICON1   ICON    DISCARDABLE "images\logo.ico"
 #endif
 
 VS_VERSION_INFO VERSIONINFO
-FILEVERSION    	2,1,1,0
-PRODUCTVERSION 	2,1,1,0
+FILEVERSION    	2,2,0,0
+PRODUCTVERSION 	2,2,0,0
 FILEFLAGSMASK  	VS_FFI_FILEFLAGSMASK
 #ifdef _DEBUG
     FILEFLAGS VS_FF_DEBUG
@@ -30,12 +30,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName",      "luckytianyiyan"
             VALUE "FileDescription",  "A file quick launch tool"
-            VALUE "FileVersion",      "2.1.1.0\0"
+            VALUE "FileVersion",      "2.2.0.0\0"
             VALUE "InternalName",     "http://www.tylauncher.com"
             VALUE "LegalCopyright",   "Copyright (C) 2014-2016 luckytianyiyan All Rights Reserved"
             VALUE "OriginalFilename", "TyLauncher"
             VALUE "ProductName",      "TyLauncher"
-            VALUE "ProductVersion",   "2.1.1.0\0"
+            VALUE "ProductVersion",   "2.2.0.0\0"
         END
     END
 
