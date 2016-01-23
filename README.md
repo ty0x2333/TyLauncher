@@ -66,7 +66,7 @@ In Qt Creator `Projects`
 
   ![Qt-Creator-Add-Build-Steps-Packaging](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-Add-Build-Steps-Packaging.png)
 
-  - Commend: `%{sourceDir}\..\scripts\after-build-packaging.bat`
+  - Commend: `%{sourceDir}\..\scripts\packaging.bat`
 
   - Arguments: `%{sourceDir} %{buildDir} %{CurrentProject:Name} [windows root]`
 
