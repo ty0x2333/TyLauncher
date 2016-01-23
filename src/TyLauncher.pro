@@ -50,7 +50,6 @@ HEADERS  += widget/mainwindow.h \
     dynamicdata.h \
     TyLog_Qt.h \
     datasettings.h \
-    StaticSetting.h \
     widget/tabbar.h \
     application.h \
     api/asynchttphelper.h \
@@ -74,7 +73,6 @@ include(qxtglobalshortcut/qxtglobalshortcut.pri)
 RESOURCES += \
     res.qrc
 
-include(StaticSetting.h)
 win32:RC_FILE += \
     TyLauncher.rc
 

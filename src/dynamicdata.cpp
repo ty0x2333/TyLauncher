@@ -17,7 +17,6 @@
  * along with TyLauncher.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "dynamicdata.h"
-#include "StaticSetting.h"
 #include "model/appbtninfo.h"
 #include "widget/appbutton.h"
 #include <QSettings>
