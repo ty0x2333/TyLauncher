@@ -20,7 +20,6 @@
 #include "dynamicdata.h"
 #include "TyLog_Qt.h"
 #include "utils/stringutils.h"
-#include "StaticSetting.h"
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -101,6 +100,16 @@ void Application::configFromJsonFile()
     }
     TyLogDebug("%s\n}", logStr.toUtf8().data());
 }
+QString Application::applicationDescription() const
+{
+    return _applicationDescription;
+}
+
+void Application::setApplicationDescription(const QString &applicationDescription)
+{
+    _applicationDescription = applicationDescription;
+}
+
 QString Application::copyright() const
 {
     return _copyright;

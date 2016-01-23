@@ -30,6 +30,7 @@ class Application : public QApplication
     Q_PROPERTY(QString githubRepository READ githubRepository WRITE setGithubRepository)
     Q_PROPERTY(QString organizationEmail READ organizationEmail WRITE setOrganizationEmail)
     Q_PROPERTY(QString copyright READ copyright WRITE setCopyright)
+    Q_PROPERTY(QString applicationDescription READ applicationDescription WRITE setApplicationDescription)
 
 public:
     Application(int &argc, char **argv, int flags= ApplicationFlags);
@@ -45,6 +46,9 @@ public:
     QString copyright() const;
     void setCopyright(const QString &copyright);
     
+    QString applicationDescription() const;
+    void setApplicationDescription(const QString &applicationDescription);
+    
 protected slots:
     void updateTheme();
     
@@ -58,6 +62,8 @@ protected:
     QString _organizationEmail;
     
     QString _copyright;
+    
+    QString _applicationDescription;
 };
 
 #endif // APPLICATION_H
