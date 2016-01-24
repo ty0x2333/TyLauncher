@@ -26,7 +26,7 @@
     <message>
         <location filename="../aboutdialog.ui" line="116"/>
         <source>Blog:     </source>
-        <translation>博客:     </translation>
+        <translation>博客:  </translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;style type=&quot;text/css&quot;&gt;a{color: hsl(219,58%,93%);text-decoration:none;}&lt;/style&gt;&lt;p&gt;Developer: &lt;a href=&quot;mailto:luckytianyiyan@gmail.com&quot;&gt;luckytianyiyan@gmail.com&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
