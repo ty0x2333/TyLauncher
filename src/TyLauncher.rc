@@ -29,7 +29,7 @@ BEGIN
         BLOCK "040904E4"
         BEGIN
             VALUE "CompanyName",      "luckytianyiyan"
-            VALUE "FileDescription",  "A file quick launch tool"
+            VALUE "FileDescription",  "TyLauncher"
             VALUE "FileVersion",      "2.2.0.0\0"
             VALUE "InternalName",     "http://www.tylauncher.com"
             VALUE "LegalCopyright",   "Copyright (C) 2014-2016 luckytianyiyan All Rights Reserved"

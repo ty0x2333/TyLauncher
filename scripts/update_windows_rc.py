@@ -62,7 +62,7 @@ def process_rc(rc_content):
         '"' + config.original_file_name + '"',
         '"' + config.version + '\\0"',
         '"' + config.version + '\\0"',
-        '"' + config.description + '"',
+        '"' + config.product_name + '"',
         '"' + config.internal_name + '"',
         # VS_VERSION_INFO
         config.version.replace('.', ','),
