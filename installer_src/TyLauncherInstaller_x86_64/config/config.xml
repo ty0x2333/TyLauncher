@@ -1,0 +1,12 @@
+<Installer>
+    <Name>TyLauncher</Name>
+    <Version>2.2.0.0</Version>
+    <Title>TyLauncher Installer</Title>
+    <ProductUrl>http://www.tylauncher.com</ProductUrl>
+    <Publisher>luckytianyiyan</Publisher>
+    <InstallerWindowIcon>installericon</InstallerWindowIcon>
+    <InstallerApplicationIcon>installericon</InstallerApplicationIcon>
+    <Logo>logo.png</Logo>
+    <StartMenuDir>TyLauncher</StartMenuDir>
+    <TargetDir>@ApplicationsDir@/TyLauncher</TargetDir>
+</Installer>
