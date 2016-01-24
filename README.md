@@ -70,13 +70,13 @@ In Qt Creator `Projects`
 
   - Arguments: `%{sourceDir} %{buildDir} %{CurrentProject:Name} [windows root]`
 
-    > if you packaging x86 application. `[windows root]` is like "C:/Windows/System32"
+    > if you packaging x86 application. `[windows root]` is like `C:/Windows/System32`
 
-    `%{sourceDir} %{buildDir} %{CurrentProject:Name} "C:/Windows/System32"`
+    `%{sourceDir} %{buildDir} %{CurrentProject:Name} C:/Windows/System32`
 
-    > or x64 application. `[windows root]` is like "C:/Windows/SysWOW64"
+    > or x64 application. `[windows root]` is like `C:/Windows/SysWOW64`
 
-    `%{sourceDir} %{buildDir} %{CurrentProject:Name} "C:/Windows/SysWOW64"`
+    `%{sourceDir} %{buildDir} %{CurrentProject:Name} C:/Windows/SysWOW64`
 
   - Working directory: `%{buildDir}`
 
