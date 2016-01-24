@@ -1,9 +1,8 @@
 from application_configuration import *
 import re
+from script_settings import *
 __author__ = 'luckytianyiyan@gmail.com'
 # Settings
-CONGIG_FILE = '../src/config.json'
-RC_FILE = '../src/TyLauncher.rc'
 STRING_FILE_INFO_REGEX_FORMAT = 'VALUE\s+"%s"\s*,\s+(.+)'
 COPYRIGHT_REGEX = STRING_FILE_INFO_REGEX_FORMAT % ("LegalCopyright")
 PRODUCT_NAME_REGEX = STRING_FILE_INFO_REGEX_FORMAT % ("ProductName")
@@ -40,7 +39,7 @@ def update_rc():
 
 
 def process_rc(rc_content):
-    config = ApplicationConfiguration(CONGIG_FILE)
+    config = ApplicationConfiguration(CONFIG_FILE)
     regexs = [
         # BLOCK "StringFileInfo"
         PRODUCT_NAME_REGEX,

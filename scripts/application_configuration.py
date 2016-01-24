@@ -28,3 +28,14 @@ class ApplicationConfiguration:
 
         finally:
             config_file.close()
+
+    def __str__(self):
+        return str({
+            'internal_name': self.internal_name,
+            'company_name': self.company_name,
+            'product_name': self.product_name,
+            'original_file_name': self.original_file_name,
+            'version': self.version,
+            'copyright': self.copyright,
+            'description': self.description
+        })
