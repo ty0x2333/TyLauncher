@@ -18,17 +18,8 @@
     <layout class="QFormLayout" name="formLayout_6">
      <item row="0" column="0">
       <widget class="QLabel" name="logoLbl">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="textFormat">
-        <enum>Qt::AutoText</enum>
-       </property>
        <property name="pixmap">
         <pixmap resource="res.qrc">:/img/images/logo.png</pixmap>
-       </property>
-       <property name="scaledContents">
-        <bool>false</bool>
        </property>
       </widget>
      </item>
