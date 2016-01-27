@@ -47,6 +47,8 @@
 #include "utils/stringutils.h"
 #include "api/tyalgorithmapi.h"
 #include "shearplate.h"
+
+#include <QDesktopWidget>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -83,6 +85,20 @@ MainWindow::MainWindow(QWidget *parent)
     checkUpdate();
     
     connect(DYNAMIC_DATA, SIGNAL(appConfigChanged(QString)), this, SLOT(onAppConfigChanged(QString)));
+    
+    /**
+     * @brief resize window
+     * @{
+     */
+    QDesktopWidget *dwsktopwidget = QApplication::desktop();
+    // excludes the dock and menu bar on Mac OS X, or the task bar on Windows
+    QSize deskSize = dwsktopwidget->availableGeometry().size();
+    TyLogDebug("deskSize: (%d, %d)", deskSize.width(), deskSize.height());
+    
+    float aspectRatio = (float)deskSize.height() / deskSize.width();
+    int sizeBaseLength = aspectRatio > 0.5f ? deskSize.width() / 4 : deskSize.height() / 2;
+    this->resize(sizeBaseLength * 2, sizeBaseLength);
+    /** @} */
 }
 
 void MainWindow::initTray()
@@ -216,11 +232,11 @@ bool MainWindow::eventFilter(QObject *watched, QEvent *event)
                 this->hide();
             return true;
             break;
+#ifdef QT_DEBUG
         case QEvent::Resize:
-            TyLogDebug("QEvent::Resize");
-//            ui->tabWidget->setStyleSheet("QTabBar::tab { min-width:" + QString::number(this->width() / DEFAULT_TAB_COUNT) + "px;}");
-//            ui->tabWidget->setStyleSheet("QTabBar::tab {min-width:" + QString::number(this->width() / 10 - 3) + "px;min-height:50px;}");
+            TyLogDebug("QEvent::Resize, current size: (%d, %d)", this->size().width(), this->size().height());
             break;
+#endif
         }
     }
     return false;

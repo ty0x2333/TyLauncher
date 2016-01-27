@@ -2,23 +2,12 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>1061</width>
-    <height>565</height>
-   </rect>
-  </property>
   <property name="windowTitle">
    <string>TyLauncher</string>
   </property>
   <property name="windowIcon">
    <iconset resource="res.qrc">
     <normaloff>:/img/images/logo.ico</normaloff>:/img/images/logo.ico</iconset>
-  </property>
-  <property name="styleSheet">
-   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -46,7 +35,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1061</width>
+     <width>145</width>
      <height>23</height>
     </rect>
    </property>
