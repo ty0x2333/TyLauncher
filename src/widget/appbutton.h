@@ -20,11 +20,11 @@
 #define APPBUTTON_H
 
 #include <QPushButton>
+#include "appiconlabel.h"
 #include "model/appbtninfo.h"
-QT_BEGIN_NAMESPACE
-class QDragEnterEvent;
-class QLabel;
-QT_END_NAMESPACE
+
+QT_FORWARD_DECLARE_CLASS(QLabel)
+QT_FORWARD_DECLARE_CLASS(QDragEnterEvent)
 
 class AppButton : public QPushButton
 {
@@ -73,7 +73,6 @@ public:
     const QPixmap* getPixmap();
     /// @brief 指示按钮是否为空
     bool isEmpty();
-    ~AppButton();
 signals:
     
 public slots:
@@ -91,8 +90,8 @@ private:
     QString _fileName;
     /// @brief 应用名称
     QLabel *_appName;
-    /// @brief 应用图标
-    QLabel *_appIcon;
+    
+    AppIconLabel *_appIcon;
     /**
      * @brief 初始化
      * 用于在构造函数中调用

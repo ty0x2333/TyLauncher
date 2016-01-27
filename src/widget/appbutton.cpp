@@ -27,6 +27,10 @@
 #include <QDir>
 #include <QDragEnterEvent>
 #include <QLabel>
+#include "TyLog_Qt.h"
+
+static const int kAppIconMargin = 10;
+
 AppButton::AppButton(QWidget *parent)
     :QPushButton(parent)
     , _isBeMousePointing(false)
@@ -88,22 +92,36 @@ AppInfo AppButton::appInfo()
 void AppButton::init()
 {
     setStyleSheet("text-align:left top;");
-    setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
-    setAcceptDrops(true);// 允许拖拽
-    _appIcon = new QLabel();
-    _appIcon->setAlignment(Qt::AlignHCenter | Qt::AlignCenter);// 设置图标位置为正中
-    _appName = new QLabel();
-    _appName->setAlignment(Qt::AlignHCenter | Qt::AlignTop);// 设置文本位置为中上
-    _appName->setWordWrap(true);// 允许自动换行
+    setSizePolicy(QSizePolicy::MinimumExpanding,QSizePolicy::MinimumExpanding);
+    setAcceptDrops(true);
+    
+    _appIcon = new AppIconLabel(this);
+    _appIcon->setMargin(kAppIconMargin);
+    
+    _appName = new QLabel(this);
+    // Alignment Top Center
+    _appName->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    _appName->setWordWrap(true);
     _appName->adjustSize();
+    
     QVBoxLayout *layout = new QVBoxLayout();
     layout->addWidget(this->_appIcon);
     layout->addWidget(this->_appName);
+    layout->setSpacing(0);
     setLayout(layout);
+    
     connect(this, SIGNAL(clicked()), this, SLOT(on_clicked()));
     installEventFilter(this);
     setContextMenuPolicy(Qt::CustomContextMenu);
+    
+    int layoutMarginVertical = this->layout()->contentsMargins().top() + this->layout()->contentsMargins().bottom();
+    setMinimumHeight(_appIcon->minimumHeight() + _appName->geometry().height() + layoutMarginVertical);
+    
+    // Test
+//    _appName->setStyleSheet("background: green");
+//    _appIcon->setStyleSheet("background: red");
 }
+
 void AppButton::openFileDirectory()
 {
     if(_fileName.isEmpty())// 如果储存的路径为空,则跳出
@@ -128,21 +146,23 @@ void AppButton::dragEnterEvent(QDragEnterEvent *event)
 void AppButton::dropEvent(QDropEvent *event)
 {
     QList<QUrl> urls = event->mimeData()->urls();
-    if (urls.isEmpty())
+    if (urls.isEmpty()) {
         return;
+    }
     _fileName = urls.first().toLocalFile();
-    if (_fileName.isEmpty())
+    if (_fileName.isEmpty()) {
         return;
+    }
     QFileInfo fileInfo(_fileName);
     QFileIconProvider iconProvider;
     
-    if(fileInfo.isSymLink()){
+    if(fileInfo.isSymLink()) {
         _fileName = fileInfo.symLinkTarget();
-    }else{
+    } else {
         _fileName = fileInfo.filePath();
     }
     _appName->setText(fileInfo.baseName());
-    _appIcon->setPixmap(iconProvider.icon(QFileInfo(_fileName)).pixmap(QSize(48, 48)));
+    _appIcon->setIconFromFileName(_fileName);
 }
 // @brief 从其它按钮中拷贝数据
 void AppButton::copyFrom(AppButton &btn)
@@ -150,8 +170,9 @@ void AppButton::copyFrom(AppButton &btn)
     _appName->setText( btn.getAppName());
     _fileName = btn.getFileName();
     const QPixmap *pixmap = btn.getPixmap();
-    if(pixmap != nullptr)
+    if(pixmap != nullptr) {
         _appIcon->setPixmap(*pixmap);
+    }
 }
 // @brief 清除按钮数据
 void AppButton::clear()
@@ -169,15 +190,17 @@ bool AppButton::isBeMousePointing(){return _isBeMousePointing;}
 
 void AppButton::setAppFileName(const QString &fileName)
 {
-    if (_fileName == fileName)
+    if (_fileName == fileName) {
         return;
+    }
     _fileName = fileName;
     QFileInfo fileInfo(_fileName);
     QFileIconProvider iconProvider;
-    if(fileInfo.exists())
-        _appIcon->setPixmap(iconProvider.icon(fileInfo).pixmap(QSize(48, 48)));
-    else
-        _appIcon->setPixmap(iconProvider.icon(QFileIconProvider::File).pixmap(QSize(48, 48)));
+    if(fileInfo.exists()) {
+        _appIcon->setIcon(iconProvider.icon(fileInfo));
+    } else {
+        _appIcon->setIcon(iconProvider.icon(QFileIconProvider::File));
+    }
 }
 bool AppButton::eventFilter(QObject *, QEvent *event)
 {
@@ -191,12 +214,6 @@ bool AppButton::eventFilter(QObject *, QEvent *event)
 bool AppButton::isEmpty()
 {
     return _fileName.isEmpty() && _appName->text().isEmpty();
-}
-
-AppButton::~AppButton()
-{
-    delete _appName;
-    delete _appIcon;
 }
 
 void AppButton::setAppName(const QString &text){_appName->setText(text);}
