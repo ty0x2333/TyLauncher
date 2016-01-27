@@ -25,5 +25,6 @@ AppButton:pressed{border:1px solid #3e82b5;}
 /*TabWidget*/
 QTabWidget{background: #ffffff}
 QTabBar::tab{text-align:left top; background: #40A46F; color: #aaaaaa; padding: 1.5em;}
+TabBar::tab{padding: 1.5em 0;}
 QTabBar::tab:hover{background: #3a9564; color: #ffffff}
 QTabBar::tab:selected{background: #ffffff; color: #000000}
