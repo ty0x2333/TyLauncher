@@ -34,7 +34,8 @@ SOURCES += main.cpp\
     shearplate.cpp \
     undo/commands.cpp \
     model/appbtninfo.cpp \
-    model/appinfo.cpp
+    model/appinfo.cpp \
+    widget/appiconlabel.cpp
 
 HEADERS  += widget/mainwindow.h \
     widget/aboutdialog.h \
@@ -58,7 +59,8 @@ HEADERS  += widget/mainwindow.h \
     shearplate.h \
     undo/commands.h \
     model/appbtninfo.h \
-    model/appinfo.h
+    model/appinfo.h \
+    widget/appiconlabel.h
 
 FORMS    += mainwindow.ui \
     aboutdialog.ui \
