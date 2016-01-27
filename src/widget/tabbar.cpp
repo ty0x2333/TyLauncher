@@ -17,22 +17,19 @@
  * along with TyLauncher.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "tabbar.h"
+#include "TyLog_Qt.h"
+#include <QHBoxLayout>
+#include <QStyleOptionTab>
 
 TabBar::TabBar(QWidget *parent)
     : QTabBar(parent)
 {
-//    tabBar->setObjectName(QLatin1String("qt_tabwidget_tabbar"));
-    // Importent! Remove the white line on border-top
     setDrawBase(false);
-//    setDocumentMode(true);
 }
 
-//QSize TabBar::sizeHint() const
-//{
-//    QWidget *parent = this->parentWidget();
-//    QSize result = QTabBar::sizeHint();
-//    if (parent != nullptr){
-//        result.setWidth(parent->geometry().width());
-//    }
-//    return result;
-//}
+void TabBar::resizeEvent(QResizeEvent *e)
+{
+    QTabBar::resizeEvent(e);
+    this->setStyleSheet(QString("QTabBar::tab { min-width: %1px;}")
+                          .arg(this->parentWidget()->size().width() / this->count()));
+}

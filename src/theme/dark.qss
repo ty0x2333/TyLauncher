@@ -103,8 +103,9 @@ QTabBar::tab:selected{
   border-bottom: none;
   color: hsl(220,4%,88%);
 }
+
 TabBar::tab{
-  min-width: 6.5em;
+  padding: 1em -1px 1em 0;
 }
 
 /**

@@ -27,12 +27,7 @@ class TabBar : public QTabBar
 public:
     explicit TabBar(QWidget *parent = 0);
     
-protected:
-//    QSize sizeHint() const;
-    
-signals:
-    
-public slots:
+    void resizeEvent(QResizeEvent *);
 };
 
 #endif // TABBAR_H
