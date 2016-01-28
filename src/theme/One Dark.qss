@@ -1,0 +1,20 @@
+/*!
+ * TyLauncher UI Theme: One dark
+ *
+ * Copyright (c) 2016, luckytianyiyan <luckytianyiyan@gmail.com>
+ *
+ * This file is part of TyLauncher.
+ *
+ * TyLauncher is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TyLauncher is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TyLauncher.  If not, see <http://www.gnu.org/licenses/>.
+ */QTabWidget:pane{background-color:#272f3f;border-left:1px solid #171c26;border-bottom:1px solid #171c26;border-right:1px solid #171c26}QTabBar::tab{border-left:1px solid #171c26;border-bottom:1px solid #171c26;color:rgba(153,163,184,0.6);padding:1em}QTabBar::tab:first{border-left:none}QTabBar::tab:selected{background-color:#272f3f;border-top-left-radius:5.25px 5.25px 0 0;border-top-right-radius:5.25px 5.25px 0 0;border-top:1px solid #171c26;border-left:2px solid #528bff;border-right:1px solid #171c26;border-bottom:none;color:#d5d9e2}TabBar::tab{padding:1em -2px 1em 0}QLabel{color:#99a3b8}QPushButton{background-color:#323d52;border:1px solid #171c26;min-width:4em;padding:.5em .8em;text-align:center;border-radius:3px;color:#99a3b8}QPushButton:hover{background-color:#364259;color:#d5d9e2}QPushButton:pressed{background-color:#2f384c}QPushButton#pushButtonIcon{min-width:100px;min-height:100px}QToolTip{color:white;background-color:#528bff;padding:2px}QMainWindow,QDialog{background-color:#212836;color:#99a3b8}QStatusBar{background-color:transparent}QMenuBar{background-color:transparent}QMenuBar::item{background-color:#2f384c;color:#99a3b8}QMenuBar::item:selected{background-color:#364259;color:white}QMenuBar::item:pressed{background-color:#272f3f}QMenu,QMenu::item{background-color:#272f3f;color:#99a3b8}QMenu::item:selected{background-color:#364259;color:white}QMenu::separator{color:#171c26;margin-left:1em;margin-right:1em}QLineEdit{color:#d5d9e2;border-radius:3px;min-height:27px;selection-background-color:#2b3446;background-color:#1b212c;border:1px solid #171c26}QLineEdit:focus{border-color:#528bff;border-width:2px}QComboBox{min-height:2em;border-radius:3px;border:1px solid #171c26;background-color:#272f3f;color:#99a3b8}QComboBox::drop-down{background-color:transparent}QComboBox:hover{background-color:#2f384c}QComboBox QAbstractItemView{color:#d5d9e2;background-color:#272f3f}
