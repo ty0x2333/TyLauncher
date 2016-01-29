@@ -1,12 +1,14 @@
-CHANGELOG-TyLauncher
+CHANGELOG - TyLauncher
 ===
 ## v2.2.0.0
 #### Bug fixes
 1. "Save As" abnormal program exit
 
 #### New features
-1. The new logo
-2. Add "Report Bug / Request a New Feature" menu
+1. The new logo (Designed by **joekele7@gmail.com**)
+2. Automatically adjust the size of the Application Window according to the size of the screen
+3. Add "Report Bug / Request a New Feature" menu
 
 #### Enhancements
-1. backup file using "json" suffix
+1. **more better theme - "One Dark"**
+2. backup file using "json" suffix
