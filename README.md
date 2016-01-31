@@ -1,15 +1,27 @@
-TyLauncher
-=========
-![TyLauncher-logo](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/logo.png)
-TyLauncher is replacement for Quick Launch and Start Menu. Application create by Qt.
+![TyLauncher-logo](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/develop/README_IMAGES/tylauncher-logo.png)
+
+A free open source file management software.
 
 [![GitHub License](https://img.shields.io/github/license/luckytianyiyan/tylauncher.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
 [![GitHub release](https://img.shields.io/github/release/luckytianyiyan/TyLauncher.svg)](https://github.com/luckytianyiyan/TyLauncher/releases/latest)
 [![SourceForge](https://img.shields.io/sourceforge/dt/TyLauncher.svg)](http://sourceforge.net/projects/tylauncher/files/)
 
-## Example
+## Overview
 
-![TyLauncher-MainInterface](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/TyLauncher-MainInterface.png)
+TyLauncher provides a multi tab panel to manage files, folders, and applications.
+
+Each tab page corresponds to the <kbd>0</kbd>-<kbd>9</kbd> shortcut key.
+The element of the tab page corresponds to each of the keys of the keyboard.
+
+<span><kbd>1</kbd>&nbsp;<kbd>2</kbd>&nbsp;<kbd>3</kbd>&nbsp;<kbd>4</kbd>&nbsp;<kbd>5</kbd>&nbsp;<kbd>6</kbd>&nbsp;<kbd>7</kbd>&nbsp;<kbd>8</kbd>&nbsp;<kbd>9</kbd>&nbsp;<kbd>0</kbd><br />
+-------------------------------------------<br />
+<kbd>Q</kbd>&nbsp;<kbd>W</kbd>&nbsp;<kbd>E</kbd>&nbsp;<kbd>R</kbd>&nbsp;<kbd>T</kbd>&nbsp;<kbd>Y</kbd>&nbsp;<kbd>U</kbd>&nbsp;<kbd>I</kbd>&nbsp;<kbd>O</kbd>&nbsp;<kbd>P</kbd><br />
+<kbd>A</kbd>&nbsp;<kbd>S</kbd>&nbsp;<kbd>D</kbd>&nbsp;<kbd>F</kbd>&nbsp;<kbd>G</kbd>&nbsp;<kbd>H</kbd>&nbsp;<kbd>J</kbd>&nbsp;<kbd>K</kbd>&nbsp;<kbd>L</kbd>&nbsp;<kbd>;</kbd><br />
+<kbd>Z</kbd>&nbsp;<kbd>X</kbd>&nbsp;<kbd>C</kbd>&nbsp;<kbd>V</kbd>&nbsp;<kbd>B</kbd>&nbsp;<kbd>N</kbd>&nbsp;<kbd>M</kbd>&nbsp;<kbd>,</kbd>&nbsp;<kbd>.</kbd>&nbsp;<kbd>/</kbd></span>
+
+Through the combination of these shortcuts can quickly open files, folders, and applications.
+
+![TyLauncher-MainInterface](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/develop/README_IMAGES/TyLauncher-MainInterface.png)
 
 ## License
 
