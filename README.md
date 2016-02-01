@@ -6,6 +6,10 @@ A free open source file management software.
 [![GitHub release](https://img.shields.io/github/release/luckytianyiyan/TyLauncher.svg)](https://github.com/luckytianyiyan/TyLauncher/releases/latest)
 [![SourceForge](https://img.shields.io/sourceforge/dt/TyLauncher.svg)](http://sourceforge.net/projects/tylauncher/files/)
 
+- [Website](http://www.tylauncher.com)
+- [Download](https://github.com/luckytianyiyan/TyLauncher/releases/latest)
+- [Wiki](https://github.com/luckytianyiyan/TyLauncher/wiki)
+
 ## Overview
 
 TyLauncher provides a multi tab panel to manage files, folders, and applications.
@@ -22,6 +26,17 @@ The element of the tab page corresponds to each of the keys of the keyboard.
 Through the combination of these shortcuts can quickly open files, folders, and applications.
 
 ![TyLauncher-MainInterface](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/develop/README_IMAGES/TyLauncher-MainInterface.png)
+
+## Features
+
+1. Global shortcut.
+2. Multiple language.
+3. Multiple themes.
+4. Fully customizable appearance.
+5. Support drag and drop to set the item.
+6. Support management of up to 300 item(files, folders and applications).
+7. Free to edit the item.
+8. Many more features
 
 ## License
 
