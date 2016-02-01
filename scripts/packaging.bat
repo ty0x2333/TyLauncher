@@ -11,6 +11,10 @@ SET QtRoot="%QTDIR%"
 
 echo Root : %Root%
 echo Build: %Build%
+echo AppName: %AppName%
+echo WindowsRoot: %WindowsRoot%
+echo QtRoot: %QtRoot%
+echo ------------------
 
 :: Create Packaging Directory
 mkdir "%PackagingRoot%"
@@ -19,14 +23,20 @@ mkdir "%PackagingRoot%"
 copy "%Build%\release\%AppName%.exe" "%PackagingRoot%"
 
 :: Copy language directory
+echo 'Copy language directory...'
+echo ------------------
 mkdir "%PackagingRoot%\language"
 copy "%Root%\language\*.qm" "%PackagingRoot%\language"
 
 :: Copy theme directory
+echo 'Copy theme directory...'
+echo ------------------
 mkdir "%PackagingRoot%\theme"
 copy "%Root%\theme\*.qss" "%PackagingRoot%\theme"
 
 :: Copy Qt DLL
+echo 'Copy Qt DLL'
+echo ------------------
 copy "%QtRoot%\bin\Qt5Core.dll"    "%PackagingRoot%"
 copy "%QtRoot%\bin\Qt5Gui.dll"     "%PackagingRoot%"
 copy "%QtRoot%\bin\Qt5Network.dll" "%PackagingRoot%"
@@ -38,10 +48,14 @@ copy "%QtRoot%\bin\icuin54.dll" "%PackagingRoot%"
 copy "%QtRoot%\bin\icuuc54.dll" "%PackagingRoot%"
 
 :: Copy Qt platforms
+echo 'Copy Qt platforms'
+echo ------------------
 mkdir "%PackagingRoot%\platforms"
 copy "%QtRoot%\plugins\platforms\qwindows.dll" "%PackagingRoot%\platforms"
 
 :: Copy Qt imageformats
+echo 'Copy Qt imageformats'
+echo ------------------
 mkdir "%PackagingRoot%\imageformats"
 copy "%QtRoot%\plugins\imageformats\qicns.dll" "%PackagingRoot%\imageformats"
 copy "%QtRoot%\plugins\imageformats\qico.dll"  "%PackagingRoot%\imageformats"
@@ -58,6 +72,8 @@ copy "%QtRoot%\plugins\imageformats\qgif.dll"  "%PackagingRoot%\imageformats"
 copy "%QtRoot%\plugins\imageformats\qdds.dll"  "%PackagingRoot%\imageformats"
 
 :: Copy MSVC DLL
+echo 'Copy MSVC DLL'
+echo ------------------
 copy "%WindowsRoot%\msvcp120.dll" "%PackagingRoot%"
 copy "%WindowsRoot%\msvcr120.dll" "%PackagingRoot%"
 
