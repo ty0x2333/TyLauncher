@@ -1,5 +1,7 @@
 __author__ = 'luckytianyiyan@gmail.com'
 
-CONFIG_FILE = '../src/config.json'
+SRC_DIR = '../src'
 
-RC_FILE = '../src/TyLauncher.rc'
+CONFIG_FILE = SRC_DIR + '/config.json'
+
+RC_FILE = SRC_DIR + '/TyLauncher.rc'
