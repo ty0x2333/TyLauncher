@@ -9,22 +9,22 @@
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.ui" line="56"/>
+        <location filename="../aboutdialog.ui" line="47"/>
         <source>Version:  </source>
         <translation>版本:  </translation>
     </message>
     <message>
-        <location filename="../aboutdialog.ui" line="74"/>
+        <location filename="../aboutdialog.ui" line="65"/>
         <source>Developer:</source>
         <translation>开发者:</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.ui" line="95"/>
+        <location filename="../aboutdialog.ui" line="86"/>
         <source>Website:  </source>
         <translation>网站:  </translation>
     </message>
     <message>
-        <location filename="../aboutdialog.ui" line="116"/>
+        <location filename="../aboutdialog.ui" line="107"/>
         <source>Blog:     </source>
         <translation>博客:  </translation>
     </message>
@@ -163,32 +163,59 @@
 <context>
     <name>AppConfigDialog</name>
     <message>
-        <location filename="../appconfigdialog.ui" line="14"/>
+        <source>Settings</source>
+        <translation type="vanished">设置</translation>
+    </message>
+    <message>
+        <source>&amp;General</source>
+        <translation type="vanished">&amp;通用</translation>
+    </message>
+    <message>
+        <source>HotKey</source>
+        <translation type="vanished">快捷键</translation>
+    </message>
+    <message>
+        <source>Language</source>
+        <translation type="vanished">语言</translation>
+    </message>
+    <message>
+        <source>Appearance</source>
+        <translation type="vanished">外观</translation>
+    </message>
+    <message>
+        <source>Theme</source>
+        <translation type="vanished">主题</translation>
+    </message>
+</context>
+<context>
+    <name>AppSettingsDialog</name>
+    <message>
+        <location filename="../appsettingsdialog.ui" line="14"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../appconfigdialog.ui" line="24"/>
+        <location filename="../appsettingsdialog.ui" line="24"/>
         <source>&amp;General</source>
         <translation>&amp;通用</translation>
     </message>
     <message>
-        <location filename="../appconfigdialog.ui" line="45"/>
+        <location filename="../appsettingsdialog.ui" line="45"/>
         <source>HotKey</source>
         <translation>快捷键</translation>
     </message>
     <message>
-        <location filename="../appconfigdialog.ui" line="55"/>
+        <location filename="../appsettingsdialog.ui" line="55"/>
         <source>Language</source>
         <translation>语言</translation>
     </message>
     <message>
-        <location filename="../appconfigdialog.ui" line="64"/>
+        <location filename="../appsettingsdialog.ui" line="64"/>
         <source>Appearance</source>
         <translation>外观</translation>
     </message>
     <message>
-        <location filename="../appconfigdialog.ui" line="79"/>
+        <location filename="../appsettingsdialog.ui" line="79"/>
         <source>Theme</source>
         <translation>主题</translation>
     </message>
@@ -196,98 +223,98 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.ui" line="14"/>
+        <location filename="../mainwindow.ui" line="6"/>
         <source>TyLauncher</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="64"/>
+        <location filename="../mainwindow.ui" line="40"/>
         <source>Help</source>
         <translation>帮助</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="73"/>
+        <location filename="../mainwindow.ui" line="49"/>
         <source>File</source>
         <translation>文件</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="87"/>
+        <location filename="../mainwindow.ui" line="63"/>
         <source>Hide</source>
         <translation>隐藏</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="90"/>
+        <location filename="../mainwindow.ui" line="66"/>
         <source>Esc</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="95"/>
-        <location filename="../mainwindow.ui" line="98"/>
+        <location filename="../mainwindow.ui" line="71"/>
+        <location filename="../mainwindow.ui" line="74"/>
         <source>Show Window</source>
         <translation>显示窗口</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="103"/>
+        <location filename="../mainwindow.ui" line="79"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="108"/>
+        <location filename="../mainwindow.ui" line="84"/>
         <source>Exit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="113"/>
+        <location filename="../mainwindow.ui" line="89"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="116"/>
+        <location filename="../mainwindow.ui" line="92"/>
         <source>Ctrl+S</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="121"/>
+        <location filename="../mainwindow.ui" line="97"/>
         <source>Save As...</source>
         <translation>另存为...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="124"/>
+        <location filename="../mainwindow.ui" line="100"/>
         <source>Ctrl+Shift+S</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="129"/>
+        <location filename="../mainwindow.ui" line="105"/>
         <source>Check for updates</source>
         <translation>检查更新</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="134"/>
+        <location filename="../mainwindow.ui" line="110"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="139"/>
+        <location filename="../mainwindow.ui" line="115"/>
         <source>Report Bug / Request a New Feature</source>
         <translation>报告错误 / 提交建议</translation>
     </message>
     <message>
-        <location filename="../widget/mainwindow.cpp" line="107"/>
+        <location filename="../widget/mainwindow.cpp" line="119"/>
         <source>failed to register: &quot;%1&quot;</source>
         <translation>无法注册: &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../widget/mainwindow.cpp" line="116"/>
+        <location filename="../widget/mainwindow.cpp" line="127"/>
         <source>Load Save Failure!</source>
         <translation>读取用户数据错误!</translation>
     </message>
     <message>
-        <location filename="../widget/mainwindow.cpp" line="278"/>
+        <location filename="../widget/mainwindow.cpp" line="283"/>
         <source>Save As</source>
         <translation>另存为</translation>
     </message>
     <message>
-        <location filename="../widget/mainwindow.cpp" line="351"/>
+        <location filename="../widget/mainwindow.cpp" line="356"/>
         <source>%1 is up to date!</source>
         <translation>%1 已是最新版本!</translation>
     </message>
@@ -295,7 +322,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../dynamicdata.cpp" line="166"/>
+        <location filename="../dynamicdata.cpp" line="171"/>
         <source>Can not save the file %1:
  %2.</source>
         <translation>无法保存文件 %1: %2.</translation>
