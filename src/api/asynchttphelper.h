@@ -20,31 +20,22 @@ public:
     /**
      * @brief get
      * @param request
-     *          发送的请求
      * @param receiver
-     *          槽拥有者
      * @param finishedMember
-     *          槽, 它将接收 QNetworkReply::finished() 信号.
-     *          传入参数应形如 SLOT(function())
-     *          详情查看
-     *              QMetaObject::Connection connect(const QObject *sender, const char *signal,
-     *                  const QObject *receiver, const char *member, Qt::ConnectionType = Qt::AutoConnection);
+     *          receive QNetworkReply::finished().
+     *          e.g. SLOT(function())
      * @param errorMember
-     *          槽, 它将接收 QNetworkReply::error(QNetworkReply::NetworkError) 信号.
-     *          默认为nullptr
-     *          传入参数应形如 SLOT(function(QNetworkReply::NetworkError))
-     *          详情查看
-     *              QMetaObject::Connection connect(const QObject *sender, const char *signal,
-     *                  const QObject *receiver, const char *member, Qt::ConnectionType = Qt::AutoConnection);
-     *          Note : 当值为nullptr时, 将忽略 QNetworkReply::error 信号
+     *          receive QNetworkReply::error(QNetworkReply::NetworkError).
+     *          nullable
+     *          default: nullptr
+     *          e.g. SLOT(function(QNetworkReply::NetworkError))
      * @param sslErrorsReadMember
-     *          槽, 它将接收 QNetworkReply::sslErrors(QList<QSslError>) 信号.
-     *          默认为nullptr
-     *          传入参数应形如 SLOT(function(QList<QSslError>))
-     *          详情查看
-     *              QMetaObject::Connection connect(const QObject *sender, const char *signal,
-     *                  const QObject *receiver, const char *member, Qt::ConnectionType = Qt::AutoConnection);
-     *          Note : 当值为nullptr时, 将忽略 QNetworkReply::sslErrors 信号
+     *          receive QNetworkReply::sslErrors(QList<QSslError>).
+     *          nullable
+     *          default: nullptr
+     *          e.g. SLOT(function(QList<QSslError>))
+     * 
+     * @see     QMetaObject::Connection connect(const QObject *sender, const char *signal, const QObject *receiver, const char *member, Qt::ConnectionType = Qt::AutoConnection);
      */
     void get(const QNetworkRequest& request, const QObject *receiver,
              const char *finishedMember,
@@ -53,33 +44,25 @@ public:
     /**
      * @brief post
      * @param request
-     *          发送的请求
      * @param data
-     *          发送的数据
      * @param receiver
-     *          槽拥有者
      * @param finishedMember
-     *          槽, 它将接收 QNetworkReply::finished() 信号.
-     *          传入参数应形如 SLOT(function())
-     *          详情查看
-     *              QMetaObject::Connection connect(const QObject *sender, const char *signal,
-     *                  const QObject *receiver, const char *member, Qt::ConnectionType = Qt::AutoConnection);
+     *          receive QNetworkReply::finished().
+     *          e.g. SLOT(function())
+     *         
      * @param errorMember
-     *          槽, 它将接收 QNetworkReply::error(QNetworkReply::NetworkError) 信号.
-     *          默认为nullptr
-     *          传入参数应形如 SLOT(function(QNetworkReply::NetworkError))
-     *          详情查看
-     *              QMetaObject::Connection connect(const QObject *sender, const char *signal,
-     *                  const QObject *receiver, const char *member, Qt::ConnectionType = Qt::AutoConnection);
-     *          Note : 当值为nullptr时, 将忽略 QNetworkReply::error 信号
+     *          receive QNetworkReply::error(QNetworkReply::NetworkError).
+     *          nullable
+     *          default: nullptr
+     *          e.g. SLOT(function(QNetworkReply::NetworkError))
      * @param sslErrorsReadMember
-     *          槽, 它将接收 QNetworkReply::sslErrors(QList<QSslError>) 信号.
-     *          默认为nullptr
-     *          传入参数应形如 SLOT(function(QList<QSslError>))
-     *          详情查看
-     *              QMetaObject::Connection connect(const QObject *sender, const char *signal,
+     *          receive QNetworkReply::sslErrors(QList<QSslError>).
+     *          nullable
+     *          default: nullptr
+     *          e.g. SLOT(function(QList<QSslError>))
+     * 
+     * @see     QMetaObject::Connection connect(const QObject *sender, const char *signal,
      *                  const QObject *receiver, const char *member, Qt::ConnectionType = Qt::AutoConnection);
-     *          Note : 当值为nullptr时, 将忽略 QNetworkReply::sslErrors 信号
      */
     void post(const QNetworkRequest& request,
               const QByteArray &data,
@@ -93,7 +76,7 @@ public:
     /**
      * @brief destroy
      *          destroy QNetworkAccessManager
-     *          Note: must be use before the application destroy
+     * @pre   must be use before the application destroy
      */
     void destroy();
 
