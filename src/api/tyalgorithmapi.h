@@ -34,23 +34,18 @@ class TyAlgorithmAPI
 public:
     TyAlgorithmAPI();
     /**
-     * @brief 检查更新
+     * @brief check the application update
      * @param receiver
-     *          槽拥有者
      * @param finishedMember
-     *          槽, 它将接收 QNetworkReply::finished() 信号.
-     *          传入参数应形如 SLOT(function())
-     *          详情查看
-     *              QMetaObject::Connection connect(const QObject *sender, const char *signal,
-     *                  const QObject *receiver, const char *member, Qt::ConnectionType = Qt::AutoConnection);
+     *          receive QNetworkReply::finished().
+     *          e.g. SLOT(function())
      * @param errorMember
-     *          槽, 它将接收 QNetworkReply::error(QNetworkReply::NetworkError) 信号.
-     *          默认为nullptr
-     *          传入参数应形如 SLOT(function(QNetworkReply::NetworkError))
-     *          详情查看
-     *              QMetaObject::Connection connect(const QObject *sender, const char *signal,
-     *                  const QObject *receiver, const char *member, Qt::ConnectionType = Qt::AutoConnection);
-     *          Note : 当值为nullptr时, 将忽略 QNetworkReply::error 信号
+     *          receive QNetworkReply::error(QNetworkReply::NetworkError).
+     *          nullable
+     *          default: nullptr
+     *          e.g. SLOT(function(QNetworkReply::NetworkError))
+     * @see   QMetaObject::Connection connect(const QObject *sender, const char *signal, const QObject *receiver, const char *member, Qt::ConnectionType = Qt::AutoConnection);
+     * 
      */
     static void checkUpdate(const QObject *receiver, 
                          const char *finishedMember,
