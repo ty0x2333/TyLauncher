@@ -16,8 +16,8 @@
  * You should have received a copy of the GNU General Public License
  * along with TyLauncher.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef APPCONFIGDIALOG_H
-#define APPCONFIGDIALOG_H
+#ifndef APPSETTINGSDIALOG_H
+#define APPSETTINGSDIALOG_H
 
 #include <QDialog>
 #include <QHash>
@@ -26,23 +26,23 @@ class Option;
 class QAbstractButton;
 
 namespace Ui {
-class AppConfigDialog;
+class AppSettingsDialog;
 }
 
-class AppConfigDialog : public QDialog
+class AppSettingsDialog : public QDialog
 {
     Q_OBJECT
     
 public:
-    explicit AppConfigDialog(QWidget *parent = 0);
-    ~AppConfigDialog();
+    explicit AppSettingsDialog(QWidget *parent = 0);
+    ~AppSettingsDialog();
     
 private slots:
     void apply();
     void on_buttonBox_clicked(QAbstractButton *button);
     
 private:
-    Ui::AppConfigDialog *ui;
+    Ui::AppSettingsDialog *ui;
     
     QHash<QString, Option> _options;
     
@@ -51,4 +51,4 @@ private:
     void initThemes();
 };
 
-#endif // APPCONFIGDIALOG_H
+#endif // APPSETTINGSDIALOG_H

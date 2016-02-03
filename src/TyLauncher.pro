@@ -20,7 +20,7 @@ SOURCES += main.cpp\
     widget/tabwidget.cpp \
     widget/appbuttonform.cpp \
     widget/appbutton.cpp \
-    widget/appconfigdialog.cpp \
+    widget/appsettingsdialog.cpp \
     utils/uiutils.cpp \
     utils/apputils.cpp \
     utils/stringutils.cpp \
@@ -43,7 +43,7 @@ HEADERS  += widget/mainwindow.h \
     widget/tabwidget.h \
     widget/appbuttonform.h \
     widget/appbutton.h \
-    widget/appconfigdialog.h \
+    widget/appsettingsdialog.h \
     utils/uiutils.h \
     utils/apputils.h \
     utils/stringutils.h \
@@ -66,7 +66,7 @@ FORMS    += mainwindow.ui \
     aboutdialog.ui \
     appbuttondialog.ui \
     tabwidget.ui \
-    appconfigdialog.ui \
+    appsettingsdialog.ui \
     appbuttonform.ui \
     updatedialog.ui
 

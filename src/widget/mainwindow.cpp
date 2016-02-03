@@ -40,7 +40,7 @@
 #include <QtNetwork/QNetworkReply>
 #include <QMenu>
 #include <QCloseEvent>
-#include "appconfigdialog.h"
+#include "appsettingsdialog.h"
 #include "datasettings.h"
 #include "widget/tabwidget.h"
 #include "widget/updatedialog.h"
@@ -315,7 +315,7 @@ void MainWindow::on_actionCheck_Update_triggered()
 
 void MainWindow::on_actionSettings_triggered()
 {
-    AppConfigDialog *configDialog = new AppConfigDialog(this);
+    AppSettingsDialog *configDialog = new AppSettingsDialog(this);
     configDialog->exec();
 }
 

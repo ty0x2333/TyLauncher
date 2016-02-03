@@ -16,8 +16,8 @@
  * You should have received a copy of the GNU General Public License
  * along with TyLauncher.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "appconfigdialog.h"
-#include "ui_appconfigdialog.h"
+#include "appsettingsdialog.h"
+#include "ui_appsettingsdialog.h"
 #include "dynamicdata.h"
 #include "model/option.h"
 #include "datasettings.h"
@@ -32,9 +32,9 @@
 #define CONTENT_RESET_MSG_BOX "This action will reset all your preferences (in all tabs) to default values.<br /><br />"\
     "Do you really want to <strong>reset all preferences</strong>?"
 
-AppConfigDialog::AppConfigDialog(QWidget *parent)
+AppSettingsDialog::AppSettingsDialog(QWidget *parent)
     : QDialog(parent)
-    , ui(new Ui::AppConfigDialog)
+    , ui(new Ui::AppSettingsDialog)
     , _options()
 {
     ui->setupUi(this);
@@ -43,12 +43,12 @@ AppConfigDialog::AppConfigDialog(QWidget *parent)
     initThemes();
 }
 
-AppConfigDialog::~AppConfigDialog()
+AppSettingsDialog::~AppSettingsDialog()
 {
     delete ui;
 }
 
-void AppConfigDialog::apply()
+void AppSettingsDialog::apply()
 {
     DynamicData *dynamicData = DYNAMIC_DATA;
     foreach (const QString &key, _options.keys()) {
@@ -59,13 +59,13 @@ void AppConfigDialog::apply()
     dynamicData->saveAppSettings();
 }
 
-void AppConfigDialog::initOptions()
+void AppSettingsDialog::initOptions()
 {
     _options[KEY_HOT_KEY] = Option(DEFAULT_HOT_KEY, "keySequence", ui->hotKeySequenceEdit);
     _options[KEY_HOT_KEY].setValue(DYNAMIC_DATA->globalShortcut());
 }
 
-void AppConfigDialog::initLanguages()
+void AppSettingsDialog::initLanguages()
 {
     const QString currentLocale = DYNAMIC_DATA->language();
     bool currentLocaleFound = false;
@@ -93,7 +93,7 @@ void AppConfigDialog::initLanguages()
     ui->comboBoxLanguage->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 }
 
-void AppConfigDialog::initThemes()
+void AppSettingsDialog::initThemes()
 {
     const QString currentTheme = DYNAMIC_DATA->theme();
     QStringList list = DYNAMIC_DATA->themeList();
@@ -113,15 +113,15 @@ void AppConfigDialog::initThemes()
     }
 }
 
-void AppConfigDialog::on_buttonBox_clicked(QAbstractButton *button)
+void AppSettingsDialog::on_buttonBox_clicked(QAbstractButton *button)
 {
     switch( ui->buttonBox->buttonRole(button) ) {
     case QDialogButtonBox::ApplyRole:
-        TyLogDebug("ConfigDialog Apply.");
+        TyLogDebug("AppSettingsDialog Apply.");
         apply();
         break;
     case QDialogButtonBox::AcceptRole:
-        TyLogDebug("ConfigDialog Accept.");
+        TyLogDebug("AppSettingsDialog Accept.");
         apply();
         break;
     case QDialogButtonBox::ResetRole:

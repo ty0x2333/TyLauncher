@@ -29,7 +29,7 @@ QT_END_NAMESPACE
 
 class AppButton;
 class AboutDialog;
-class AppConfigDialog;
+class AppSettingsDialog;
 class QxtGlobalShortcut;
 
 namespace Ui {
