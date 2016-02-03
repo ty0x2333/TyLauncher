@@ -80,7 +80,7 @@ MainWindow::MainWindow(QWidget *parent)
     // 检查更新
     checkUpdate();
     
-    connect(DYNAMIC_DATA, SIGNAL(appConfigChanged(QString)), this, SLOT(onAppConfigChanged(QString)));
+    connect(DYNAMIC_DATA, SIGNAL(appSettingsChanged(QString)), this, SLOT(onAppSettingsChanged(QString)));
     
     /**
      * @brief resize window
@@ -163,7 +163,7 @@ void MainWindow::onSystemTrayIconClicked(QSystemTrayIcon::ActivationReason reaso
 void MainWindow::on_Quit_triggered()
 {
     DYNAMIC_DATA->saveUserDataFile(ui->tabWidget->jsonString());
-    DYNAMIC_DATA->saveAppConfig();
+    DYNAMIC_DATA->saveAppSettings();
     qApp->exit();
 }
 MainWindow::~MainWindow()
@@ -275,7 +275,7 @@ void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
 void MainWindow::on_actionSave_triggered()
 {
     DYNAMIC_DATA->saveUserDataFile(ui->tabWidget->jsonString());
-    DYNAMIC_DATA->saveAppConfig();
+    DYNAMIC_DATA->saveAppSettings();
 }
 // @brief "另保存"菜单项响应
 void MainWindow::on_actionSave_As_triggered()
@@ -319,9 +319,9 @@ void MainWindow::on_actionSettings_triggered()
     configDialog->exec();
 }
 
-void MainWindow::onAppConfigChanged(const QString &name)
+void MainWindow::onAppSettingsChanged(const QString &name)
 {
-    TyLogDebug("onAppConfigChanged : %s", name.toUtf8().data());
+    TyLogDebug("onAppSettingsChanged : %s", name.toUtf8().data());
     
     if (name == KEY_LANGUAGE){
         updateLanguage();

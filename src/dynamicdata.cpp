@@ -44,9 +44,9 @@ QString userDataFileName()
     return QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/" + qApp->applicationName() + "/" + SAVE_FILE;
 }
 
-QString applicationConfigFileName()
+QString applicationSettingsFileName()
 {
-    return QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/" + qApp->applicationName() + "/" + CONFIG_FILE;
+    return QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/" + qApp->applicationName() + "/" + APP_SETTINGS_FILE_NAME;
 }
 
 }// namespace
@@ -69,24 +69,24 @@ DynamicData* DynamicData::instance()
 {
     if(sShareDynamicData == nullptr) {
         sShareDynamicData = new DynamicData();
-        sShareDynamicData->loadAppConfig();
+        sShareDynamicData->loadAppSettings();
         sShareDynamicData->loadUserDataFile();
     }
     return sShareDynamicData;
 }
 
-void DynamicData::saveAppConfig()
+void DynamicData::saveAppSettings()
 {
-    QSettings configIniWrite(applicationConfigFileName(), QSettings::IniFormat);
+    QSettings configIniWrite(applicationSettingsFileName(), QSettings::IniFormat);
     foreach ( const QString &key, _options.keys() ) {
         configIniWrite.setValue( key, _options[key].value() );
     }
-    TyLogInfo("Success Save AppConfig: %s", StringUtils::toString(_options).toUtf8().data());
+    TyLogInfo("Success Save Application Settings: %s", StringUtils::toString(_options).toUtf8().data());
 }
 
-void DynamicData::loadAppConfig()
+void DynamicData::loadAppSettings()
 {
-    QSettings configIniRead(applicationConfigFileName(), QSettings::IniFormat);
+    QSettings configIniRead(applicationSettingsFileName(), QSettings::IniFormat);
     foreach ( const QString &key, _options.keys() ) {
         if ( configIniRead.contains(key) ) {
             QVariant value = configIniRead.value(key);
@@ -104,7 +104,7 @@ void DynamicData::loadAppConfig()
 //    _language = configIniRead->value(KEY_LANGUAGE, "").toString();
 //    if(_language.isEmpty())
 //        _language = QLocale::system().name();
-    TyLogInfo("Load AppConfig: %s", StringUtils::toString(_options).toUtf8().data());
+    TyLogInfo("Load Application Settings: %s", StringUtils::toString(_options).toUtf8().data());
 }
 
 void DynamicData::loadUserDataFile()
@@ -239,7 +239,7 @@ void DynamicData::setValue(const QString &name, const QVariant &value)
         TyLogWarning("Invalid value for option \"%s\"", name.toUtf8().data());
         return;
     }
-    emit appConfigChanged(name);
+    emit appSettingsChanged(name);
     if (name == KEY_THEME) {
         emit themeConfigChanged();
     }

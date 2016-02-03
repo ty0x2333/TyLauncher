@@ -19,7 +19,7 @@
 #ifndef DATASETTINGS
 #define DATASETTINGS
 
-#define CONFIG_FILE "config.ini"
+#define APP_SETTINGS_FILE_NAME "config.ini"
 #define SAVE_FILE "default.json"
 
 #define KEY_APP_NAME "name"
@@ -44,7 +44,7 @@
   * @{
   */
 #define DEFAULT_LANGUAGE "en"
-#define DEFAULT_THEME "dark"
+#define DEFAULT_THEME "One Dark"
 #define DEFAULT_HOT_KEY "Ctrl+~"
 /** @} */
 

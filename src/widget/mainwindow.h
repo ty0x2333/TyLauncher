@@ -67,7 +67,7 @@ private slots:
     
     void on_actionSettings_triggered();
     
-    void onAppConfigChanged(const QString &name);
+    void onAppSettingsChanged(const QString &name);
     
     void checkUpdateFinished();
     void on_actionReport_Bug_Request_a_New_Feature_triggered();

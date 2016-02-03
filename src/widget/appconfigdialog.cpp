@@ -56,7 +56,7 @@ void AppConfigDialog::apply()
     }
     dynamicData->setValue(KEY_LANGUAGE, ui->comboBoxLanguage->currentData());
     dynamicData->setValue(KEY_THEME, ui->comboBoxTheme->currentData());
-    dynamicData->saveAppConfig();
+    dynamicData->saveAppSettings();
 }
 
 void AppConfigDialog::initOptions()

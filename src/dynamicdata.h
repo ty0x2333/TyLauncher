@@ -40,8 +40,8 @@ class DynamicData : public QObject
 public:
     static DynamicData* instance();
 
-    void saveAppConfig();
-    void loadAppConfig();
+    void saveAppSettings();
+    void loadAppSettings();
 
     void loadUserDataFile();
     
@@ -80,7 +80,7 @@ public:
     void setValue(const QString &name, const QVariant &value);
     
 signals:
-    void appConfigChanged(const QString &key);
+    void appSettingsChanged(const QString &key);
     void themeConfigChanged();
     
 private:
