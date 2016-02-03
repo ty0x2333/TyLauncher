@@ -81,10 +81,7 @@ private:
     /// @brief 翻译
     QTranslator* _translator;
     
-    /// @brief 读取存档文件
-    bool loadSaveFile(const QString fileName);
-    /// @brief 重置数据
-    void reset();
+    bool initTabWidget();
 
     /// @brief 更新语言
     void updateLanguage();

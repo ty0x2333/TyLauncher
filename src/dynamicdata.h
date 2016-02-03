@@ -43,13 +43,13 @@ public:
     void saveAppConfig();
     void loadAppConfig();
 
-    void loadUserSaveFile(const QString fileName);
+    void loadUserDataFile();
     
     /**
      * @brief save User savefile
-     * save to userSettingsFileName()
+     * save to userDataFileName()
      * @see   saveUserSaveFile(const QString& content, const QString& toFileName)
-     * @see   userSettingsFileName()
+     * @see   userDataFileName()
      */
     void saveUserSaveFile(const QString& content);
     
@@ -70,9 +70,6 @@ public:
     
     QString getLanguage() const;
     void setLanguage(const QString &language);
-    
-    QString userSettingsFileName() const;
-    void setUserSettingsFileName(const QString &userSettingsFileNames);
     
     QString getTheme() const;
     void setTheme(const QString &theme);

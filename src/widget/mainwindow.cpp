@@ -69,17 +69,13 @@ MainWindow::MainWindow(QWidget *parent)
 #endif
     connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(on_Quit_triggered()));// 关联退出动作
     
+    initGlobalShortcut();
     initTray();
-    // 更新语言
+    initTabWidget();
+    
     updateLanguage();
     
-    // 尝试读取存档
-    if(!loadSaveFile(DYNAMIC_DATA->userSettingsFileName()))
-        reset();// 还原默认设置
-    
     activateWindow();
-    
-    initGlobalShortcut();
     
     // 检查更新
     checkUpdate();
@@ -125,21 +121,14 @@ void MainWindow::initGlobalShortcut()
     connect(_globalShortcut, SIGNAL(activated()),this, SLOT(on_hotKey_triggered()));
 }
 
-// @brief 读取存档文件
-bool MainWindow::loadSaveFile(const QString fileName)
+bool MainWindow::initTabWidget()
 {
     if (!ui->tabWidget->configFromVector(DYNAMIC_DATA->getUserSaveData())){
         UIUtils::showCriticalMsgBox(tr("Load Save Failure!"), this);
+        ui->tabWidget->clearAllAppBtnData();
         return false;
     }
     return true;
-}
-// @brief 重置数据
-void MainWindow::reset()
-{
-    ui->tabWidget->clearAllAppBtnData();
-    // 重置存档位置
-//    DYNAMIC_DATA->resetSaveFileName();
 }
 
 void MainWindow::on_hotKey_triggered()

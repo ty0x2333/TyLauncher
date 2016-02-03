@@ -39,7 +39,7 @@
 #include "utils/stringutils.h"
 #include "utils/apputils.h"
 namespace {
-QString defaultSaveFileName()
+QString userDataFileName()
 {
     return QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/" + qApp->applicationName() + "/" + SAVE_FILE;
 }
@@ -57,7 +57,6 @@ void DynamicData::initOptions()
     _options[KEY_LANGUAGE] = Option(DEFAULT_LANGUAGE);
     _options[KEY_THEME] = Option(DEFAULT_THEME);
     _options[KEY_HOT_KEY] = Option(DEFAULT_HOT_KEY);
-    _options[KEY_USER_SETTINGS_FILE_NAME] = Option(defaultSaveFileName());
 }
 
 DynamicData* DynamicData::getInstance()
@@ -91,7 +90,7 @@ void DynamicData::loadAppConfig()
             _options[key].reset();
         }
     }
-    loadUserSaveFile(userSettingsFileName());
+    loadUserDataFile();
     if (!getThemeList().contains(getTheme())){
         TyLogFatal("not exists theme file, reset theme to default \"%s\"", DEFAULT_THEME);
         _options[KEY_THEME].reset();
@@ -102,13 +101,12 @@ void DynamicData::loadAppConfig()
     TyLogInfo("Load AppConfig: %s", StringUtils::toString(_options).toUtf8().data());
 }
 
-// @brief 读取存档文件
-void DynamicData::loadUserSaveFile(const QString fileName)
+void DynamicData::loadUserDataFile()
 {
-    QFile file(fileName);
+    QFile file(userDataFileName());
     // 当存档文件不存在时,丢出异常,重新建立存档
     if(!file.exists()){
-        TyLogWarning("UserSaveFile is not exists.fileName: %s", fileName.toUtf8().data());
+        TyLogWarning("UserSaveFile is not exists.fileName: %s", userDataFileName().toUtf8().data());
         resetUserSaveFile();
         return;
     }
@@ -147,7 +145,7 @@ void DynamicData::loadUserSaveFile(const QString fileName)
 
 void DynamicData::saveUserSaveFile(const QString &content)
 {
-    saveUserSaveFile(content, userSettingsFileName());
+    saveUserSaveFile(content, userDataFileName());
 }
 
 void DynamicData::saveUserSaveFile(const QString& content, const QString& fileName)
@@ -207,9 +205,6 @@ QStringList DynamicData::getThemeList() const
 
 QString DynamicData::getTheme() const{return value(KEY_THEME).toString();}
 void DynamicData::setTheme(const QString &theme){setValue(KEY_THEME, theme);}
-
-QString DynamicData::userSettingsFileName() const{return value(KEY_USER_SETTINGS_FILE_NAME).toString();}
-void DynamicData::setUserSettingsFileName(const QString &userSettingsFileNames){setValue(KEY_USER_SETTINGS_FILE_NAME, userSettingsFileNames);}
 
 QString DynamicData::getLanguage() const{return value(KEY_LANGUAGE).toString();}
 void DynamicData::setLanguage(const QString &language){setValue(KEY_LANGUAGE, language);}
