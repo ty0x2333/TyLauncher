@@ -82,6 +82,7 @@ public:
 signals:
     void appConfigChanged(const QString &key);
     void themeConfigChanged();
+    
 private:
     DynamicData();
     
