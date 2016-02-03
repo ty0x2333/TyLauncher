@@ -162,7 +162,7 @@ void MainWindow::onSystemTrayIconClicked(QSystemTrayIcon::ActivationReason reaso
 // @brief 托盘菜单的退出按钮响应
 void MainWindow::on_Quit_triggered()
 {
-    DYNAMIC_DATA->saveUserSaveFile(ui->tabWidget->jsonString());
+    DYNAMIC_DATA->saveUserDataFile(ui->tabWidget->jsonString());
     DYNAMIC_DATA->saveAppConfig();
     qApp->exit();
 }
@@ -274,7 +274,7 @@ void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
 // @brief "保存"菜单项响应
 void MainWindow::on_actionSave_triggered()
 {
-    DYNAMIC_DATA->saveUserSaveFile(ui->tabWidget->jsonString());
+    DYNAMIC_DATA->saveUserDataFile(ui->tabWidget->jsonString());
     DYNAMIC_DATA->saveAppConfig();
 }
 // @brief "另保存"菜单项响应
@@ -286,7 +286,7 @@ void MainWindow::on_actionSave_As_triggered()
     fileDialog->setAcceptMode(QFileDialog::AcceptSave);
     if(fileDialog->exec() == QDialog::Accepted){
         QString fileName = fileDialog->selectedFiles().first();
-        DYNAMIC_DATA->saveUserSaveFile(ui->tabWidget->jsonString(), fileName);
+        DYNAMIC_DATA->saveUserDataFile(ui->tabWidget->jsonString(), fileName);
     }
     delete fileDialog;
 }

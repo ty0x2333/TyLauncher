@@ -48,19 +48,19 @@ public:
     /**
      * @brief save User savefile
      * save to userDataFileName()
-     * @see   saveUserSaveFile(const QString& content, const QString& toFileName)
+     * @see   saveUserDataFile(const QString& content, const QString& toFileName)
      * @see   userDataFileName()
      */
-    void saveUserSaveFile(const QString& content);
+    void saveUserDataFile(const QString& content);
     
     /**
      * @brief save User savefile
      * @param content
      * @param toFileName
      */
-    void saveUserSaveFile(const QString& content, const QString& toFileName);
+    void saveUserDataFile(const QString& content, const QString& toFileName);
     
-    void resetUserSaveFile();
+    void resetUserDataFile();
     
     QStringList getLanguageList() const;
     QStringList getThemeList() const;

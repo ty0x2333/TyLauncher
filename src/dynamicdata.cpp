@@ -106,13 +106,13 @@ void DynamicData::loadUserDataFile()
     QFile file(userDataFileName());
     // 当存档文件不存在时,丢出异常,重新建立存档
     if(!file.exists()){
-        TyLogWarning("UserSaveFile is not exists.fileName: %s", userDataFileName().toUtf8().data());
-        resetUserSaveFile();
+        TyLogWarning("UserDataFile is not exists.fileName: %s", userDataFileName().toUtf8().data());
+        resetUserDataFile();
         return;
     }
     if(!file.open(QIODevice::ReadOnly|QIODevice::Text)){
         TyLogFatal("Open Save File Failure");
-        resetUserSaveFile();
+        resetUserDataFile();
         return;
     }
     
@@ -143,12 +143,12 @@ void DynamicData::loadUserDataFile()
     }
 }
 
-void DynamicData::saveUserSaveFile(const QString &content)
+void DynamicData::saveUserDataFile(const QString &content)
 {
-    saveUserSaveFile(content, userDataFileName());
+    saveUserDataFile(content, userDataFileName());
 }
 
-void DynamicData::saveUserSaveFile(const QString& content, const QString& fileName)
+void DynamicData::saveUserDataFile(const QString& content, const QString& fileName)
 {
     QFile file(fileName);
     if (!QFile::exists(fileName)){
@@ -168,10 +168,10 @@ void DynamicData::saveUserSaveFile(const QString& content, const QString& fileNa
     txtOutput.setCodec("UTF-8");
     txtOutput << content;
     file.close();
-    TyLogInfo("Success Save UserSaveFile to %s.", fileName.toUtf8().data());
+    TyLogInfo("Success Save UserDataFile to %s.", fileName.toUtf8().data());
 }
 
-void DynamicData::resetUserSaveFile()
+void DynamicData::resetUserDataFile()
 {
     QString btnStr[3][10] = {{"Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"}
                              ,{"A", "S", "D", "F", "G", "H", "J", "K", "L", ";"}
