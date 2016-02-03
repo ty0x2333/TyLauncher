@@ -40,7 +40,7 @@ void TyAlgorithmAPI::checkUpdate(const QObject *receiver, const char *finishedMe
     param.append("&UUID=");
     param.append(AppUtils::driveUniqueID());
     param.append("&language=");
-    param.append(DYNAMIC_DATA->getLanguage());
+    param.append(DYNAMIC_DATA->language());
     QNetworkRequest request(url);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
     AsyncHttpHelper::getInstance()->post(request, param, receiver, finishedMember, errorMember);

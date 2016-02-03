@@ -62,16 +62,16 @@ void AppConfigDialog::apply()
 void AppConfigDialog::initOptions()
 {
     _options[KEY_HOT_KEY] = Option(DEFAULT_HOT_KEY, "keySequence", ui->hotKeySequenceEdit);
-    _options[KEY_HOT_KEY].setValue(DYNAMIC_DATA->getGlobalShortcut());
+    _options[KEY_HOT_KEY].setValue(DYNAMIC_DATA->globalShortcut());
 }
 
 void AppConfigDialog::initLanguages()
 {
-    const QString currentLocale = DYNAMIC_DATA->getLanguage();
+    const QString currentLocale = DYNAMIC_DATA->language();
     bool currentLocaleFound = false;
     QSet<QString> languages;
     
-    QStringList list = DYNAMIC_DATA->getLanguageList();
+    QStringList list = DYNAMIC_DATA->languageList();
     
     foreach ( const QString &locale, list ) {
         const QString language = QLocale(locale).nativeLanguageName();
@@ -95,8 +95,8 @@ void AppConfigDialog::initLanguages()
 
 void AppConfigDialog::initThemes()
 {
-    const QString currentTheme = DYNAMIC_DATA->getTheme();
-    QStringList list = DYNAMIC_DATA->getThemeList();
+    const QString currentTheme = DYNAMIC_DATA->theme();
+    QStringList list = DYNAMIC_DATA->themeList();
     QSet<QString> themes;
     foreach ( const QString &theme, list ) {
 

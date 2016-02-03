@@ -59,7 +59,7 @@ void DynamicData::initOptions()
     _options[KEY_HOT_KEY] = Option(DEFAULT_HOT_KEY);
 }
 
-DynamicData* DynamicData::getInstance()
+DynamicData* DynamicData::instance()
 {
     if(s_shareDynamicData == nullptr){
         s_shareDynamicData = new DynamicData();
@@ -91,7 +91,7 @@ void DynamicData::loadAppConfig()
         }
     }
     loadUserDataFile();
-    if (!getThemeList().contains(getTheme())){
+    if (!themeList().contains(theme())){
         TyLogFatal("not exists theme file, reset theme to default \"%s\"", DEFAULT_THEME);
         _options[KEY_THEME].reset();
     }
@@ -189,30 +189,30 @@ void DynamicData::resetUserDataFile()
     }
 }
 
-QStringList DynamicData::getLanguageList() const
+QStringList DynamicData::languageList() const
 {
     QStringList strList = AppUtils::fileNameList(FILE_NAME_LANGUAGE, QStringList("*.qm"));
     strList.insert(0, DEFAULT_LANGUAGE);
     return strList;
 }
 
-QStringList DynamicData::getThemeList() const
+QStringList DynamicData::themeList() const
 {
     QStringList strList = AppUtils::fileNameList(FILE_NAME_THEME, QStringList("*.qss"));
     strList.insert(0, SYSTEM_THEME);
     return strList;
 }
 
-QString DynamicData::getTheme() const{return value(KEY_THEME).toString();}
+QString DynamicData::theme() const{return value(KEY_THEME).toString();}
 void DynamicData::setTheme(const QString &theme){setValue(KEY_THEME, theme);}
 
-QString DynamicData::getLanguage() const{return value(KEY_LANGUAGE).toString();}
+QString DynamicData::language() const{return value(KEY_LANGUAGE).toString();}
 void DynamicData::setLanguage(const QString &language){setValue(KEY_LANGUAGE, language);}
 
-QKeySequence DynamicData::getGlobalShortcut() const{return QKeySequence(value(KEY_HOT_KEY).toString());}
+QKeySequence DynamicData::globalShortcut() const{return QKeySequence(value(KEY_HOT_KEY).toString());}
 void DynamicData::setGlobalShortcut(QKeySequence keySequence){setValue(KEY_HOT_KEY, keySequence.toString());}
 
-QVector<QVector<AppBtnInfo> > DynamicData::getUserSaveData() const{return _userSaveData;}
+QVector<QVector<AppBtnInfo> > DynamicData::userSaveData() const{return _userSaveData;}
 
 QVariant DynamicData::value(const QString &name) const
 {

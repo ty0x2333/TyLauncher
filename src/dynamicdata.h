@@ -31,14 +31,14 @@ QT_FORWARD_DECLARE_CLASS(AppButton)
 QT_FORWARD_DECLARE_CLASS(AppBtnInfo)
 QT_FORWARD_DECLARE_CLASS(Option)
 
-#define DYNAMIC_DATA DynamicData::getInstance()
+#define DYNAMIC_DATA DynamicData::instance()
 
 class DynamicData : public QObject
 {
     Q_OBJECT
     
 public:
-    static DynamicData* getInstance();
+    static DynamicData* instance();
 
     void saveAppConfig();
     void loadAppConfig();
@@ -62,19 +62,19 @@ public:
     
     void resetUserDataFile();
     
-    QStringList getLanguageList() const;
-    QStringList getThemeList() const;
+    QStringList languageList() const;
+    QStringList themeList() const;
     
-    QKeySequence getGlobalShortcut() const;
+    QKeySequence globalShortcut() const;
     void setGlobalShortcut(QKeySequence keySequence);
     
-    QString getLanguage() const;
+    QString language() const;
     void setLanguage(const QString &language);
     
-    QString getTheme() const;
+    QString theme() const;
     void setTheme(const QString &theme);
     
-    QVector<QVector<AppBtnInfo> > getUserSaveData() const;
+    QVector<QVector<AppBtnInfo> > userSaveData() const;
     
     QVariant value(const QString &name) const;
     void setValue(const QString &name, const QVariant &value);

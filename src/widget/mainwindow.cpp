@@ -114,7 +114,7 @@ void MainWindow::initTray()
 void MainWindow::initGlobalShortcut()
 {
     _globalShortcut = new QxtGlobalShortcut(this);
-    QKeySequence keySequence = DYNAMIC_DATA->getGlobalShortcut();
+    QKeySequence keySequence = DYNAMIC_DATA->globalShortcut();
     if (!_globalShortcut->setShortcut(keySequence)){
         UIUtils::showCriticalMsgBox(tr("failed to register: \"%1\"").arg(keySequence.toString()));
     }
@@ -123,7 +123,7 @@ void MainWindow::initGlobalShortcut()
 
 bool MainWindow::initTabWidget()
 {
-    if (!ui->tabWidget->configFromVector(DYNAMIC_DATA->getUserSaveData())){
+    if (!ui->tabWidget->configFromVector(DYNAMIC_DATA->userSaveData())){
         UIUtils::showCriticalMsgBox(tr("Load Save Failure!"), this);
         ui->tabWidget->clearAllAppBtnData();
         return false;
@@ -296,7 +296,7 @@ void MainWindow::updateLanguage()
 {
     if(_translator == nullptr)
         _translator = new QTranslator();
-    _translator->load(QString("language/") + DYNAMIC_DATA->getLanguage());
+    _translator->load(QString("language/") + DYNAMIC_DATA->language());
     qApp->installTranslator(_translator);
     ui->retranslateUi(this);
 }
@@ -326,7 +326,7 @@ void MainWindow::onAppConfigChanged(const QString &name)
     if (name == KEY_LANGUAGE){
         updateLanguage();
     }else if (name == KEY_HOT_KEY){
-        _globalShortcut->setShortcut(DYNAMIC_DATA->getGlobalShortcut());
+        _globalShortcut->setShortcut(DYNAMIC_DATA->globalShortcut());
     }
 }
 

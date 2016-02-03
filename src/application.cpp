@@ -41,7 +41,7 @@ void Application::updateTheme()
 {
     // 设置样式
     QString qss;
-    QString fileName = StringUtils::themeFileName(DYNAMIC_DATA->getTheme());
+    QString fileName = StringUtils::themeFileName(DYNAMIC_DATA->theme());
     TyLogDebug("fileName: %s", fileName.toUtf8().data());
     QFile qssFile(fileName);
     qssFile.open(QFile::ReadOnly);
