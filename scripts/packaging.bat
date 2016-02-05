@@ -68,8 +68,14 @@ copy "%QtRoot%\plugins\imageformats\qmng.dll"  "%PackagingRoot%\imageformats"
 copy "%QtRoot%\plugins\imageformats\qjp2.dll"  "%PackagingRoot%\imageformats"
 copy "%QtRoot%\plugins\imageformats\qjpeg.dll" "%PackagingRoot%\imageformats"
 copy "%QtRoot%\plugins\imageformats\qgif.dll"  "%PackagingRoot%\imageformats"
-:: maybe need not it
 copy "%QtRoot%\plugins\imageformats\qdds.dll"  "%PackagingRoot%\imageformats"
+
+:: Copy Qt bearer
+echo 'Copy Qt bearer'
+echo ------------------
+mkdir "%PackagingRoot%\bearer"
+copy "%QtRoot%\plugins\bearer\qnativewifibearer.dll" "%PackagingRoot%\bearer"
+copy "%QtRoot%\plugins\bearer\qgenericbearer.dll" "%PackagingRoot%\bearer"
 
 :: Copy MSVC DLL
 echo 'Copy MSVC DLL'

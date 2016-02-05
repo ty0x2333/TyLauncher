@@ -1,4 +1,4 @@
-![TyLauncher-logo](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/develop/README_IMAGES/tylauncher-logo.png)
+![TyLauncher-logo](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/tylauncher-logo.png)
 
 A free open source file management software.
 
@@ -25,7 +25,7 @@ The element of the tab page corresponds to each of the keys of the keyboard.
 
 Through the combination of these shortcuts can quickly open files, folders, and applications.
 
-![TyLauncher-MainInterface](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/develop/README_IMAGES/TyLauncher-MainInterface.png)
+![TyLauncher-MainInterface](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/TyLauncher-MainInterface.png)
 
 ## Features
 
