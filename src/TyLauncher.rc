@@ -1,0 +1,62 @@
+IDI_ICON1   ICON    DISCARDABLE "images\logo.ico"
+#if defined(UNDER_CE)
+#include <winbase.h>
+#else
+#include <winver.h>
+#endif
+
+#ifndef DEBUG
+#define VER_DEBUG                   0
+#else
+#define VER_DEBUG                   VS_FF_DEBUG
+#endif
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION    	2,2,0,0
+PRODUCTVERSION 	2,2,0,0
+FILEFLAGSMASK  	VS_FFI_FILEFLAGSMASK
+#ifdef _DEBUG
+    FILEFLAGS VS_FF_DEBUG
+#else
+    FILEFLAGS 0x0L
+#endif
+FILEOS         	VOS__WINDOWS32
+FILETYPE       	VFT_DLL
+FILESUBTYPE    	0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904E4"
+        BEGIN
+            VALUE "CompanyName",      "luckytianyiyan"
+            VALUE "FileDescription",  "TyLauncher"
+            VALUE "FileVersion",      "2.2.0.0\0"
+            VALUE "InternalName",     "http://www.tylauncher.com"
+            VALUE "LegalCopyright",   "Copyright (C) 2014-2016 luckytianyiyan All Rights Reserved"
+            VALUE "OriginalFilename", "TyLauncher"
+            VALUE "ProductName",      "TyLauncher"
+            VALUE "ProductVersion",   "2.2.0.0\0"
+        END
+    END
+
+    BLOCK "VarFileInfo"
+    BEGIN
+        /* The following line should only be modified for localized versions.                        */
+        /* It consists of any number of WORD,WORD pairs, with each pair                              */
+        /* describing a language,codepage combination supported by the file.                         */
+        /*                                                                                           */
+        /* For example, a file might have values "0x409,1252" indicating that it                     */
+        /* supports English language (0x409) in the Windows ANSI codepage (1252).                    */
+        /*                                                                                           */
+        /* language: https://msdn.microsoft.com/zh-cn/library/windows/desktop/aa381057(v=vs.85).aspx */
+        /* codepage: http://www.lingoes.net/en/translator/codepage.htm                               */
+
+        /* English, ANSI                    */
+        /* VALUE "Translation", 0x409, 1252 */
+        /* Chinese Simplified, gb2312       */
+        /* VALUE "Translation", 0x0804, 936 */
+
+        /* Multilingual, Unicode (UTF-8) */
+        VALUE "Translation", 1252, 1200
+    END
+END

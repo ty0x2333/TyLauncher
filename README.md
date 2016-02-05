@@ -1,83 +1,42 @@
-TyLauncher
-=========
-TyLauncher is replacement for Quick Launch and Start Menu. Application create by Qt.
+![TyLauncher-logo](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/tylauncher-logo.png)
+
+A free open source file management software.
 
 [![GitHub License](https://img.shields.io/github/license/luckytianyiyan/tylauncher.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
 [![GitHub release](https://img.shields.io/github/release/luckytianyiyan/TyLauncher.svg)](https://github.com/luckytianyiyan/TyLauncher/releases/latest)
+[![SourceForge](https://img.shields.io/sourceforge/dt/TyLauncher.svg)](http://sourceforge.net/projects/tylauncher/files/)
 
-## Example
+- [Website](http://www.tylauncher.com)
+- [Download](https://github.com/luckytianyiyan/TyLauncher/releases/latest)
+- [Wiki](https://github.com/luckytianyiyan/TyLauncher/wiki)
+
+## Overview
+
+TyLauncher provides a multi tab panel to manage files, folders, and applications.
+
+Each tab page corresponds to the <kbd>0</kbd>-<kbd>9</kbd> shortcut key.
+The element of the tab page corresponds to each of the keys of the keyboard.
+
+<span><kbd>1</kbd>&nbsp;<kbd>2</kbd>&nbsp;<kbd>3</kbd>&nbsp;<kbd>4</kbd>&nbsp;<kbd>5</kbd>&nbsp;<kbd>6</kbd>&nbsp;<kbd>7</kbd>&nbsp;<kbd>8</kbd>&nbsp;<kbd>9</kbd>&nbsp;<kbd>0</kbd><br />
+-------------------------------------------<br />
+<kbd>Q</kbd>&nbsp;<kbd>W</kbd>&nbsp;<kbd>E</kbd>&nbsp;<kbd>R</kbd>&nbsp;<kbd>T</kbd>&nbsp;<kbd>Y</kbd>&nbsp;<kbd>U</kbd>&nbsp;<kbd>I</kbd>&nbsp;<kbd>O</kbd>&nbsp;<kbd>P</kbd><br />
+<kbd>A</kbd>&nbsp;<kbd>S</kbd>&nbsp;<kbd>D</kbd>&nbsp;<kbd>F</kbd>&nbsp;<kbd>G</kbd>&nbsp;<kbd>H</kbd>&nbsp;<kbd>J</kbd>&nbsp;<kbd>K</kbd>&nbsp;<kbd>L</kbd>&nbsp;<kbd>;</kbd><br />
+<kbd>Z</kbd>&nbsp;<kbd>X</kbd>&nbsp;<kbd>C</kbd>&nbsp;<kbd>V</kbd>&nbsp;<kbd>B</kbd>&nbsp;<kbd>N</kbd>&nbsp;<kbd>M</kbd>&nbsp;<kbd>,</kbd>&nbsp;<kbd>.</kbd>&nbsp;<kbd>/</kbd></span>
+
+Through the combination of these shortcuts can quickly open files, folders, and applications.
 
 ![TyLauncher-MainInterface](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/TyLauncher-MainInterface.png)
 
-## Edit Build Configuration
+## Features
 
-In Qt Creator `Projects`
-
-![Qt-Creator-Projects](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-Projects.png)
-
-### Step.1 Debug Build Configuration
-
-1. Select `debug` build configuration.
-
-  ![Qt-Creator-Debug-Configuration](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-Debug-Configuration.png)
-
-2. Add `after-build` Script
-
-  Add a Build Steps - Custom Process Steps
-
-  ![Qt-Creator-Add-Build-Steps-Debug](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-Add-Build-Steps-Debug.png)
-
-  - Commend: `%{sourceDir}\build-script\after-build.bat`
-
-  - Arguments: `%{sourceDir} %{buildDir}`
-
-  - Working directory: `%{buildDir}`
-
-  like:
-
-  ![Qt-Creator-After-Build-Script](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-After-Build-Script.png)
-
-### Step.2 Release Build Configuration( like Step.1 )
-
-1. Select `release` build configuration.
-
-  ![Qt-Creator-Release-Configuration](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-Release-Configuration.png)
-
-2. Add `after-build` Script
-
-  The same as the Step.1.2.
-
-### Step.3 Packaging Build Configuration
-
-> This step is optional
-
-1. Select `release` build configuration.
-
-  ![Qt-Creator-Release-Configuration](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-Release-Configuration.png)
-
-2. Add `Packaging` build configuration
-
-  clone `release` build configuration.
-
-  ![Qt-Creator-Release-Packaging](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-Release-Packaging.png)
-
-  ![Qt-Creator-New-Packaging](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-New-Packaging.png)
-
-3. Add `after-build-packaging` Script
-
-  Add a Build Steps - Custom Process Steps
-
-  ![Qt-Creator-Add-Build-Steps-Packaging](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-Add-Build-Steps-Packaging.png)
-
-  - Commend: `%{sourceDir}\build-script\after-build-packaging.bat`
-
-  - Arguments: `%{sourceDir} %{buildDir} %{CurrentProject:Name}`
-
-  - Working directory: `%{buildDir}`
-
-  like:
-
-  ![Qt-Creator-After-Build-Packaging-Script](https://raw.githubusercontent.com/luckytianyiyan/TyLauncher/master/README_IMAGES/Qt-Creator-After-Build-Packaging-Script.png)
+1. Global shortcut.
+2. Multiple language.
+3. Multiple themes.
+4. Fully customizable appearance.
+5. Support drag and drop to set the item.
+6. Support management of up to 300 item(files, folders and applications).
+7. Free to edit the item.
+8. Many more features
 
 ## License
 

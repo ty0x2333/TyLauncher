@@ -1,0 +1,6 @@
+[submodule "src/theme/one-dark"]
+	path = src/theme/one-dark
+	url = https://github.com/luckytianyiyan/TyLauncher-Theme-one-dark
+[submodule "src/theme/one-light"]
+	path = src/theme/one-light
+	url = https://github.com/luckytianyiyan/TyLauncher-Theme-one-light
