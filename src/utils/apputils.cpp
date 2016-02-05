@@ -21,7 +21,8 @@
 #include <QCryptographicHash>
 #include <QSysInfo>
 
-#define MAC_ADDRESS_NULL "00:00:00:00:00:00:00:E0"
+static const QString kMacAddressNULL = "00:00:00:00:00:00:00:E0";
+static const QString kDiskDriveSerialNumberNULL = "000000000000";
 
 #ifdef Q_OS_WIN32
 #include <QDir>
@@ -82,11 +83,11 @@ QString AppUtils::macAddress()
     QList<QNetworkInterface> list = QNetworkInterface::allInterfaces();
     foreach (QNetworkInterface netInterface, list) {
         QString hardwareAddress = netInterface.hardwareAddress();
-        if (!hardwareAddress.isEmpty() && hardwareAddress != MAC_ADDRESS_NULL){
+        if (!hardwareAddress.isEmpty() && hardwareAddress != kMacAddressNULL){
             return hardwareAddress;
         }
     }
-    return MAC_ADDRESS_NULL;
+    return kMacAddressNULL;
 }
 
 QString AppUtils::diskdriveSerialNumber()
@@ -101,7 +102,7 @@ QString AppUtils::diskdriveSerialNumber()
     proc.waitForFinished();
     QString info = proc.readAll().simplified();
     QStringList list = info.simplified().split(" ");
-    return list[1];
+    return list.count() < 2 ? kDiskDriveSerialNumberNULL :list[1];
 #endif
 }
 
