@@ -10,6 +10,8 @@ A free open source file management software.
 - [Download](https://github.com/luckytianyiyan/TyLauncher/releases/latest)
 - [Wiki](https://github.com/luckytianyiyan/TyLauncher/wiki)
 
+## :warning: THIS REPOSITORY WILL NO LONGER BE MAINTAINED BY THE DEVELOPER.
+
 ## Overview
 
 TyLauncher provides a multi tab panel to manage files, folders, and applications.
